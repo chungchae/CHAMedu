@@ -1,14 +1,29 @@
 import { Button, Typography } from "antd";
 import styled from "styled-components";
 import React from "react";
-import HeaderIcon from '../../assets/images/HeaderIcon.png';
+import HeaderIcon from "../../assets/images/HeaderIcon.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
+import { PRIMARY } from "../../colors";
+import { useNavigate } from 'react-router-dom'
+
 
 const HeaderGuest = () => {
+  const navigate = useNavigate()
+
+  const onClickLogoButton = () => {
+    navigate('/')
+  }
+
+  const onClickLoginButton = () => {
+    navigate('/')
+  }
+
+
+
   return (
     <Container>
       <ItemContainer>
-        <LogoContainer>
+        <LogoContainer onClick={onClickLogoButton}>
           <LogoImg src={HeaderIcon} alt={"로고 이미지"} />
           <LogoTypo>CHAMedu</LogoTypo>
         </LogoContainer>
@@ -44,14 +59,12 @@ const ItemContainer = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  width: ${CONTAINER_WIDTH}px;
   height: 100%;
   display: flex;
   align-items: center;
 `;
 
 const MenuContainer = styled.div`
-  width: ${CONTAINER_WIDTH}px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -60,22 +73,31 @@ const MenuContainer = styled.div`
 const LogoImg = styled.img`
   width: 30px;
   height: 20px;
-  padding: 20px;
+  padding-right: 10px;
+  padding-top:20px;
+  padding-bottom:20px;
 `;
 
 const LogoTypo = styled(Typography)`
-  font-weight: 500;
+  font-size: 30;
+  font-weight: 700;
   span {
     font-family: "esamanru";
   }
 `;
 
 const LoginButton = styled(Button)`
-  color=;
   font-weight: 500;
-  margin-left: 20;
   span {
     font-family: "esamanru";
+  }
+  &:hover {
+    color: ${PRIMARY.DARK}!important;;
+    border-color: ${PRIMARY.DARK}!important;;
+  }
+  &:active {
+    color: ${PRIMARY.DARK}!important;;
+    border-color: ${PRIMARY.DARK}!important;;
   }
 `;
 
