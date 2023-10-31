@@ -12,6 +12,9 @@ const HeaderGuest = () => {
           <LogoImg src={HeaderIcon} alt={"로고 이미지"} />
           <LogoTypo>CHAMedu</LogoTypo>
         </LogoContainer>
+        <MenuContainer>
+          <LoginButton>로그인</LoginButton>
+        </MenuContainer>
       </ItemContainer>
     </Container>
   );
@@ -47,6 +50,13 @@ const LogoContainer = styled.div`
   align-items: center;
 `;
 
+const MenuContainer = styled.div`
+  width: ${CONTAINER_WIDTH}px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 const LogoImg = styled.img`
   width: 30px;
   height: 20px;
@@ -55,6 +65,15 @@ const LogoImg = styled.img`
 
 const LogoTypo = styled(Typography)`
   font-weight: 500;
+  span {
+    font-family: "esamanru";
+  }
+`;
+
+const LoginButton = styled(Button)`
+  color=;
+  font-weight: 500;
+  margin-left: 20;
   span {
     font-family: "esamanru";
   }
