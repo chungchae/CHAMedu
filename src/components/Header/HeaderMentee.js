@@ -1,10 +1,10 @@
-import { Button, Typography } from "antd";
+/* import { Button, Typography } from "antd";
 import styled from "styled-components";
 import React from "react";
 import IconImg from "../assets/images/Icon.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 
-const Header = () => {
+const HeaderMentee = () => {
   return (
     <Container>
       <ItemContainer>
@@ -60,4 +60,5 @@ const LogoTypo = styled(Typography)`
   }
 `;
 
-export default Header;
+export default HeaderMentee;
+ */

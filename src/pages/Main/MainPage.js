@@ -1,4 +1,4 @@
-import Header from "../../components/Header/Header_Mentee";
+import Header from "../../components/Header/HeaderGuest";
 
 const MainPage = () => {
   return (
