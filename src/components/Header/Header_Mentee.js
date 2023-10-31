@@ -2,14 +2,16 @@ import { Button, Typography } from "antd";
 import styled from "styled-components";
 import React from "react";
 import IconImg from "../assets/images/Icon.png";
-import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../assets/system/layout";
+import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 
 const Header = () => {
   return (
     <Container>
       <ItemContainer>
-        <LogoImg src={IconImg} alt={"로고 이미지"} />
-        <LogoTypo>CHAMedu</LogoTypo>
+        <LogoContainer>
+          <LogoImg src={IconImg} alt={"로고 이미지"} />
+          <LogoTypo>CHAMedu</LogoTypo>
+        </LogoContainer>
       </ItemContainer>
     </Container>
   );
@@ -17,7 +19,7 @@ const Header = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 300;
+  height: 400;
   background-color: white;
   display: flex;
   border-bottom: 1px #c9c9c9 solid;
@@ -38,10 +40,17 @@ const ItemContainer = styled.div`
   align-items: center;
 `;
 
+const LogoContainer = styled.div`
+  width: ${CONTAINER_WIDTH}px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 const LogoImg = styled.img`
   width: 30px;
   height: 20px;
-  padding: 15px;
+  padding: 20px;
 `;
 
 const LogoTypo = styled(Typography)`
