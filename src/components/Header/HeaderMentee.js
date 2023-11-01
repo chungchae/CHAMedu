@@ -16,9 +16,9 @@ const HeaderMentee = () => {
     navigate("/");
   };
 
-  /* const onClickLoginButton = () => {
-    navigate('/')
-  } */
+  const onClickMentorButton = () => {
+    navigate('/user/mentor')
+  }
 
   return (
     <Container>
@@ -29,7 +29,7 @@ const HeaderMentee = () => {
         </LogoContainer>
         <HeaderContainer>
           <MenuContainer>
-            <Menu type={"text"}>멘토 둘러보기</Menu>
+            <Menu type={"text"} onClick={onClickMentorButton}>멘토 둘러보기</Menu>
             <Menu type={"text"}>마이페이지</Menu>
             <LogoutButton type={"text"}>로그아웃</LogoutButton>
           </MenuContainer>
@@ -47,7 +47,7 @@ const HeaderMentee = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 400;
+  height: ${HEADER_HEIGHT}px;
   background-color: white;
   display: flex;
   border-bottom: 1px #c9c9c9 solid;
@@ -72,6 +72,7 @@ const LogoContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const MenuContainer = styled.div`
