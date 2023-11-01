@@ -2,23 +2,23 @@ import { Button, Typography } from "antd";
 import styled from "styled-components";
 import React from "react";
 import HeaderIcon from "../../assets/images/HeaderIcon.png";
+import ProfileImg from "../../assets/images/profile.png";
+import ChamIcon from "../../assets/images/cham.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
-import { PRIMARY } from "../../colors";
-import { useNavigate } from 'react-router-dom'
-
+import { GRAY, PRIMARY } from "../../colors";
+import { useNavigate } from "react-router-dom";
+import { PlusOutlined } from '@ant-design/icons'
 
 const HeaderMentee = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onClickLogoButton = () => {
+    navigate("/");
+  };
+
+  /* const onClickLoginButton = () => {
     navigate('/')
-  }
-
-  const onClickLoginButton = () => {
-    navigate('/')
-  }
-
-
+  } */
 
   return (
     <Container>
@@ -27,9 +27,19 @@ const HeaderMentee = () => {
           <LogoImg src={HeaderIcon} alt={"로고 이미지"} />
           <LogoTypo>CHAMedu</LogoTypo>
         </LogoContainer>
-        <MenuContainer>
-          <LoginButton>로그인</LoginButton>
-        </MenuContainer>
+        <HeaderContainer>
+          <MenuContainer>
+            <Menu type={"text"}>멘토 둘러보기</Menu>
+            <Menu type={"text"}>마이페이지</Menu>
+            <LogoutButton type={"text"}>로그아웃</LogoutButton>
+          </MenuContainer>
+          <ChamContainer>
+            <ChamImg src={ChamIcon}></ChamImg>
+            <ChamTypo>370 CHAM</ChamTypo>
+            <PlusIcon/>
+          </ChamContainer>
+          <ProImg src={ProfileImg} alt={"프로필 이미지"}></ProImg>
+        </HeaderContainer>
       </ItemContainer>
     </Container>
   );
@@ -70,35 +80,74 @@ const MenuContainer = styled.div`
   align-items: center;
 `;
 
+const HeaderContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+const ChamContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+`;
+
 const LogoImg = styled.img`
   width: 30px;
   height: 20px;
   padding-right: 10px;
-  padding-top:20px;
-  padding-bottom:20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
+const ChamImg = styled.img`
+  width: 20px;
+  height: 25px;
+  padding: 10px;
+  margin-top: 5px;
+`;
+
+const ProImg = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid ${GRAY.DEFAULT};
 `;
 
 const LogoTypo = styled(Typography)`
   font-size: 30;
   font-weight: 700;
+
+  font-family: "esamanru";
+`;
+
+const ChamTypo = styled(Typography)`
+  color: ${PRIMARY.DARK};
+  margin-top: 2px;
+  font-family: "esamanru";
+`;
+
+const Menu = styled(Button)`
+  font-weight: 500;
   span {
     font-family: "esamanru";
   }
 `;
 
-const LoginButton = styled(Button)`
+const LogoutButton = styled(Button)`
   font-weight: 500;
+  color: ${GRAY.DARK};
   span {
     font-family: "esamanru";
   }
-  &:hover {
-    color: ${PRIMARY.DARK}!important;;
-    border-color: ${PRIMARY.DARK}!important;;
-  }
-  &:active {
-    color: ${PRIMARY.DARK}!important;;
-    border-color: ${PRIMARY.DARK}!important;;
-  }
 `;
+
+export const PlusIcon = styled(PlusOutlined)`
+  margin: 5px;
+  color: ${PRIMARY.DARK};
+  font-size: 20px;
+  cursor: pointer;
+`
 
 export default HeaderMentee;
