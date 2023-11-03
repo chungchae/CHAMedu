@@ -7,6 +7,7 @@ import { PRIMARY } from "../../colors";
 import { useNavigate } from 'react-router-dom'
 
 
+
 const HeaderGuest = () => {
   const navigate = useNavigate()
 
@@ -15,11 +16,9 @@ const HeaderGuest = () => {
   }
 
   const onClickLoginButton = () => {
-    navigate('/')
+    navigate('/user/login')
   }
-
-
-
+  
   return (
     <Container>
       <ItemContainer>
@@ -28,7 +27,7 @@ const HeaderGuest = () => {
           <LogoTypo>CHAMedu</LogoTypo>
         </LogoContainer>
         <MenuContainer>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton onClick={onClickLoginButton}>로그인</LoginButton>
         </MenuContainer>
       </ItemContainer>
     </Container>
