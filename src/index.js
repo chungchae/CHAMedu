@@ -7,6 +7,7 @@ import JoinPage from "./pages/Login/JoinPage";
 import MentorPageMentee from "./pages/MentorPage/MentorPageMentee";
 import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
+import WelcomePage from "./pages/Login/WelcomePage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/fonts/font.css"
@@ -22,6 +23,7 @@ root.render(
         <Route path="/user/join" element={<JoinPage/>}/>
         <Route path="/mentor/join" element={<MentorJoinPage/>}/>
         <Route path="/mentee/join" element={<MenteeJoinPage/>}/>
+        <Route path="/welcome/join" element={<WelcomePage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

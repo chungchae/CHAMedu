@@ -3,8 +3,14 @@ import Header from '../../components/Header/HeaderGuest'
 import styled from 'styled-components'
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../assets/system/layout'
 import { GRAY } from '../../colors'
+import { useNavigate } from "react-router-dom";
 
 const MenteeJoinPage = () => {
+  const navigate = useNavigate();
+  const onSignUpClick = () => {
+    navigate('/welcome/join');
+  }
+
   const infoList = ['이름', '닉네임', '아이디', '비밀번호']
   const placeholderList = [
     '실명을 입력해주세요',
@@ -102,7 +108,7 @@ const MenteeJoinPage = () => {
         </InfoWrapper>
         
       </InfoListWrapper>
-      <SignUp>
+      <SignUp onClick={onSignUpClick}>
         회원가입
       </SignUp>
     </Root>

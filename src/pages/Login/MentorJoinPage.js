@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header/HeaderGuest'
 import styled from 'styled-components'
+import { useNavigate } from "react-router-dom";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../assets/system/layout'
 
 const MentorJoinPage = () => {
+  const navigate = useNavigate();
+  const onSignUpClick = () => {
+    navigate('/welcome/join');
+  }
+
   const infoList = ['이름', '닉네임', '아이디', '비밀번호']
   const placeholderList = [
     '실명을 입력해주세요',
@@ -79,7 +85,7 @@ const MentorJoinPage = () => {
           </BigSelect>
         </InfoWrapper>
       </InfoListWrapper>
-      <SignUp>
+      <SignUp onClick={onSignUpClick}>
         회원가입
       </SignUp>
     </Root>
