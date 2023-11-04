@@ -32,7 +32,7 @@ const JoinPage = () => {
       <Subtitle>
         바른 교육의 출발, 지금 시작해보세요!
       </Subtitle>
-      <SubTitleTTTT>당신은 어떤 분 인가요?</SubTitleTTTT>
+      <SubTitle2>당신은 어떤 분 인가요?</SubTitle2>
       
       <BoxWrapper>
         <Box1 onClick={onBox1Click}>
@@ -129,7 +129,7 @@ const Subtitle = styled.div`
   margin-bottom: 50px;
 `;
 
-const SubTitleTTTT = styled.div`
+const SubTitle2 = styled.div`
   font-size: 20px;
   font-weight: 800;
 `;
