@@ -79,6 +79,9 @@ const MentorJoinPage = () => {
           </BigSelect>
         </InfoWrapper>
       </InfoListWrapper>
+      <SignUp>
+        회원가입
+      </SignUp>
     </Root>
   )
 }
@@ -143,5 +146,17 @@ const Root = styled.div`
   padding-top: ${HEADER_HEIGHT}px;
   position: relative;
 `
-
+const SignUp = styled.div`
+  background-color: #C9E6CA;
+  color: #000000;
+  width: 280px;
+  padding: 13px 20px;
+  border-radius: 6px;
+  margin-top: 37px;
+  margin-bottom: 100px;
+  font-size: 15px;
+  display: inline-flex;
+  justify-content: space-around;
+  cursor: pointer;
+`
 export default MentorJoinPage

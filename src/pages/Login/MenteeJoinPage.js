@@ -18,13 +18,18 @@ const MenteeJoinPage = () => {
   const [selectedPhone, setSelectedPhone] = useState('')
 
   // 드롭다운의 값이 바뀌었을 때 호출될 함수입니다.
-  const handleChange = (event) => {
+  const handleUniv = (event) => {
     setSelectedUniv(event.target.value)
   }
 
   const handlePhone = (event) => {
     setSelectedPhone(event.target.value)
   }
+  const handleHigh = (event) => {
+    setSelectedHigh(event.target.value)
+  }
+
+
 
   return (
     <Root>
@@ -69,22 +74,22 @@ const MenteeJoinPage = () => {
           <InfoTitle>고등학교</InfoTitle>
           <BigSelect
             value={selectedHigh}
-            onChange={handleChange}
+            onChange={handleHigh}
             defaultValue=""
           >
             <option value="" disabled hidden>
               선택
             </option>
-            <option value="option1">동국대</option>
-            <option value="option2">홍익대</option>
-            <option value="option3">단국대</option>
+            <option value="option1">뿌잉고</option>
+            <option value="option2">뽀잉고</option>
+            <option value="option3">뚜잉고</option>
           </BigSelect>
         </InfoWrapper>
         <InfoWrapper>
           <InfoTitle>희망 대학교</InfoTitle>
           <BigSelect
             value={selectedUniv}
-            onChange={handleChange}
+            onChange={handleUniv}
             defaultValue=""
           >
             <option value="" disabled hidden>
@@ -97,18 +102,25 @@ const MenteeJoinPage = () => {
         </InfoWrapper>
         
       </InfoListWrapper>
+      <SignUp>
+        회원가입
+      </SignUp>
     </Root>
   )
 }
 
 const BigSelect = styled.select`
-  height: 50px;
+  height: 30px;
   width: 80px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `
 
 const SmallInput = styled.input`
   width: 80px;
   height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `
 
 const JungBok = styled.div`
@@ -160,6 +172,19 @@ const Root = styled.div`
   align-items: center;
   padding-top: ${HEADER_HEIGHT}px;
   position: relative;
+`
+const SignUp = styled.div`
+  background-color: #C9E6CA;
+  color: #000000;
+  width: 280px;
+  padding: 13px 20px;
+  border-radius: 6px;
+  margin-top: 37px;
+  margin-bottom: 100px;
+  font-size: 15px;
+  display: inline-flex;
+  justify-content: space-around;
+  cursor: pointer;
 `
 
 export default MenteeJoinPage

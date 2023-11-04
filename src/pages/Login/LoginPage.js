@@ -131,6 +131,7 @@ const ButtonSignup = styled.div`
   padding: 10px 20px;
   border-radius: 6px;
   font-size: 15px;
+  cursor: pointer;
 `
 
 const LoginButton = styled.button`

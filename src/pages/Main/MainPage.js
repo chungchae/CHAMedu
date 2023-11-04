@@ -148,16 +148,18 @@ const ContentWrapper = styled.div`
   display: inline-flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border: 1px solid #f7f7f7;
   padding: 20px 30px;
+  border-radius: 8px;
 `;
 
 const ContentOne = styled.div`
-    padding-top: 75px;
+  padding-top: 75px;
   display: inline-flex;
   justify-content: space-around;
   width: 100%;
   background-color: #fff;
+  padding-bottom: 100px;
 `;
 
 const MainDiv = styled.div`
@@ -170,7 +172,7 @@ const MainDiv = styled.div`
 const DivGray = styled.div`
   color: gray;
   padding-top: 20px;
-  
+   white-space: nowrap;
 `;
 
 const ButtonSignup = styled.div`

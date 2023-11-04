@@ -59,7 +59,7 @@ const JoinPage = () => {
 const AlreadyButton = styled.div`
     color: #fff;
     background-color: #4CAF4F;
-    width: 42px;
+    width: 50px;
     border-radius: 8px;
     padding: 10px 8px;
 `;
@@ -147,7 +147,6 @@ const Box1 = styled.div`
   height: 100%;
   align-items: center;
   justify-content: space-between;
-
   padding: 70px 50px;
 `;
 
