@@ -1,4 +1,4 @@
-import Header from "../../components/Header/HeaderGuest";
+/* import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY } from "../../colors";
@@ -28,3 +28,4 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+ */
