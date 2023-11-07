@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header/HeaderGuest'
 import styled from 'styled-components'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../assets/system/layout'
 
 const MentorJoinPage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const onSignUpClick = () => {
-    navigate('/welcome/join');
+    navigate('/welcome/join')
   }
 
   const infoList = ['이름', '닉네임', '아이디', '비밀번호']
@@ -84,22 +84,25 @@ const MentorJoinPage = () => {
             <option value="option3">단국대</option>
           </BigSelect>
         </InfoWrapper>
+        <InfoWrapper2></InfoWrapper2>
       </InfoListWrapper>
-      <SignUp onClick={onSignUpClick}>
-        회원가입
-      </SignUp>
+      <SignUp onClick={onSignUpClick}>회원가입</SignUp>
     </Root>
   )
 }
 
 const BigSelect = styled.select`
-  height: 50px;
-  width: 80px;
+   height: 30px;
+   width: 80px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
 `
 
 const SmallInput = styled.input`
-  width: 80px;
-  height: 30px;
+width: 80px;
+height: 30px;
+border: 1px solid #ccc;
+border-radius: 4px;
 `
 
 const JungBok = styled.div`
@@ -114,6 +117,7 @@ const StyledInput = styled.input`
   margin: 1;
   border: 1px solid #ccc;
   border-radius: 4px;
+  
 `
 
 const InfoTitle = styled.div`
@@ -122,15 +126,20 @@ const InfoTitle = styled.div`
 `
 
 const InfoWrapper = styled.div`
-    padding: 17px 0px;  
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+   padding: 17px 0px;  
+   border-top: 1px solid #ccc;
+   display: inline-flex;
+   justify-content: flex-start;
+   align-items: center;
+   gap: 30px;
+`
+const InfoWrapper2 = styled.div`
+    border-bottom: 1px solid #ccc;
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
 `
-
 const InfoListWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;

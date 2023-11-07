@@ -3,12 +3,12 @@ import Header from '../../components/Header/HeaderGuest'
 import styled from 'styled-components'
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../assets/system/layout'
 import { GRAY } from '../../colors'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 const MenteeJoinPage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const onSignUpClick = () => {
-    navigate('/welcome/join');
+    navigate('/welcome/join')
   }
 
   const infoList = ['이름', '닉네임', '아이디', '비밀번호']
@@ -34,8 +34,6 @@ const MenteeJoinPage = () => {
   const handleHigh = (event) => {
     setSelectedHigh(event.target.value)
   }
-
-
 
   return (
     <Root>
@@ -78,11 +76,7 @@ const MenteeJoinPage = () => {
         </InfoWrapper>
         <InfoWrapper>
           <InfoTitle>고등학교</InfoTitle>
-          <BigSelect
-            value={selectedHigh}
-            onChange={handleHigh}
-            defaultValue=""
-          >
+          <BigSelect value={selectedHigh} onChange={handleHigh} defaultValue="">
             <option value="" disabled hidden>
               선택
             </option>
@@ -93,11 +87,7 @@ const MenteeJoinPage = () => {
         </InfoWrapper>
         <InfoWrapper>
           <InfoTitle>희망 대학교</InfoTitle>
-          <BigSelect
-            value={selectedUniv}
-            onChange={handleUniv}
-            defaultValue=""
-          >
+          <BigSelect value={selectedUniv} onChange={handleUniv} defaultValue="">
             <option value="" disabled hidden>
               선택
             </option>
@@ -106,11 +96,9 @@ const MenteeJoinPage = () => {
             <option value="option3">단국대</option>
           </BigSelect>
         </InfoWrapper>
-        
+        <InfoWrapper2></InfoWrapper2>
       </InfoListWrapper>
-      <SignUp onClick={onSignUpClick}>
-        회원가입
-      </SignUp>
+      <SignUp onClick={onSignUpClick}>회원가입</SignUp>
     </Root>
   )
 }
@@ -151,6 +139,12 @@ const InfoTitle = styled.div`
 const InfoWrapper = styled.div`
     padding: 17px 0px;  
     border-top: 1px solid #ccc;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+`
+const InfoWrapper2 = styled.div`
     border-bottom: 1px solid #ccc;
     display: inline-flex;
     justify-content: flex-start;
