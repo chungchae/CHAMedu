@@ -6,11 +6,10 @@ import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
 import { Typography } from "antd";
-import { VisibilityContext ,ScrollMenu } from "react-horizontal-scrolling-menu";
 import ReviewCard from "../../components/Mentor/ReviewCard";
 import camelizeKey from "../../utils/camelizeKey";
 import ReviewSample from "../../constants/json/review_list_sample.json";
-
+import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 const MentorDetailPageMentee = () => {
   const ReviewList = camelizeKey(ReviewSample.mentor_list);
 
@@ -128,16 +127,18 @@ const Profilecontainer = styled.div`
   align-items: center;
   margin: 30px;
   border-radius: 20px;
+  padding: 25px;
 `;
 
 const Reviewcontainer = styled.div`
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin: 30px;
-  border-radius: 20px;
+  overflow: hidden;
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const Mentorcontainer = styled.div`
