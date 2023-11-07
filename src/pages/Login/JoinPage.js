@@ -68,7 +68,7 @@ const AlreadyButton = styled.div`
     background-color: #4CAF4F;
     width: 50px;
     border-radius: 8px;
-    padding: 10px 8px;
+    padding: 7px 8px;
 `
 
 const AlreadySingup = styled.div`
@@ -81,15 +81,15 @@ const AlreadySingup = styled.div`
     margin-top: 40px;
     padding-top: 40px;
     margin-bottom: 200px;
+    font-family: "esamanru";
 `
 
 const BoxDiv = styled.div`
-    color: #000;
+  color: #000;
   font-size: 15px;
-  font-weight: 700;
   margin-bottom:20px;
   text-align: center;
-
+  font-family: "esamanru";
   & span {
     color: #4CAF4F;
   }
@@ -101,6 +101,7 @@ const BoxWrapper = styled.div`
     width: 100%;
     gap: 40px;
     margin-top: 30px;
+    
 `
 
 const Root = styled.div`
@@ -121,6 +122,7 @@ const Container = styled.div`
   margin-top: 10px;
   color: #4CAF4F;
   font-weight: bold;
+  font-family: "esamanru";
 `
 
 const ImageWrapper = styled.img`
@@ -134,11 +136,12 @@ const Subtitle = styled.div`
   color: #4CAF4F;
   margin-top: 30px;
   margin-bottom: 50px;
+  font-family: "esamanru";
 `
 
 const SubTitle2 = styled.div`
   font-size: 20px;
-  font-weight: 800;
+  font-family: "esamanru";
 `
 
 const Box1 = styled.div`
@@ -147,7 +150,7 @@ const Box1 = styled.div`
   margin-top: 10px;
   font-size: 16px;
   cursor: pointer; // 커서 모양 변경 (선택 사항)
-  border: 1px solid gray;
+  border: 1px solid #D3D3D3;
   border-radius: 80px;
   display: inline-flex;
   flex-direction: column;

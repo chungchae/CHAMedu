@@ -38,7 +38,7 @@ const MenteeJoinPage = () => {
   return (
     <Root>
       <Header />
-      <Title>멘토 회원가입</Title>
+      <Title>멘티 회원가입</Title>
       <InfoListWrapper>
         {infoList.map((info, index) => {
           if (info === '아이디') {
@@ -108,6 +108,9 @@ const BigSelect = styled.select`
   width: 80px;
   border: 1px solid #ccc;
   border-radius: 4px;
+   &:hover {
+        border-color: green; /* 원하는 초록색으로 변경 */
+    }
 `
 
 const SmallInput = styled.input`
@@ -115,12 +118,17 @@ const SmallInput = styled.input`
   height: 30px;
   border: 1px solid #ccc;
   border-radius: 4px;
+   &:hover {
+        border-color: green; /* 원하는 초록색으로 변경 */
+    }
 `
 
 const JungBok = styled.div`
   padding:10px;
   background-color: #DFF1E0;
   border-radius: 4px;
+  font-family: "esamanru";
+
 `
 
 const StyledInput = styled.input`
@@ -129,7 +137,11 @@ const StyledInput = styled.input`
   margin: 1;
   border: 1px solid #ccc;
   border-radius: 4px;
+    &:hover {
+        border-color: green; /* 원하는 초록색으로 변경 */
+    }
 `
+
 
 const InfoTitle = styled.div`
     font-size: 20px;
@@ -163,6 +175,7 @@ const Title = styled.div`
   font-size: 30px;
   font-weight: 900;
   padding-bottom:30px;
+  font-family: "esamanru";
 `
 
 const Root = styled.div`
@@ -185,6 +198,8 @@ const SignUp = styled.div`
   display: inline-flex;
   justify-content: space-around;
   cursor: pointer;
+  font-family: "esamanru";
+
 `
 
 export default MenteeJoinPage
