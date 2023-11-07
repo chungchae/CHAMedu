@@ -14,13 +14,14 @@ import camelizeKey from "../../utils/camelizeKey";
 const MentorPageMentee = () => {
   const mentorList = camelizeKey(MentorSmaple.mentor_list);
   console.log(mentorList);
+  
 
   return (
     <Root>
-      <Header></Header>
+      <Header />
       <Container>
         <SearchContainer>
-          <SearchBox />
+          <SearchBox placeholder="멘토를 검색해보세요!"/>
         </SearchContainer>
         <TitleContainer>
           <MentorIcon src={FlameIcon} alt='인기 멘토 아이콘'></MentorIcon>
@@ -83,6 +84,7 @@ const Container = styled.div`
 `;
 const SearchContainer = styled.div`
   width: 70%;
+  height: 50px;
   padding: 30px;
   display: flex;
   align-items: center;
@@ -142,5 +144,6 @@ const SearchBox = styled(Input)`
     box-shadow: 0 0 0 2px ${PRIMARY.DEFAULT}20;
   }
 `;
+
 
 export default MentorPageMentee;

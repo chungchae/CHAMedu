@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { generateRandomProjectCardLogoImg } from '../../utils/generateRandomPrifileImg'
 import { Card, Space, Tag } from 'antd'
 import styled from "styled-components";
+import Meta from 'antd/es/card/Meta'
+
 
 
 const MentorCard = ({ className, MentorItem, position }) => {
@@ -22,12 +24,12 @@ const MentorCard = ({ className, MentorItem, position }) => {
         <RepresentativeImgContainer>
           <RepresentativeImg
             src={generateRandomProjectCardLogoImg()}
-            alt={'프로젝트 대표 이미지'}
+            alt={'멘토 대표 이미지'}
           />
         </RepresentativeImgContainer>
       }
     >
-      <Card title={MentorItem ? MentorItem.title : "Default Title"} description={MentorItem ? `${MentorItem.education}` : "Default Description"} />
+      <Card title={MentorItem ? MentorItem.title : "치와와교수"} description={MentorItem ? `${MentorItem.education}` : "Default Description"} />
 
     </Root>
   )
@@ -53,6 +55,7 @@ const RepresentativeImg = styled.img`
   height: 100%;
   object-fit: cover;
 `
+const CardMeta = styled(Meta)``
 
 /* const RepresentativeImgBadge = styled(Tag)`
   position: absolute;
