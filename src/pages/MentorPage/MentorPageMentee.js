@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { Card, Input, Typography } from "antd";
 import ProImg from "../../assets/images/profile.png";
 import FlameIcon from "../../assets/images/flame_icon.png";
-import ThumbIcon from "../../assets/images/thumbs_icon.png"
-import NoteIcon from "../../assets/images/note_icon.png"
+import ThumbIcon from "../../assets/images/thumbs_icon.png";
+import NoteIcon from "../../assets/images/note_icon.png";
 import MentorCard from "../../components/Mentor/MentorCard";
 import MentorSmaple from "../../constants/json/mentor_list_sample.json";
 import camelizeKey from "../../utils/camelizeKey";
@@ -30,8 +30,8 @@ const MentorPageMentee = () => {
         <PopularMentorContainer>
           {mentorList.slice(0, 4).map((MentorItem) => (
             <MentorCard
-              projectItem={MentorItem}
-              key={`project_card_${MentorItem.key}`}
+              MentorItem={MentorItem}
+              key={`mentor_card_${MentorItem.key}`}
             />
           ))}
         </PopularMentorContainer>
@@ -43,8 +43,8 @@ const MentorPageMentee = () => {
         <DepartmentMentorContainer>
           {mentorList.slice(0, 4).map((MentorItem) => (
             <MentorCard
-              projectItem={MentorItem}
-              key={`project_card_${MentorItem.key}`}
+              MentorItem={MentorItem}
+              key={`mentor_card_${MentorItem.key}`}
             />
           ))}
         </DepartmentMentorContainer>
@@ -56,8 +56,8 @@ const MentorPageMentee = () => {
         <MajorMentorContainer>
           {mentorList.slice(0, 4).map((MentorItem) => (
             <MentorCard
-              projectItem={MentorItem}
-              key={`project_card_${MentorItem.key}`}
+              MentorItem={MentorItem}
+              key={`mentor_card_${MentorItem.key}`}
             />
           ))}
         </MajorMentorContainer>
