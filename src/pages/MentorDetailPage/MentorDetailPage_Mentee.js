@@ -9,7 +9,7 @@ import { Typography } from "antd";
 import ReviewCard from "../../components/Mentor/ReviewCard";
 import camelizeKey from "../../utils/camelizeKey";
 import ReviewSample from "../../constants/json/review_list_sample.json";
-import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 const MentorDetailPageMentee = () => {
   const ReviewList = camelizeKey(ReviewSample.mentor_list);
 
@@ -37,9 +37,9 @@ const MentorDetailPageMentee = () => {
             </MentorIntroTypo>
           </Infocontainer>
         </Profilecontainer>
-        <Reviewcontainer>
+        <Reviewcontainer> 
           <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {ReviewList.map(({ title, rate, content }) => (
+            {ReviewList.map(({ title, rate, content }) => ( //가로 스크롤이어야하는데 세로로 보인다..
               <ReviewCard title={title} rate={rate} content={content} />
             ))}
           </ScrollMenu>
@@ -101,7 +101,6 @@ function Right({ children, onClick }) {
   );
 }
 
-
 const Root = styled.div`
   width: 100%;
   display: flex;
@@ -132,6 +131,13 @@ const Profilecontainer = styled.div`
 
 const Reviewcontainer = styled.div`
   overflow: hidden;
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
   .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
     display: none;
   }
