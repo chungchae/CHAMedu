@@ -74,12 +74,14 @@ const LoginPage = () => {
 
 const SignupTTTT = styled.div`
   border-top: 1px solid gray;
-      display: inline-flex;
+      display: inline-flex;s
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: 80px;
+    margin-top: 38px;
     padding: 20px;
+    font-family: "esamanru";
+    margin-top: 10px;
 `
 
 const Root = styled.div`
@@ -100,7 +102,7 @@ const Container = styled.div`
   font-size: 34px;
   margin-top: 10px;
   color: #4CAF4F;
-  font-weight: bold;
+  font-family: "esamanru";
 `
 
 const Subtitle = styled.div`
@@ -108,6 +110,7 @@ const Subtitle = styled.div`
   color: #4CAF4F;
   margin-top: 30px;
   margin-bottom: 50px;
+  font-family: "esamanru";
 `
 
 const LoginForm = styled.div`
@@ -128,7 +131,6 @@ const InputField = styled.input`
 const ButtonSignup = styled.div` 
   color: #4CAF4F;
   width: 60px;
-  padding: 10px 20px;
   border-radius: 6px;
   font-size: 15px;
   cursor: pointer;
@@ -145,6 +147,7 @@ const LoginButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   width:100%;
+  font-family: "esamanru";
 `
 
 const LabelTTTT = styled.label`
@@ -153,6 +156,8 @@ const LabelTTTT = styled.label`
   margin-top: 10px;
   margin-bottom: 20px;
   justify-content: flex-end;
+
+  font-size: 14px;
 `
 
 export default LoginPage

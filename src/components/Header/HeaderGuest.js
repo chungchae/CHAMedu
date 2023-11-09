@@ -80,9 +80,8 @@ const LogoImg = styled.img`
 const LogoTypo = styled(Typography)`
   font-size: 30;
   font-weight: 700;
-  span {
-    font-family: "esamanru";
-  }
+  font-family: "esamanru";
+  
 `;
 
 const LoginButton = styled(Button)`
