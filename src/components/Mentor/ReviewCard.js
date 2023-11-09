@@ -1,32 +1,44 @@
-import { useNavigate } from "react-router-dom";
-import { generateRandomMentorCardLogoImg } from "../../utils/generateRandomPrifileImg";
-import { Card, Space, Tag, Typography } from "antd";
+//MentorDetailPage의 Mentor Review Card 컴포넌트
+import { Typography } from "antd";
 import styled from "styled-components";
-import Meta from "antd/es/card/Meta";
-import { GRAY } from "../../colors";
-
-const ReviewCard = ({title, rate, content}) => {
-  
+import starIcon from "../../assets/images/Star.png";
+const ReviewCard = ({ title, rate, content }) => {
   return (
     <Root>
       <TitleTypo>{title}</TitleTypo>
-      <TitleTypo>{rate}</TitleTypo>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+        <RateStarImg src={starIcon} />
+        <TitleTypo>{rate}</TitleTypo>
+      </div>
       <TitleTypo>{content}</TitleTypo>
     </Root>
   );
 };
 
 const Root = styled.div`
-  flex-direction: column;
+  width: 170px;
+  height: 150px;
   border-radius: 16px;
-  border: 1px #c9c9c955 solid;
+  display: flex;
+  flex-direction: column;
+  background-color: white;  
+  margin: 10px;
+  margin-left: 0px;
+  padding: 10px;
 `;
 
 const TitleTypo = styled(Typography)`
   font-size: 18px;
   font-family: "esamanru";
-  font-weight: 700;
+  margin-top: 1px;
 `;
 
+
+const RateStarImg = styled.img`
+  width: 20px;
+  height: 20px;
+  padding-right: 3px;
+  object-fit: cover;
+`;
 
 export default ReviewCard;

@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
-import { Typography } from "antd";
-import ReviewCard from "../../components/Mentor/ReviewCard";
-import camelizeKey from "../../utils/camelizeKey";
-import ReviewSample from "../../constants/json/review_list_sample.json";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-const MentorDetailPageMentee = () => {
-  const ReviewList = camelizeKey(ReviewSample.mentor_list);
+import { Button, Typography } from "antd";
+import ReviewSlider from "../../components/Mentor/ReviewSlider";
 
+const MentorDetailPageMentee = () => {
   return (
     <Root>
       <Header></Header>
@@ -35,71 +31,17 @@ const MentorDetailPageMentee = () => {
               성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
               분 환영합니다.
             </MentorIntroTypo>
+            <ButtonContainer>
+            <ReserveButton /></ButtonContainer>
           </Infocontainer>
         </Profilecontainer>
-        <Reviewcontainer> 
-          <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {ReviewList.map(({ title, rate, content }) => ( //가로 스크롤이어야하는데 세로로 보인다..
-              <ReviewCard title={title} rate={rate} content={content} />
-            ))}
-          </ScrollMenu>
+        <Reviewcontainer>
+          <ReviewSlider />
         </Reviewcontainer>
       </Container>
     </Root>
   );
 };
-
-function LeftArrow() {
-  const { scrollPrev } = React.useContext(VisibilityContext);
-  return <Left onClick={() => scrollPrev()}>←</Left>;
-}
-
-function Left({ children, onClick }) {
-  const [show, setShow] = useState(false);
-
-  return show ? (
-    <Button
-      onClick={onClick}
-      onMouseLeave={() => {
-        setShow(false);
-      }}
-    >
-      {children}
-    </Button>
-  ) : (
-    <Transparent
-      onMouseEnter={() => {
-        setShow(true);
-      }}
-    />
-  );
-}
-
-function RightArrow() {
-  const { scrollNext } = React.useContext(VisibilityContext);
-  return <Right onClick={() => scrollNext()}>→</Right>;
-}
-
-function Right({ children, onClick }) {
-  const [show, setShow] = useState(false);
-
-  return show ? (
-    <Button
-      onClick={onClick}
-      onMouseLeave={() => {
-        setShow(false);
-      }}
-    >
-      {children}
-    </Button>
-  ) : (
-    <Transparent
-      onMouseEnter={() => {
-        setShow(true);
-      }}
-    />
-  );
-}
 
 const Root = styled.div`
   width: 100%;
@@ -113,15 +55,12 @@ const Root = styled.div`
 const Container = styled.div`
   flex-direction: column;
   width: ${CONTAINER_WIDTH}px;
-  display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const Profilecontainer = styled.div`
   background-color: white;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   margin: 30px;
@@ -129,23 +68,7 @@ const Profilecontainer = styled.div`
   padding: 25px;
 `;
 
-const Reviewcontainer = styled.div`
-  overflow: hidden;
-  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-`;
+const Reviewcontainer = styled.div``;
 
 const Mentorcontainer = styled.div`
   width: 100%;
@@ -157,10 +80,8 @@ const Mentorcontainer = styled.div`
 `;
 
 const Infocontainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
   flex-direction: column;
+  background-color: black;
 `;
 
 const MentorProfileImg = styled.img`
@@ -216,17 +137,22 @@ const MentorIntroTypo = styled(Typography)`
   font-weight: 100;
 `;
 
-const Transparent = styled.div`
-  width: 10rem;
-  position: absolute;
-  z-index: 999;
-  height: 50rem;
+const ButtonContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
 `;
 
-const Button = styled.button`
-  cursor: pointer;
-  color: white;
-  cursor: pointer;
+const ReserveButton = styled(Button)`
+  color: ${PRIMARY.DEFAULT};
+  &:hover {
+    color: ${PRIMARY.DEFAULT}!important;
+    border-color: ${PRIMARY.DEFAULT}!important;
+  }
+  &:focus {
+    color: ${PRIMARY.DEFAULT}!important;
+    border-color: ${PRIMARY.DEFAULT}!important;
+  }
 `;
 
 export default MentorDetailPageMentee;
