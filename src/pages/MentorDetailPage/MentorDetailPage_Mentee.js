@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
@@ -7,8 +8,18 @@ import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
 import { Button, Typography } from "antd";
 import ReviewSlider from "../../components/Mentor/ReviewSlider";
+import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
+import NoteIcon from "../../assets/images/note_icon.png";
 
 const MentorDetailPageMentee = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Root>
       <Header></Header>
@@ -32,10 +43,21 @@ const MentorDetailPageMentee = () => {
               분 환영합니다.
             </MentorIntroTypo>
             <ButtonContainer>
-            <ReserveButton /></ButtonContainer>
+              <ReserveButton onClick={openModal} />
+              <MentorReserveModal isOpen={modalOpen} closeModal={closeModal} />
+            </ButtonContainer>
           </Infocontainer>
         </Profilecontainer>
         <Reviewcontainer>
+          <TextContainer>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <IconImg src={NoteIcon} />
+              <ReviewTypo2>후기 26개</ReviewTypo2>
+            </div>
+            <WriteReviewButtonContainer>
+              <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
+            </WriteReviewButtonContainer>
+          </TextContainer>
           <ReviewSlider />
         </Reviewcontainer>
       </Container>
@@ -62,13 +84,14 @@ const Container = styled.div`
 const Profilecontainer = styled.div`
   background-color: white;
   display: flex;
-  align-items: center;
-  margin: 30px;
+  margin: 30px 0px;
   border-radius: 20px;
-  padding: 25px;
+  padding: 40px;
 `;
 
-const Reviewcontainer = styled.div``;
+const Reviewcontainer = styled.div`
+  padding: 20px 0px;
+  `;
 
 const Mentorcontainer = styled.div`
   width: 100%;
@@ -80,16 +103,17 @@ const Mentorcontainer = styled.div`
 `;
 
 const Infocontainer = styled.div`
+padding: 10px;
   flex-direction: column;
-  background-color: black;
 `;
 
 const MentorProfileImg = styled.img`
   width: 500px;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
   border-radius: 200px;
-  padding: 30px;
+  padding: 0px 30px;
+  padding-bottom: 20px;
 `;
 
 const RateContainer = styled.div`
@@ -119,16 +143,34 @@ const ReviewTypo = styled(Typography)`
   color: ${GRAY.DARK};
 `;
 
+const ReviewTypo2 = styled(Typography)`
+  font-size: 18px;
+  font-family: "esamanru";
+`;
+
+const WriteReviewButtonContainer = styled.div`
+  cursor: pointer;
+`;
+
+const WriteReviewTypo = styled(Typography)`
+  font-size: 18px;
+  font-family: "esamanru";
+  text-decoration: underline;
+  color: ${GRAY.DARK};
+`;
+
 const MentorNameTypo = styled(Typography)`
   font-size: 18px;
   font-family: "esamanru";
   font-weight: 700;
+  padding-bottom: 7px;
 `;
 
 const MentorEducationTypo = styled(Typography)`
   font-size: 18px;
   font-family: "esamanru";
   color: ${GRAY.DARK};
+  padding-bottom: 7px;
 `;
 
 const MentorIntroTypo = styled(Typography)`
@@ -141,6 +183,20 @@ const ButtonContainer = styled.div`
   width: 100%;
   height: 100%;
   justify-content: flex-end;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: "row";
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const IconImg = styled.img`
+  margin-right: 5px;
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
 `;
 
 const ReserveButton = styled(Button)`

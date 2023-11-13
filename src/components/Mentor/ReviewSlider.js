@@ -130,7 +130,6 @@ function usePreventBodyScroll() {
 }
 
 const Root = styled.div`
-  align-items: center;
   overflow: hidden;
   .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
     display: none;
