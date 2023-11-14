@@ -1,33 +1,95 @@
-import Header from '../../components/Header/HeaderMentee'
-import styled from 'styled-components'
-import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../assets/system/layout'
-import { useNavigate } from 'react-router-dom'
+import Header from "../../../components/Header/HeaderMentee";
+import styled from 'styled-components';
+import { CONTAINER_WIDTH, HEADER_HEIGHT } from '../../../assets/system/layout';
+import { useNavigate } from 'react-router-dom';
+import { GRAY } from "../../../colors";
+import Profile from '../../../assets/images/mypage_profile.png'; 
+import Request from '../../../assets/images/mypage_request.png';
+import List from '../../../assets/images/mypage_list.png';
 
 const MyPageRequestMentor = () => {
   return (
     <Root>
       <Header />
-      <DivGray>
-        CHAMedu 회원이 되어 입시 고민에 대한 이야기를 나눠보세요
-      </DivGray>
+      <Sidebar>
+        <SidebarContent>
+          <ProfileImage src={Profile} alt="My Profile" />
+          내 프로필
+        </SidebarContent>
+      </Sidebar>
+      <Sidebar>
+        <SidebarContent>
+          <ProfileImage src={Request} alt="Consult Request" />
+          상담요청
+        </SidebarContent>
+      </Sidebar>
+      <Sidebar>
+        <SidebarContent>
+          <ProfileImage src={List} alt="Consult List" />
+          상담내역
+        </SidebarContent>
+      </Sidebar>
+
+      <Container></Container>
+      <RoundedBox /> {/* Add the new RoundedBox component here */}
     </Root>
-  )
+  );
 }
 
 const Root = styled.div`
+  position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: ${HEADER_HEIGHT}px;
+  padding-top: ${HEADER_HEIGHT - 5}px;
   position: relative;
-  background-color: #fff;
-`
+  background-color: ${GRAY.LIGHT};
+  
+`;
 
-const DivGray = styled.div`
-  color: gray;
-  padding-top: 20px;
-   white-space: nowrap;
-`
+const Container = styled.div`
+  width: 20%;
+  height: 700px;
+  background-color: white;
+`;
 
-export default MyPageRequestMentor
+const Sidebar = styled.div`
+  width: 20%;
+  height: 100%;
+  background: white; 
+  padding: 10px;
+  box-sizing: border-box;
+
+  &:hover {
+    background: lightgray; 
+    width: 10%;
+    border-radius: 15px;
+  }
+`;
+
+
+const SidebarContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 20px; 
+  height: 20px; 
+  margin-right: 10px; 
+`;
+const RoundedBox = styled.div`
+  position: absolute;
+  top: 71px;
+  right: 18px;
+  width: 78%;
+  height: 33%;
+  background-color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+`;
+
+export default MyPageRequestMentor;
