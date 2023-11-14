@@ -61,17 +61,17 @@ const Sidebar = styled.div`
   padding: 10px;
   box-sizing: border-box;
 
-  &:hover {
-    background: lightgray; 
-    width: 10%;
-    border-radius: 15px;
-  }
+  
 `;
 
 
 const SidebarContent = styled.div`
   display: flex;
   align-items: center;
+  &:hover {
+    background: lightgray; 
+    border-radius: 15px;
+  }
 `;
 
 const ProfileImage = styled.img`
