@@ -9,7 +9,7 @@ import List from "../../../assets/images/mypage_list.png";
 import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 
-const MyPageRecordMentee = () => {
+const MyPageMentor = () => {
   const [selectMenu, setSelectMenu] = useState('');
   
   return (
@@ -103,4 +103,4 @@ const ProfileImage = styled.img`
 `;
 
 
-export default MyPageRecordMentee;
+export default MyPageMentor;
