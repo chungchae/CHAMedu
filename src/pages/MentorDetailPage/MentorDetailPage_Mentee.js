@@ -6,18 +6,27 @@ import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
-import { Button, Typography } from "antd";
+import NoteIcon from "../../assets/images/note_icon.png";
+import { Button, Typography, Tag } from "antd";
 import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
-import NoteIcon from "../../assets/images/note_icon.png";
+import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 
 const MentorDetailPageMentee = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
+  const [modalReserveOpen, setModalReserveOpen] = useState(false);
+  const openReserveModal = () => {
+    setModalReserveOpen(true);
   };
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeReserveModal = () => {
+    setModalReserveOpen(false);
+  };
+
+  const [modalReviewOpen, setModalReviewOpen] = useState(false);
+  const openReviewModal = () => {
+    setModalReviewOpen(true);
+  };
+  const closeReviewModal = () => {
+    setModalReviewOpen(false);
   };
 
   return (
@@ -43,8 +52,11 @@ const MentorDetailPageMentee = () => {
               분 환영합니다.
             </MentorIntroTypo>
             <ButtonContainer>
-              <ReserveButton onClick={openModal} />
-              <MentorReserveModal isOpen={modalOpen} closeModal={closeModal} />
+              <ReserveButton onClick={openReserveModal}>상담 예약하기</ReserveButton>
+              <MentorReserveModal
+                isOpen={modalReserveOpen}
+                closeModal={closeReserveModal}
+              />
             </ButtonContainer>
           </Infocontainer>
         </Profilecontainer>
@@ -54,9 +66,13 @@ const MentorDetailPageMentee = () => {
               <IconImg src={NoteIcon} />
               <ReviewTypo2>후기 26개</ReviewTypo2>
             </div>
-            <WriteReviewButtonContainer>
+            <WriteReviewButtonContainer onClick={openReviewModal}>
               <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
             </WriteReviewButtonContainer>
+            <MentorReviewModal
+              isOpen={modalReviewOpen}
+              closeModal={closeReviewModal}
+            />
           </TextContainer>
           <ReviewSlider />
         </Reviewcontainer>
@@ -74,12 +90,17 @@ const Root = styled.div`
   position: relative;
   background-color: ${GRAY.LIGHT};
 `;
+
 const Container = styled.div`
   flex-direction: column;
   width: ${CONTAINER_WIDTH}px;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30px;
 `;
+
+const DepartmentTag = styled(Tag)`
+`
 
 const Profilecontainer = styled.div`
   background-color: white;
@@ -91,7 +112,7 @@ const Profilecontainer = styled.div`
 
 const Reviewcontainer = styled.div`
   padding: 20px 0px;
-  `;
+`;
 
 const Mentorcontainer = styled.div`
   width: 100%;
@@ -103,7 +124,8 @@ const Mentorcontainer = styled.div`
 `;
 
 const Infocontainer = styled.div`
-padding: 10px;
+  position: relative; 
+  padding: 10px;
   flex-direction: column;
 `;
 
@@ -180,10 +202,8 @@ const MentorIntroTypo = styled(Typography)`
 `;
 
 const ButtonContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  justify-content: flex-end;
 `;
+
 
 const TextContainer = styled.div`
   display: flex;
@@ -200,6 +220,9 @@ const IconImg = styled.img`
 `;
 
 const ReserveButton = styled(Button)`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
   color: ${PRIMARY.DEFAULT};
   &:hover {
     color: ${PRIMARY.DEFAULT}!important;

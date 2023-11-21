@@ -4,17 +4,22 @@ import { Card, Space, Tag } from "antd";
 import styled from "styled-components";
 import Meta from "antd/es/card/Meta";
 import { GRAY } from "../../colors";
+import Bunting from "../../assets/images/buntingIcon.png"
 
-const MentorCard = ({ className, MentorItem, position }) => {
+const MentorCard = ({ className, MentorItem }) => {
   const navigate = useNavigate();
 
   const onClickMentorCard = () => {
     if (MentorItem) {
-      navigate(`/user/mentor/${MentorItem.key}`); //key를 갖고 MentorDetail 페이지로 이동
+      navigate(`/user/mentor/${MentorItem.key}`);
     }
   };
 
+  const shouldDisplayBunting = MentorItem && MentorItem.star >= 4.5;
+
   return (
+    <div style={{position: "relative"}}>
+    {shouldDisplayBunting && <BuntingImg src={Bunting} alt="Bunting Icon" />}
     <Root
       className={className}
       onClick={onClickMentorCard}
@@ -35,6 +40,7 @@ const MentorCard = ({ className, MentorItem, position }) => {
         {MentorItem ? `${MentorItem.education}` : "멘토 학력"}
       </CardDescription>
     </Root>
+    </div>
   );
 };
 
@@ -46,7 +52,18 @@ const Root = styled(Card)`
   border-radius: 16px;
   overflow: hidden;
   border: 1px #c9c9c955 solid;
+  position: relative;
+  margin-top: 6px;
 `;
+
+const BuntingImg = styled.img`
+  width: 50px;
+  height: 60px;
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+`;
+
 const RepresentativeImgContainer = styled.div`
   width: 100%;
   height: 200px;

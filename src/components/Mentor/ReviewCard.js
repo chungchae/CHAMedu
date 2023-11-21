@@ -28,7 +28,7 @@ const Root = styled.div`
 `;
 
 const TitleTypo = styled(Typography)`
-  font-size: 18px;
+  font-size: 16px;
   font-family: "esamanru";
   margin-top: 1px;
 `;
