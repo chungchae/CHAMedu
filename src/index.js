@@ -10,25 +10,29 @@ import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
 import WelcomePage from "./pages/Login/WelcomePage";
 import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
+import PointChargePage from "./pages/Point/PointChargePage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./assets/fonts/font.css"
+import "./assets/fonts/font.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage/>} />
-        <Route path="/user/mentor" element={<MentorPageMentee/>} />
-<Route path="/user/mentor/:mentorKey" element={<MentorDetailPageMentee/>} />
-        <Route path="/user/login" element={<LoginPage/>} />
-        <Route path="/user/join" element={<JoinPage/>}/>
-        <Route path="/mentor/join" element={<MentorJoinPage/>}/>
-        <Route path="/mentee/join" element={<MenteeJoinPage/>}/>
-        <Route path="/welcome/join" element={<WelcomePage/>}/>
-        <Route path="/mentor/request" element={<MentorPage/>}/>
-
+        <Route path='/' element={<MainPage />} />
+        <Route path='/user/mentor' element={<MentorPageMentee />} />
+        <Route
+          path='/user/mentor/:mentorKey'
+          element={<MentorDetailPageMentee />}
+        />
+        <Route path='/user/login' element={<LoginPage />} />
+        <Route path='/user/join' element={<JoinPage />} />
+        <Route path='/mentor/join' element={<MentorJoinPage />} />
+        <Route path='/mentee/join' element={<MenteeJoinPage />} />
+        <Route path='/welcome/join' element={<WelcomePage />} />
+        <Route path='/mentor/request' element={<MentorPage />} />
+        <Route path='/mentee/charge' element={<PointChargePage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

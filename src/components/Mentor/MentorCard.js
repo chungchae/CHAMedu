@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { generateRandomMentorCardLogoImg } from "../../utils/generateRandomPrifileImg";
-import { Card, Space, Tag } from "antd";
+import { Card, Tag } from "antd";
 import styled from "styled-components";
-import Meta from "antd/es/card/Meta";
 import { GRAY } from "../../colors";
 import Bunting from "../../assets/images/buntingIcon.png";
 import { getDepartmentColor } from "../../utils/color";
@@ -14,9 +13,10 @@ const MentorCard = ({ className, MentorItem }) => {
     if (MentorItem) {
       navigate(`/user/mentor/${MentorItem.key}`);
     }
-  };
+  }; //멘토 카드 클릭 시 멘토의 디테일 페이지로 이동
 
   const shouldDisplayBunting = MentorItem && MentorItem.star >= 4.5;
+  //멘토의 평균 별점이 4.5 이상이면 휘장 표시
 
   return (
     <div style={{ position: "relative" }}>
@@ -40,7 +40,7 @@ const MentorCard = ({ className, MentorItem }) => {
         </CardDescription>
         <DepartmentTag
           color={getDepartmentColor(MentorItem.department)}
-          /* key={`development_stack_tag_${index}`} */
+          /* 멘토의 분야를 태그로 표시 */
         >
           {MentorItem.department}
         </DepartmentTag>

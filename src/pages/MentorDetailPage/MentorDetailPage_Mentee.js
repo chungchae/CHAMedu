@@ -7,11 +7,12 @@ import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
 import NoteIcon from "../../assets/images/note_icon.png";
-import { Button, Typography } from "antd";
+import { Button, Typography, Tag } from "antd";
 import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
 import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 import Bunting from "../../assets/images/buntingIcon.png";
+import { getDepartmentColor } from "../../utils/color";
 
 const MentorDetailPageMentee = () => {
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
@@ -45,7 +46,11 @@ const MentorDetailPageMentee = () => {
             </RateContainer>
           </Mentorcontainer>
           <Infocontainer>
-            <MentorNameTypo>치와와교수</MentorNameTypo>
+            <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
+              <MentorNameTypo>치와와교수</MentorNameTypo>
+              <DepartmentTag color={"#99DDEC"}>논술</DepartmentTag>
+            </div>
+
             <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
             <MentorIntroTypo>
               서울 수도권 대학 6개 논술 지원해 전부 합격했습니다. 과탐 논술은
@@ -138,6 +143,16 @@ const Infocontainer = styled.div`
   flex-direction: column;
 `;
 
+const DepartmentTag = styled(Tag)`
+display: flex;
+align-items: center;
+height: 27px;
+border: none;
+font-size: 14px;
+color: white;
+font-family: "esamanru";
+`;
+
 const MentorProfileImg = styled.img`
   width: 500px;
   height: 250px;
@@ -195,6 +210,7 @@ const MentorNameTypo = styled(Typography)`
   font-family: "esamanru";
   font-weight: 700;
   padding-bottom: 7px;
+  padding-right: 10px;
 `;
 
 const MentorEducationTypo = styled(Typography)`
