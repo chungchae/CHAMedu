@@ -190,10 +190,6 @@ const ReviewTypo = styled(Typography)`
   color: ${GRAY.DARK};
 `;
 
-
-
-
-
 const MentorNameTypo = styled(Typography)`
   font-size: 18px;
   font-family: "esamanru";
