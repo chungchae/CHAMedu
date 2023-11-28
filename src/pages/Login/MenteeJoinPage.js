@@ -59,7 +59,7 @@ const MenteeJoinPage = () => {
             )
           }
         })}
-        <InfoWrapper>
+        {/* <InfoWrapper>
           <InfoTitle>휴대폰 번호</InfoTitle>
           <BigSelect
             value={selectedPhone}
@@ -74,7 +74,7 @@ const MenteeJoinPage = () => {
             <option value="option3">019</option>
           </BigSelect>{' '}
           ㅡ <SmallInput></SmallInput> ㅡ <SmallInput></SmallInput>
-        </InfoWrapper>
+        </InfoWrapper> */}
         <InfoWrapper>
           <InfoTitle>희망 단과대</InfoTitle>
           <BigSelect value={selectedHigh} onChange={handleHigh} defaultValue="">

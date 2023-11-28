@@ -21,19 +21,19 @@ const MyPageMentor = () => {
         <TabContainer>
           <Sidebar onClick={() => {setSelectMenu('내 프로필')}} isSelected={selectMenu === '내 프로필'}>
             <SidebarContent>
-              <ProfileImage src={Profile} alt="My Profile" />내 프로필
+              <ProfileImage src={Profile} alt="My Profile" />   내 프로필
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('상담요청')}} isSelected={selectMenu === '상담요청'}>
             <SidebarContent>
               <ProfileImage src={Request} alt="Consult Request" />
-              상담요청
+                 상담요청
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('상담내역')}} isSelected={selectMenu === '상담내역'}>
             <SidebarContent>
               <ProfileImage src={List} alt="Consult List" />
-              상담내역
+                 상담내역
             </SidebarContent>
           </Sidebar>
         </TabContainer>
@@ -82,6 +82,7 @@ const Sidebar = styled.div`
   box-sizing: border-box;
   font-family: "esamanru";
   margin-bottom: 10px;
+  cursor: pointer;
   &:hover {
     background: #f2f2f2;
     border-radius: 20px;
@@ -89,19 +90,22 @@ const Sidebar = styled.div`
 
 `;
 
+
 const SidebarContent = styled.div`
-     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: "esamanru";
-    padding-top: 10px;
-        align-items: flex-end;
+  display: flex;
+  align-items: center;
+  font-family: "esamanru";
+  padding: 10px;
+  margin-left: 10px;
+
 `;
 
 const ProfileImage = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  padding-left: 10px;
+
 `;
 
 

@@ -23,7 +23,9 @@ const HeaderMentee = () => {
   const onClickChargeButton = () => {
     navigate('/mentee/charge')
   }
-
+  const onClickMyPageButton = () => {
+    navigate('/mentor/request')
+  }
  
   return (
     <Container>
@@ -35,7 +37,7 @@ const HeaderMentee = () => {
         <HeaderContainer>
           <MenuContainer>
             <Menu type={"text"} onClick={onClickMentorButton}>멘토 둘러보기</Menu>
-            <Menu type={"text"}>마이페이지</Menu>
+            <Menu type={"text"} onClick={onClickMyPageButton}>마이페이지</Menu>
             <LogoutButton type={"text"}>로그아웃</LogoutButton>
           </MenuContainer>
           <ChamContainer>

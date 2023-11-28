@@ -43,10 +43,7 @@ const MyProfile = () => {
                     성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
                     분 환영합니다.
                 </MentorIntroTypo>
-                <ButtonContainer>
-                    <ReserveButton onClick={openModal} />
-                    <MentorReserveModal isOpen={modalOpen} closeModal={closeModal} />
-                </ButtonContainer>
+                
                 </Infocontainer>
             </Profilecontainer>
             <Reviewcontainer>
@@ -55,9 +52,7 @@ const MyProfile = () => {
                     <IconImg src={NoteIcon} />
                     <ReviewTypo2>후기 26개</ReviewTypo2>
                 </div>
-                <WriteReviewButtonContainer>
-                    <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
-                </WriteReviewButtonContainer>
+                
                 </TextContainer>
                 <ReviewSlider />
             </Reviewcontainer>

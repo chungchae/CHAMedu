@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const WelcomePage = () => {
   const navigate = useNavigate()
   const onButtonStartClick = () => {
-    navigate('/');
+    navigate('/user/mentor');
     /*navigate('/mentor/request')*/
   }
 

@@ -54,7 +54,7 @@ const MentorJoinPage = () => {
             );
           }
         })}
-        <InfoWrapper>
+       {/*  <InfoWrapper>
           <InfoTitle>휴대폰 번호</InfoTitle>
           <BigSelect
             value={selectedPhone}
@@ -69,7 +69,7 @@ const MentorJoinPage = () => {
             <option value="option3">019</option>
           </BigSelect>{" "}
           ㅡ <SmallInput></SmallInput> ㅡ <SmallInput></SmallInput>
-        </InfoWrapper>
+        </InfoWrapper> */}
         {/* <InfoWrapper>
           <InfoTitle>대학교</InfoTitle>
           <BigSelect
