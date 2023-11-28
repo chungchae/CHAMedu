@@ -61,11 +61,11 @@ const Root = styled.div`
 const TabContainer = styled.div`
   position: relative;
   width: 230px;
-  height: 700px;
+  height: 869px;
   background-color: white;
     padding: 0px 10px 0px 0px;
   
-`;
+`; 
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +82,7 @@ const Sidebar = styled.div`
   box-sizing: border-box;
   font-family: "esamanru";
   margin-bottom: 10px;
+  cursor: pointer;
   &:hover {
     background: #f2f2f2;
     border-radius: 20px;
