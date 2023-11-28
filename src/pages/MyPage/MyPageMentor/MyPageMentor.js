@@ -6,16 +6,10 @@ import { GRAY } from "../../../colors";
 import Profile from "../../../assets/images/mypage_profile.png";
 import Request from "../../../assets/images/mypage_request.png";
 import List from "../../../assets/images/mypage_list.png";
-<<<<<<< HEAD
-import RequestContent from "../../../components/Mentor/Consultation/RequestContent";
-import HistoryContent from "../../../components/Mentor/Consultation/HistoryContent";
-import MyProfile from "../../../components/Mentor/Consultation/MyProfile";
-=======
 import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
 import { useNavigate } from 'react-router-dom'
->>>>>>> 5a14ce0a3bd11eea6ed2907490ada2912f996273
 
 const MyPageMentor = () => {
   const [selectMenu, setSelectMenu] = useState("내 프로필");
