@@ -10,12 +10,13 @@ const MentorJoinPage = () => {
     navigate("/welcome/join");
   };
 
-  const infoList = ["이름", "닉네임", "아이디", "비밀번호"];
+  const infoList = ["이름", "닉네임", "아이디", "비밀번호", "대학교"];
   const placeholderList = [
     "실명을 입력해주세요",
     "닉네임을 입력해주세요",
     "영문/숫자조합 8자 이상 20자 이하",
     "영문/숫자조합 8자 이상 20자 이하",
+    "입력해주세요",
   ];
 
   const [selectedUniv, setSelectedUniv] = useState("");
@@ -69,7 +70,7 @@ const MentorJoinPage = () => {
           </BigSelect>{" "}
           ㅡ <SmallInput></SmallInput> ㅡ <SmallInput></SmallInput>
         </InfoWrapper>
-        <InfoWrapper>
+        {/* <InfoWrapper>
           <InfoTitle>대학교</InfoTitle>
           <BigSelect
             value={selectedUniv}
@@ -83,7 +84,7 @@ const MentorJoinPage = () => {
             <option value="option2">홍익대</option>
             <option value="option3">단국대</option>
           </BigSelect>
-        </InfoWrapper>
+        </InfoWrapper> */}
         <InfoWrapper2></InfoWrapper2>
       </InfoListWrapper>
       <SignUp onClick={onSignUpClick}>회원가입</SignUp>

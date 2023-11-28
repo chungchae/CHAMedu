@@ -69,6 +69,7 @@ const AlreadyButton = styled.div`
     width: 50px;
     border-radius: 8px;
     padding: 7px 8px;
+    cursor: pointer;
 `
 
 const AlreadySingup = styled.div`
