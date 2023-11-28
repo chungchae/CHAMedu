@@ -10,6 +10,8 @@ import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
 import WelcomePage from "./pages/Login/WelcomePage";
 import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
+import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
+import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/fonts/font.css"
@@ -28,7 +30,8 @@ root.render(
         <Route path="/mentee/join" element={<MenteeJoinPage/>}/>
         <Route path="/welcome/join" element={<WelcomePage/>}/>
         <Route path="/mentor/request" element={<MentorPage/>}/>
-
+        <Route path="/mypage/mentor" element={<MyPageMentorPage/>}/>
+        <Route path="/mypage/mentee" element={<MyPageMenteePage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

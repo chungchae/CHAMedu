@@ -6,12 +6,12 @@ import { GRAY } from "../../../colors";
 import Profile from "../../../assets/images/mypage_profile.png";
 import Request from "../../../assets/images/mypage_request.png";
 import List from "../../../assets/images/mypage_list.png";
-import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
+import ReviewContent from '../../../components/Mentor/Consultation/ReviewContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
-import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
+import MenteeMyProfile from '../../../components/Mentor/Consultation/MenteeMyProfile';
 import { useNavigate } from 'react-router-dom'
 
-const MyPageMentor = () => {
+const MyPageMentee = () => {
   const [selectMenu, setSelectMenu] = useState('내 프로필');
   
   return (
@@ -24,10 +24,10 @@ const MyPageMentor = () => {
               <ProfileImage src={Profile} alt="My Profile" />내 프로필
             </SidebarContent>
           </Sidebar>
-          <Sidebar onClick={() => {setSelectMenu('상담요청')}} isSelected={selectMenu === '상담요청'}>
+          <Sidebar onClick={() => {setSelectMenu('작성한 후기')}} isSelected={selectMenu === '작성한 후기'}>
             <SidebarContent>
               <ProfileImage src={Request} alt="Consult Request" />
-              상담요청
+              작성한 후기
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('상담내역')}} isSelected={selectMenu === '상담내역'}>
@@ -39,8 +39,8 @@ const MyPageMentor = () => {
         </TabContainer>
         <Contentcontainer>
           {/* 컴포넌트 분리 */}
-          {selectMenu === '내 프로필' && <MyProfile />}
-          {selectMenu === '상담요청' && <RequestContent />}
+          {selectMenu === '내 프로필' && <MenteeMyProfile />}
+          {selectMenu === '작성한 후기' && <ReviewContent />}
           {selectMenu === '상담내역' && <HistoryContent />}   
         </Contentcontainer>
       </Container>
@@ -105,4 +105,4 @@ const ProfileImage = styled.img`
 `;
 
 
-export default MyPageMentor;
+export default MyPageMentee;
