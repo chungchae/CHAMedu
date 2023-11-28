@@ -6,18 +6,29 @@ import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
-import { Button, Typography } from "antd";
+import NoteIcon from "../../assets/images/note_icon.png";
+import { Button, Typography, Tag } from "antd";
 import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
-import NoteIcon from "../../assets/images/note_icon.png";
+import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
+import Bunting from "../../assets/images/buntingIcon.png";
+import { getDepartmentColor } from "../../utils/color";
 
 const MentorDetailPageMentee = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
+  const [modalReserveOpen, setModalReserveOpen] = useState(false);
+  const openReserveModal = () => {
+    setModalReserveOpen(true);
   };
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeReserveModal = () => {
+    setModalReserveOpen(false);
+  };
+
+  const [modalReviewOpen, setModalReviewOpen] = useState(false);
+  const openReviewModal = () => {
+    setModalReviewOpen(true);
+  };
+  const closeReviewModal = () => {
+    setModalReviewOpen(false);
   };
 
   return (
@@ -26,6 +37,7 @@ const MentorDetailPageMentee = () => {
       <Container>
         <Profilecontainer>
           <Mentorcontainer>
+            <BuntingImg src={Bunting} alt='Bunting Icon' />
             <MentorProfileImg src={ProfileImg} />
             <RateContainer>
               <RateStarImg src={StarIcon}></RateStarImg>
@@ -34,7 +46,11 @@ const MentorDetailPageMentee = () => {
             </RateContainer>
           </Mentorcontainer>
           <Infocontainer>
-            <MentorNameTypo>치와와교수</MentorNameTypo>
+            <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
+              <MentorNameTypo>치와와교수</MentorNameTypo>
+              <DepartmentTag color={"#99DDEC"}>논술</DepartmentTag>
+            </div>
+
             <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
             <MentorIntroTypo>
               서울 수도권 대학 6개 논술 지원해 전부 합격했습니다. 과탐 논술은
@@ -43,8 +59,13 @@ const MentorDetailPageMentee = () => {
               분 환영합니다.
             </MentorIntroTypo>
             <ButtonContainer>
-              <ReserveButton onClick={openModal} />
-              <MentorReserveModal isOpen={modalOpen} closeModal={closeModal} />
+              <ReserveButton onClick={openReserveModal}>
+                상담 예약하기 →
+              </ReserveButton>
+              <MentorReserveModal
+                isOpen={modalReserveOpen}
+                closeModal={closeReserveModal}
+              />
             </ButtonContainer>
           </Infocontainer>
         </Profilecontainer>
@@ -54,9 +75,13 @@ const MentorDetailPageMentee = () => {
               <IconImg src={NoteIcon} />
               <ReviewTypo2>후기 26개</ReviewTypo2>
             </div>
-            <WriteReviewButtonContainer>
+            <WriteReviewButtonContainer onClick={openReviewModal}>
               <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
             </WriteReviewButtonContainer>
+            <MentorReviewModal
+              isOpen={modalReviewOpen}
+              closeModal={closeReviewModal}
+            />
           </TextContainer>
           <ReviewSlider />
         </Reviewcontainer>
@@ -74,14 +99,24 @@ const Root = styled.div`
   position: relative;
   background-color: ${GRAY.LIGHT};
 `;
+
 const Container = styled.div`
   flex-direction: column;
   width: ${CONTAINER_WIDTH}px;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30px;
+`;
+
+const BuntingImg = styled.img`
+  width: 50px;
+  height: 60px;
+  position: absolute;
+  left: 100px;
 `;
 
 const Profilecontainer = styled.div`
+  position: relative;
   background-color: white;
   display: flex;
   margin: 30px 0px;
@@ -91,7 +126,7 @@ const Profilecontainer = styled.div`
 
 const Reviewcontainer = styled.div`
   padding: 20px 0px;
-  `;
+`;
 
 const Mentorcontainer = styled.div`
   width: 100%;
@@ -103,8 +138,19 @@ const Mentorcontainer = styled.div`
 `;
 
 const Infocontainer = styled.div`
-padding: 10px;
+  position: relative;
+  padding: 10px;
   flex-direction: column;
+`;
+
+const DepartmentTag = styled(Tag)`
+display: flex;
+align-items: center;
+height: 27px;
+border: none;
+font-size: 14px;
+color: white;
+font-family: "esamanru";
 `;
 
 const MentorProfileImg = styled.img`
@@ -164,6 +210,7 @@ const MentorNameTypo = styled(Typography)`
   font-family: "esamanru";
   font-weight: 700;
   padding-bottom: 7px;
+  padding-right: 10px;
 `;
 
 const MentorEducationTypo = styled(Typography)`
@@ -179,11 +226,7 @@ const MentorIntroTypo = styled(Typography)`
   font-weight: 100;
 `;
 
-const ButtonContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  justify-content: flex-end;
-`;
+const ButtonContainer = styled.div``;
 
 const TextContainer = styled.div`
   display: flex;
@@ -200,14 +243,20 @@ const IconImg = styled.img`
 `;
 
 const ReserveButton = styled(Button)`
-  color: ${PRIMARY.DEFAULT};
+  background-color: ${PRIMARY.DEFAULT};
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+
   &:hover {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
-  }
-  &:focus {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
+    background-color: ${PRIMARY.LIGHT};
   }
 `;
 

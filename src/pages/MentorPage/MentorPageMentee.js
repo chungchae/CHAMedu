@@ -10,18 +10,21 @@ import NoteIcon from "../../assets/images/note_icon.png";
 import MentorCard from "../../components/Mentor/MentorCard";
 import MentorSmaple from "../../constants/json/mentor_list_sample.json";
 import camelizeKey from "../../utils/camelizeKey";
+import Search from "antd/es/input/Search";
 
 const MentorPageMentee = () => {
   const mentorList = camelizeKey(MentorSmaple.mentor_list);
   console.log(mentorList);
-  
 
   return (
     <Root>
       <Header />
       <Container>
         <SearchContainer>
-          <SearchBox placeholder="멘토를 검색해보세요!"/>
+          <SearchBox 
+          placeholder='멘토를 검색해보세요!' /* onSearch={} */ 
+          /* onPressEnter={} */
+          />
         </SearchContainer>
         <TitleContainer>
           <MentorIcon src={FlameIcon} alt='인기 멘토 아이콘'></MentorIcon>
@@ -134,16 +137,14 @@ const MentorIcon = styled.img`
   padding-right: 7px;
 `;
 
-const SearchBox = styled(Input)`
-  &:hover {
-    border-color: ${PRIMARY.DEFAULT};
-    box-shadow: 0 0 0 2px ${PRIMARY.DEFAULT}20;
-  }
-  &:focus {
-    border-color: ${PRIMARY.DEFAULT};
-    box-shadow: 0 0 0 2px ${PRIMARY.DEFAULT}20;
+const SearchBox = styled(Search)`
+  .ant-input {
+    &:hover,
+    &:focus {
+      border-color: ${PRIMARY.DEFAULT};
+      box-shadow: 0 0 0 2px ${PRIMARY.DEFAULT}20;
+    }
   }
 `;
-
 
 export default MentorPageMentee;

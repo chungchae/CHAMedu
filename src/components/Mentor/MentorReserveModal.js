@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import ProImg from "../../assets/images/profile.png";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button, Typography } from "antd";
+import { Typography } from "antd";
 
 const MentorReserveModal = ({ isOpen, closeModal }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -70,11 +70,11 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 locale='pt-BR'
-                /* showTimeSelect */
                 timeFormat='p'
                 timeIntervals={30}
                 dateFormat='Pp'
                 inline
+                minDate={new Date()}
               />
             </DatePickerContainer>
             <TimeContainer>
@@ -91,8 +91,8 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
                 ))}
               </TimeSelection>
               <MenuTypo>선택한 시간</MenuTypo>
-              <SelectedTime>{startDate.toLocaleString()}</SelectedTime>
-              <ReserveButton>상담 신청하기</ReserveButton>
+              <SelectedTime>{startDate.toLocaleString().slice(0, -3)}</SelectedTime>
+              <ReserveButtonStyled>상담 신청하기 →</ReserveButtonStyled>
             </TimeContainer>
           </DateContainer>
         </Container>
@@ -106,6 +106,23 @@ const Root = styled.div`
   height: 600px;
   position: relative;
 `;
+
+const Modalstyle = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    padding: "20px",
+    borderRadius: "10px",
+    marginTop: "35px",
+  },
+};
 
 const Container = styled.div`
   width: 100%;
@@ -195,22 +212,6 @@ const SelectedTime = styled.div`
   font-size: 16px;
 `;
 
-const Modalstyle = {
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: "20px",
-    borderRadius: "10px",
-    marginTop: "35px",
-  },
-};
 
 const TitleTypo = styled(Typography)`
   font-family: "esamanru";
@@ -238,7 +239,21 @@ const MenuTypo = styled(Typography)`
   font-size: 18px;
 `;
 
-const ReserveButton = styled(Button)`
-`
+const ReserveButtonStyled = styled.button`
+  background-color: ${PRIMARY.DEFAULT};
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px; 
+  right: 20px; 
+
+  &:hover {
+    background-color: ${PRIMARY.LIGHT};
+  }
+`;
+
 
 export default MentorReserveModal;

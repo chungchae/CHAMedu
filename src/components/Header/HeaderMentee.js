@@ -20,6 +20,10 @@ const HeaderMentee = () => {
     navigate('/user/mentor')
   }
 
+  const onClickChargeButton = () => {
+    navigate('/mentee/charge')
+  }
+
  
   return (
     <Container>
@@ -37,7 +41,7 @@ const HeaderMentee = () => {
           <ChamContainer>
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>370 CHAM</ChamTypo>
-            <PlusIcon/>
+            <PlusIcon onClick={onClickChargeButton}/>
           </ChamContainer>
           <ProImg src={ProfileImg} alt={"프로필 이미지"}></ProImg>
         </HeaderContainer>
