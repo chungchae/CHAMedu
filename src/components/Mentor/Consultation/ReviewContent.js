@@ -1,8 +1,20 @@
-import styled from "styled-components";
-import React from 'react';
 import Person from "../../../assets/images/mypage_person.png";
+import React from "react";
+import { useState } from "react";
+import { GRAY, PRIMARY } from "../../../colors";
+import styled from "styled-components";
+import { Button, Typography, Tag } from "antd";
+import MentorReviewModal from "../../../components/Mentor/MentorReviewModal";
 
 const ReviewContent = () => {
+  const [modalReviewOpen, setModalReviewOpen] = useState(false);
+  const openReviewModal = () => {
+    setModalReviewOpen(true);
+  };
+  const closeReviewModal = () => {
+    setModalReviewOpen(false);
+  };
+
   const imageList = [
     {
       imageName: Person,
@@ -50,16 +62,36 @@ const ReviewContent = () => {
                 </RequestUserWrapper>
 
                 <RequestButtonWrapper>
-                  <RequestButton1 onClick={image.onAccept}>수락</RequestButton1>
-                  <RequestButton2 onClick={image.onReject}>거절</RequestButton2>
+                <WriteReviewButtonContainer onClick={openReviewModal}>
+                <WriteReviewTypo>작성한 후기 보기</WriteReviewTypo>
+              </WriteReviewButtonContainer>
+               
                 </RequestButtonWrapper>
+                <MentorReviewModal
+              isOpen={modalReviewOpen}
+              closeModal={closeReviewModal}
+               />
               </RequestWrapper>  
             ))}
           </RoundedBox>
           </>
     );
 }
-
+const WriteReviewButtonContainer = styled.div`
+  cursor: pointer;
+`;
+const WriteReviewTypo = styled(Typography)`
+  font-family: "esamanru";
+  background-color: #E9E9E9;
+  padding: 12px; /* Adjust padding as needed */
+  width: 120px; /* Set the desired width */
+  border-radius: 15px;
+  font-size: 13px; /* Adjust font size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+`;
 const RoundedBox = styled.div`
   background-color: white;
   height: auto;
@@ -78,19 +110,7 @@ const HeaderText = styled.div`
 `;
 
 
-const RequestButton2 = styled.div`
-  background-color: #C4C4C4;
-  padding: 10px;
-  color: #fff;
-  border-radius: 15px;
-`;
 
-const RequestButton1 = styled.div`
-  background-color: #89CC8B;
-  padding: 10px;
-  color: #fff;
-  border-radius: 15px;
-`;
 
 const RequestImageWrapper = styled.div`
     display: inline-flex;
@@ -122,5 +142,15 @@ const RequestWrapper = styled.div`
     justify-content: space-between;
     font-weight: 900;
 `;
-
+const RequestButton1 = styled.div`
+  background-color: #E9E9E9;
+  padding: 12px; /* Adjust padding as needed */
+  width: 110px; /* Set the desired width */
+  border-radius: 15px;
+  font-size: 15px; /* Adjust font size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
 export default ReviewContent;

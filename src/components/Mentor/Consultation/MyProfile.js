@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import React, {useState} from 'react';
-import { Button, Typography } from "antd";
+import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
 import MentorReserveModal from "../MentorReserveModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import ReviewSlider from "../ReviewSlider";
+
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
 import {GRAY, PRIMARY} from '../../../colors';
 
@@ -35,8 +36,12 @@ const MyProfile = () => {
                 </RateContainer>
                 </Mentorcontainer>
                 <Infocontainer>
-                <MentorNameTypo>치와와교수</MentorNameTypo>
-                <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
+                <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
+                 <MentorNameTypo>치와와교수</MentorNameTypo>
+                 <DepartmentTag color={"#99DDEC"}>논술</DepartmentTag>
+               </div>
+
+            <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
                 <MentorIntroTypo>
                     서울 수도권 대학 6개 논술 지원해 전부 합격했습니다. 과탐 논술은
                     물리 기하 및 벡터는 거의 공부 안하고 기출만 풀었어요. 친절하고
@@ -126,6 +131,15 @@ const RateContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const DepartmentTag = styled(Tag)`
+display: flex;
+align-items: center;
+height: 27px;
+border: none;
+font-size: 14px;
+color: white;
+font-family: "esamanru";
+`;
 
 const RateStarImg = styled.img`
   width: 20px;
@@ -167,6 +181,7 @@ const MentorNameTypo = styled(Typography)`
   font-family: "esamanru";
   font-weight: 700;
   padding-bottom: 7px;
+  padding-right: 10px;
 `;
 
 const MentorEducationTypo = styled(Typography)`
