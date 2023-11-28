@@ -36,7 +36,7 @@ const HeaderGuest = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 400;
+  height: ${HEADER_HEIGHT}px;
   background-color: white;
   display: flex;
   border-bottom: 1px #c9c9c9 solid;

@@ -94,7 +94,6 @@ const MenuContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
 `;

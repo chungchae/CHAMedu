@@ -49,12 +49,8 @@ root.render(
         <Route path='/welcome/join' element={<WelcomePage />} />
         <Route path='/mentor/request' element={<MentorPage />} />
         <Route path='/mentee/charge' element={<PointChargePage />} />
-<<<<<<< HEAD
         <Route path='/mentee/charge' element={<PointChargePage />} />
         <Route path='/mentorlist' element={<MentorListPage />} />
-=======
-
->>>>>>> 5a14ce0a3bd11eea6ed2907490ada2912f996273
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
