@@ -19,13 +19,34 @@ const PointChargePage = () => {
           <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>100 CHAM</ChamTypo>
-            <WonTypo>1000 원</WonTypo>
+            <WonTypo>10000 원</WonTypo>
+          </div>
+          <ChargeContainer>
+            <ChargeTypo>결제하기</ChargeTypo>
+          </ChargeContainer>
+        </MenuContainer>
+        <MenuContainer>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            <ChamImg src={ChamIcon}></ChamImg>
+            <ChamTypo>500 CHAM</ChamTypo>
+            <WonTypo>45000 원</WonTypo>
+          </div>
+          <ChargeContainer>
+            <ChargeTypo>결제하기</ChargeTypo>
+          </ChargeContainer>
+        </MenuContainer>
+        <MenuContainer>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            <ChamImg src={ChamIcon}></ChamImg>
+            <ChamTypo>1000 CHAM</ChamTypo>
+            <WonTypo>90000 원</WonTypo>
           </div>
           <ChargeContainer>
             <ChargeTypo>결제하기</ChargeTypo>
           </ChargeContainer>
         </MenuContainer>
       </Container>
+      
     </Root>
   );
 };
@@ -62,6 +83,8 @@ const MenuContainer = styled.div`
   border-radius: 20px;
   border: 1px solid ${GRAY.DEFAULT};
   justify-content: space-between;
+  padding: 0px 5px;
+  margin-top: 13px;
 `;
 const ChargeContainer = styled.div`
   cursor: pointer;
@@ -70,6 +93,7 @@ const ChargeContainer = styled.div`
 const MenuTypo = styled(Typography)`
   font-size: 18px;
   font-weight: 700;
+  padding-bottom: 10px;
 `;
 
 const ChamTypo = styled(Typography)`
@@ -84,8 +108,10 @@ const WonTypo = styled(Typography)`
 `;
 
 const ChargeTypo = styled(Typography)`
+  color: ${GRAY.DEFAULT};
   font-size: 18px;
   text-decoration: underline;
+  padding-right: 5px;
 `;
 
 const ChamImg = styled.img`

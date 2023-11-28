@@ -1,4 +1,4 @@
-export const getDepartmentColor = (value) => {
+export const getAdmissionColor = (value) => {
   if (value === '논술') {
     return '#99DDEC';
   }

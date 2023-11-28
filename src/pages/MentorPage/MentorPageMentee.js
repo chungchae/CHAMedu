@@ -1,16 +1,14 @@
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
-import { GRAY, PRIMARY } from "../../colors";
+import { GRAY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
-import { Card, Input, Typography } from "antd";
-import ProImg from "../../assets/images/profile.png";
+import { Typography } from "antd";
 import FlameIcon from "../../assets/images/flame_icon.png";
 import ThumbIcon from "../../assets/images/thumbs_icon.png";
 import NoteIcon from "../../assets/images/note_icon.png";
 import MentorCard from "../../components/Mentor/MentorCard";
 import MentorSmaple from "../../constants/json/mentor_list_sample.json";
 import camelizeKey from "../../utils/camelizeKey";
-import Search from "antd/es/input/Search";
 
 const MentorPageMentee = () => {
   const mentorList = camelizeKey(MentorSmaple.mentor_list);
@@ -20,12 +18,6 @@ const MentorPageMentee = () => {
     <Root>
       <Header />
       <Container>
-        <SearchContainer>
-          <SearchBox 
-          placeholder='멘토를 검색해보세요!' /* onSearch={} */ 
-          /* onPressEnter={} */
-          />
-        </SearchContainer>
         <TitleContainer>
           <MentorIcon src={FlameIcon} alt='인기 멘토 아이콘'></MentorIcon>
           <MentorTypo>인기 멘토</MentorTypo>
@@ -43,14 +35,14 @@ const MentorPageMentee = () => {
           <MentorIcon src={ThumbIcon} alt='인기 멘토 아이콘'></MentorIcon>
           <MentorTypo>내 전형 추천 멘토</MentorTypo>
         </TitleContainer>
-        <DepartmentMentorContainer>
+        <AdmissionMentorContainer>
           {mentorList.slice(0, 4).map((MentorItem) => (
             <MentorCard
               MentorItem={MentorItem}
               key={`mentor_card_${MentorItem.key}`}
             />
           ))}
-        </DepartmentMentorContainer>
+        </AdmissionMentorContainer>
 
         <TitleContainer>
           <MentorIcon src={NoteIcon} alt='인기 멘토 아이콘'></MentorIcon>
@@ -84,14 +76,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-const SearchContainer = styled.div`
-  width: 70%;
-  height: 50px;
-  padding: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding-top: 30px;
 `;
 
 const PopularMentorContainer = styled.div`
@@ -102,7 +87,7 @@ const PopularMentorContainer = styled.div`
   padding-bottom: 50px;
 `;
 
-const DepartmentMentorContainer = styled.div`
+const AdmissionMentorContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 15px;
@@ -135,16 +120,6 @@ const MentorIcon = styled.img`
   width: 25px;
   height: 25px;
   padding-right: 7px;
-`;
-
-const SearchBox = styled(Search)`
-  .ant-input {
-    &:hover,
-    &:focus {
-      border-color: ${PRIMARY.DEFAULT};
-      box-shadow: 0 0 0 2px ${PRIMARY.DEFAULT}20;
-    }
-  }
 `;
 
 export default MentorPageMentee;

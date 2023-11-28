@@ -12,7 +12,7 @@ import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
 import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 import Bunting from "../../assets/images/buntingIcon.png";
-import { getDepartmentColor } from "../../utils/color";
+import { getAdmissionColor } from "../../utils/color";
 
 const MentorDetailPageMentee = () => {
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
@@ -48,7 +48,7 @@ const MentorDetailPageMentee = () => {
           <Infocontainer>
             <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
               <MentorNameTypo>치와와교수</MentorNameTypo>
-              <DepartmentTag color={"#99DDEC"}>논술</DepartmentTag>
+              <AdmissionTag color={"#99DDEC"}>논술</AdmissionTag>
             </div>
 
             <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
@@ -143,7 +143,7 @@ const Infocontainer = styled.div`
   flex-direction: column;
 `;
 
-const DepartmentTag = styled(Tag)`
+const AdmissionTag = styled(Tag)`
 display: flex;
 align-items: center;
 height: 27px;

@@ -4,7 +4,7 @@ import { Card, Tag } from "antd";
 import styled from "styled-components";
 import { GRAY } from "../../colors";
 import Bunting from "../../assets/images/buntingIcon.png";
-import { getDepartmentColor } from "../../utils/color";
+import { getAdmissionColor } from "../../utils/color";
 
 const MentorCard = ({ className, MentorItem }) => {
   const navigate = useNavigate();
@@ -38,12 +38,12 @@ const MentorCard = ({ className, MentorItem }) => {
         <CardDescription>
           {MentorItem ? `${MentorItem.education}` : "멘토 학력"}
         </CardDescription>
-        <DepartmentTag
-          color={getDepartmentColor(MentorItem.department)}
+        <AdmissionTag
+          color={getAdmissionColor(MentorItem.admission)}
           /* 멘토의 분야를 태그로 표시 */
         >
-          {MentorItem.department}
-        </DepartmentTag>
+          {MentorItem.admission}
+        </AdmissionTag>
       </Root>
     </div>
   );
@@ -81,7 +81,7 @@ const RepresentativeImg = styled.img`
   object-fit: cover;
 `;
 
-const DepartmentTag = styled(Tag)`
+const AdmissionTag = styled(Tag)`
 position: absolute;
 top: 10px;
 left: 10px;
