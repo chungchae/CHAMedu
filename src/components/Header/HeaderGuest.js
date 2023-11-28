@@ -75,13 +75,14 @@ const LogoImg = styled.img`
   padding-right: 10px;
   padding-top:20px;
   padding-bottom:20px;
+  cursor: pointer;
 `;
 
 const LogoTypo = styled(Typography)`
   font-size: 30;
   font-weight: 700;
   font-family: "esamanru";
-  
+  cursor: pointer;
 `;
 
 const LoginButton = styled(Button)`

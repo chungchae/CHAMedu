@@ -6,9 +6,16 @@ import { GRAY } from "../../../colors";
 import Profile from "../../../assets/images/mypage_profile.png";
 import Request from "../../../assets/images/mypage_request.png";
 import List from "../../../assets/images/mypage_list.png";
+<<<<<<< HEAD
 import RequestContent from "../../../components/Mentor/Consultation/RequestContent";
 import HistoryContent from "../../../components/Mentor/Consultation/HistoryContent";
 import MyProfile from "../../../components/Mentor/Consultation/MyProfile";
+=======
+import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
+import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
+import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
+import { useNavigate } from 'react-router-dom'
+>>>>>>> 5a14ce0a3bd11eea6ed2907490ada2912f996273
 
 const MyPageMentor = () => {
   const [selectMenu, setSelectMenu] = useState("내 프로필");
@@ -25,7 +32,7 @@ const MyPageMentor = () => {
             isSelected={selectMenu === "내 프로필"}
           >
             <SidebarContent>
-              <ProfileImage src={Profile} alt='My Profile' />내 프로필
+              <ProfileImage src={Profile} alt="My Profile" />   내 프로필
             </SidebarContent>
           </Sidebar>
           <Sidebar
@@ -35,8 +42,8 @@ const MyPageMentor = () => {
             isSelected={selectMenu === "상담요청"}
           >
             <SidebarContent>
-              <ProfileImage src={Request} alt='Consult Request' />
-              <div style={{display: 'flex', alignItems: 'center'}}>상담요청</div>
+              <ProfileImage src={Request} alt="Consult Request" />
+                 상담요청
             </SidebarContent>
           </Sidebar>
           <Sidebar
@@ -46,8 +53,8 @@ const MyPageMentor = () => {
             isSelected={selectMenu === "상담내역"}
           >
             <SidebarContent>
-              <ProfileImage src={List} alt='Consult List' />
-              상담내역
+              <ProfileImage src={List} alt="Consult List" />
+                 상담내역
             </SidebarContent>
           </Sidebar>
         </TabContainer>
@@ -94,23 +101,29 @@ const Sidebar = styled.div`
   box-sizing: border-box;
   font-family: "esamanru";
   margin-bottom: 10px;
+  cursor: pointer;
   &:hover {
     background: #f2f2f2;
     border-radius: 20px;
   }
 `;
 
+
 const SidebarContent = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   font-family: "esamanru";
-  align-items: flex-end;
+  padding: 10px;
+  margin-left: 10px;
+
 `;
 
 const ProfileImage = styled.img`
   width: 30px;
   height: 30px;
+  margin-right: 10px;
+  padding-left: 10px;
+
 `;
 
 export default MyPageMentor;

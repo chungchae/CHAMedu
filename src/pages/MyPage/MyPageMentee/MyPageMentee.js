@@ -6,11 +6,13 @@ import { GRAY } from "../../../colors";
 import Profile from "../../../assets/images/mypage_profile.png";
 import Request from "../../../assets/images/mypage_request.png";
 import List from "../../../assets/images/mypage_list.png";
-import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
+import ReviewContent from '../../../components/Mentor/Consultation/ReviewContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
+import MenteeMyProfile from '../../../components/Mentor/Consultation/MenteeMyProfile';
+import { useNavigate } from 'react-router-dom'
 
-const MyPageRecordMentee = () => {
-  const [selectMenu, setSelectMenu] = useState('');
+const MyPageMentee = () => {
+  const [selectMenu, setSelectMenu] = useState('내 프로필');
   
   return (
     <Root>
@@ -19,26 +21,26 @@ const MyPageRecordMentee = () => {
         <TabContainer>
           <Sidebar onClick={() => {setSelectMenu('내 프로필')}} isSelected={selectMenu === '내 프로필'}>
             <SidebarContent>
-              <ProfileImage src={Profile} alt="My Profile" />내 프로필
+              <ProfileImage src={Profile} alt="My Profile" />   내 프로필
             </SidebarContent>
           </Sidebar>
-          <Sidebar onClick={() => {setSelectMenu('상담요청')}} isSelected={selectMenu === '상담요청'}>
+          <Sidebar onClick={() => {setSelectMenu('작성한 후기')}} isSelected={selectMenu === '작성한 후기'}>
             <SidebarContent>
               <ProfileImage src={Request} alt="Consult Request" />
-              상담요청
+                 작성한 후기
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('상담내역')}} isSelected={selectMenu === '상담내역'}>
             <SidebarContent>
               <ProfileImage src={List} alt="Consult List" />
-              상담내역
+                 상담내역
             </SidebarContent>
           </Sidebar>
         </TabContainer>
         <Contentcontainer>
           {/* 컴포넌트 분리 */}
-          {selectMenu === '내 프로필' && <></>}
-          {selectMenu === '상담요청' && <RequestContent />}
+          {selectMenu === '내 프로필' && <MenteeMyProfile />}
+          {selectMenu === '작성한 후기' && <ReviewContent />}
           {selectMenu === '상담내역' && <HistoryContent />}   
         </Contentcontainer>
       </Container>
@@ -88,19 +90,22 @@ const Sidebar = styled.div`
 `;
 
 const SidebarContent = styled.div`
-     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: "esamanru";
-    padding-top: 10px;
-        align-items: flex-end;
+  display: flex;
+  align-items: center;
+  font-family: "esamanru";
+  padding: 10px;
+  margin-left: 10px;
+
 `;
 
 const ProfileImage = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  padding-left: 10px;
+
 `;
 
 
-export default MyPageRecordMentee;
+
+export default MyPageMentee;

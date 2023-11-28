@@ -11,12 +11,13 @@ const MenteeJoinPage = () => {
     navigate('/welcome/join')
   }
 
-  const infoList = ['이름', '닉네임', '아이디', '비밀번호']
+  const infoList = ['이름', '닉네임', '아이디', '비밀번호', '희망 대학교']
   const placeholderList = [
     '실명을 입력해주세요',
     '닉네임을 입력해주세요',
     '영문/숫자조합 8자 이상 20자 이하',
     '영문/숫자조합 8자 이상 20자 이하',
+    '입력해주세요',
   ]
 
   const [selectedHigh, setSelectedHigh] = useState('')
@@ -58,7 +59,7 @@ const MenteeJoinPage = () => {
             )
           }
         })}
-        <InfoWrapper>
+        {/* <InfoWrapper>
           <InfoTitle>휴대폰 번호</InfoTitle>
           <BigSelect
             value={selectedPhone}
@@ -73,29 +74,29 @@ const MenteeJoinPage = () => {
             <option value="option3">019</option>
           </BigSelect>{' '}
           ㅡ <SmallInput></SmallInput> ㅡ <SmallInput></SmallInput>
-        </InfoWrapper>
+        </InfoWrapper> */}
         <InfoWrapper>
-          <InfoTitle>고등학교</InfoTitle>
+          <InfoTitle>희망 단과대</InfoTitle>
           <BigSelect value={selectedHigh} onChange={handleHigh} defaultValue="">
             <option value="" disabled hidden>
               선택
             </option>
-            <option value="option1">뿌잉고</option>
-            <option value="option2">뽀잉고</option>
-            <option value="option3">뚜잉고</option>
+            <option value="option1">자연대</option>
+            <option value="option2">공대</option>
+            <option value="option3">문과대</option>
           </BigSelect>
         </InfoWrapper>
-        <InfoWrapper>
+        {/* <InfoWrapper>
           <InfoTitle>희망 대학교</InfoTitle>
-          <BigSelect value={selectedUniv} onChange={handleUniv} defaultValue="">
+         {  <BigSelect value={selectedUniv} onChange={handleUniv} defaultValue="">
             <option value="" disabled hidden>
               선택
             </option>
             <option value="option1">동국대</option>
             <option value="option2">홍익대</option>
             <option value="option3">단국대</option>
-          </BigSelect>
-        </InfoWrapper>
+          </BigSelect> }
+        </InfoWrapper> */}
         <InfoWrapper2></InfoWrapper2>
       </InfoListWrapper>
       <SignUp onClick={onSignUpClick}>회원가입</SignUp>

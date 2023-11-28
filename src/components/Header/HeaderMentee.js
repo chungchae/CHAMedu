@@ -27,7 +27,9 @@ const HeaderMentee = () => {
   const onClickChargeButton = () => {
     navigate('/mentee/charge')
   }
-
+  const onClickMyPageButton = () => {
+    navigate('/mentor/request')
+  }
  
   return (
     <Container>

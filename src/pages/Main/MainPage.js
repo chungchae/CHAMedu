@@ -7,8 +7,14 @@ import MainImg from "../../assets/images/main.png";
 import BottomImg1 from "../../assets/images/Bottom1.png";
 import BottomImg2 from "../../assets/images/Bottom2.png";
 import BottomImg3 from "../../assets/images/Bottom3.png";
+import { useNavigate } from 'react-router-dom'
+
 
 const MainPage = () => {
+  const navigate = useNavigate()
+const onClickJoinButton = () => {
+  navigate('/user/join')
+}
   return (
     <Root>
       <Header />
@@ -22,13 +28,14 @@ const MainPage = () => {
             <DivGray>
               CHAMedu 회원이 되어 입시 고민에 대한 이야기를 나눠보세요
             </DivGray>
-            <ButtonSignup
+           {/*  <ButtonSignup
               onClick={() => {
                 console.log("회원가입 누를 시 발생");
               }}
             >
               회원가입
-            </ButtonSignup>
+            </ButtonSignup> */}
+            <ButtonSignup onClick={onClickJoinButton}>회원가입</ButtonSignup>
           </ContentContainer>
           <Imgcontainer src={MainImg} alt={"메인 이미지"} />
         </MainContainer>
@@ -191,6 +198,7 @@ const ButtonSignup = styled.div`
   margin-bottom: 100px;
   font-size: 15px;
   font-family: "esamanru";
+  cursor: pointer;
 `;
 
 export default MainPage;

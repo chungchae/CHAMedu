@@ -8,8 +8,9 @@ import NoteIcon from "../../../assets/images/note_icon.png";
 import ReviewSlider from "../ReviewSlider";
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
 import {GRAY, PRIMARY} from '../../../colors';
+import Person from "../../../assets/images/mypage_person.png";
 
-const MyProfile = () => {
+const MenteeMyProfile = () => {
     const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -17,6 +18,36 @@ const MyProfile = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const imageList = [
+    {
+      imageName: Person,
+      name: "논술 전문가",
+      date: '2023-09-12',
+      time: '13:00~13:30',
+      title: '동국대학교 논술 문제유형관련 질문',
+      onAccept: () => console.log('Accepted 1'),
+      onReject: () => console.log('Rejected 1'),
+    },
+    {
+      imageName: Person,
+      name: "수시를 수시로",
+      date: '2023-10-15',
+      time: '20:00~20:30',
+      title: '논술 수학 범위 관련 질문',
+      onAccept: () => console.log('Accepted 1'),
+      onReject: () => console.log('Rejected 1'),
+    },
+    {
+        imageName: Person,
+        name: "논술을 논하라",
+        date: '2023-10-15',
+        time: '20:00~20:30',
+        title: '논술 공부 방법 질문',
+        onAccept: () => console.log('Accepted 1'),
+        onReject: () => console.log('Rejected 1'),
+      },
+    
+  ];
     return (
         <>
         <Time>
@@ -43,20 +74,35 @@ const MyProfile = () => {
                     성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
                     분 환영합니다.
                 </MentorIntroTypo>
-                
+                <ButtonContainer>
+                    <ReserveButton onClick={openModal} />
+                    <MentorReserveModal isOpen={modalOpen} closeModal={closeModal} />
+                </ButtonContainer>
                 </Infocontainer>
             </Profilecontainer>
-            <Reviewcontainer>
-                <TextContainer>
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                    <IconImg src={NoteIcon} />
-                    <ReviewTypo2>후기 26개</ReviewTypo2>
-                </div>
-                
-                </TextContainer>
-                <ReviewSlider />
-            </Reviewcontainer>
+            <RoundedBox>
+            <HeaderText>상담 내역</HeaderText>
+            {imageList.map((image, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt="Image"/>
+                    <div>{image.name}</div>
+                  </RequestImageWrapper>
+                  <div>{image.date}</div>
+                  <div>{image.time}</div>
+                  <div>{image.title}</div>
+                </RequestUserWrapper>
+
+                <RequestButtonWrapper>
+                  <RequestButton1 onClick={image.onAccept}>요청됨</RequestButton1>
+                  
+                </RequestButtonWrapper>
+              </RequestWrapper>  
+            ))}
+          </RoundedBox>
             </Container>
+            
         </>
     );
 }
@@ -92,9 +138,7 @@ const Profilecontainer = styled.div`
   padding: 40px;
 `;
 
-const Reviewcontainer = styled.div`
-  padding: 20px 0px;
-  `;
+
 
 const Mentorcontainer = styled.div`
   width: 100%;
@@ -146,22 +190,6 @@ const ReviewTypo = styled(Typography)`
   color: ${GRAY.DARK};
 `;
 
-const ReviewTypo2 = styled(Typography)`
-  font-size: 18px;
-  font-family: "esamanru";
-`;
-
-const WriteReviewButtonContainer = styled.div`
-  cursor: pointer;
-`;
-
-const WriteReviewTypo = styled(Typography)`
-  font-size: 18px;
-  font-family: "esamanru";
-  text-decoration: underline;
-  color: ${GRAY.DARK};
-`;
-
 const MentorNameTypo = styled(Typography)`
   font-size: 18px;
   font-family: "esamanru";
@@ -188,12 +216,6 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const TextContainer = styled.div`
-  display: flex;
-  flex-direction: "row";
-  width: 100%;
-  justify-content: space-between;
-`;
 
 const IconImg = styled.img`
   margin-right: 5px;
@@ -213,4 +235,66 @@ const ReserveButton = styled(Button)`
     border-color: ${PRIMARY.DEFAULT}!important;
   }
 `;
-export default MyProfile;
+const RoundedBox = styled.div`
+  background-color: white;
+  height: auto;
+  width: calc(100% - 150px);
+  margin-top: 10px;
+  margin-left: 1px;
+  padding-right: 148px;
+  border-radius: 20px;
+`;
+const HeaderText = styled.div`
+  font-size: 14px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 35px;
+  font-family: "esamanru";
+`;
+
+
+
+const RequestButton1 = styled.div`
+  background-color: #E9E9E9;
+  padding: 15px; /* Adjust padding as needed */
+  width: 50px; /* Set the desired width */
+  border-radius: 15px;
+  font-size: 15px; /* Adjust font size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const RequestImageWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+`;
+
+const RequestUserWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+    gap:30px;
+
+`;
+
+const RequestButtonWrapper = styled.div`
+  display: inline-flex;
+    gap: 10px;
+`;
+
+const RequestImage = styled.img``;
+
+const RequestWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+    width: 103%;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 20px;
+    margin-left: 30px;
+    justify-content: space-between;
+    font-weight: 900;
+`;
+
+export default MenteeMyProfile;
