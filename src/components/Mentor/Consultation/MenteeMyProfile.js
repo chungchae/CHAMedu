@@ -95,8 +95,8 @@ const MenteeMyProfile = () => {
                 </RequestUserWrapper>
 
                 <RequestButtonWrapper>
-                  <RequestButton1 onClick={image.onAccept}>수락</RequestButton1>
-                  <RequestButton2 onClick={image.onReject}>거절</RequestButton2>
+                  <RequestButton1 onClick={image.onAccept}>요청됨</RequestButton1>
+                  
                 </RequestButtonWrapper>
               </RequestWrapper>  
             ))}
@@ -252,23 +252,21 @@ const HeaderText = styled.div`
   font-size: 14px;
   padding-top: 30px;
   padding-bottom: 30px;
-  padding-left: 20px;
+  padding-left: 35px;
   font-family: "esamanru";
 `;
 
 
-const RequestButton2 = styled.div`
-  background-color: #C4C4C4;
-  padding: 10px;
-  color: #fff;
-  border-radius: 15px;
-`;
 
 const RequestButton1 = styled.div`
-  background-color: #89CC8B;
-  padding: 10px;
-  color: #fff;
+  background-color: #E9E9E9;
+  padding: 15px; /* Adjust padding as needed */
+  width: 50px; /* Set the desired width */
   border-radius: 15px;
+  font-size: 15px; /* Adjust font size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RequestImageWrapper = styled.div`

@@ -21,19 +21,19 @@ const MyPageMentee = () => {
         <TabContainer>
           <Sidebar onClick={() => {setSelectMenu('내 프로필')}} isSelected={selectMenu === '내 프로필'}>
             <SidebarContent>
-              <ProfileImage src={Profile} alt="My Profile" />내 프로필
+              <ProfileImage src={Profile} alt="My Profile" />   내 프로필
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('작성한 후기')}} isSelected={selectMenu === '작성한 후기'}>
             <SidebarContent>
               <ProfileImage src={Request} alt="Consult Request" />
-              작성한 후기
+                 작성한 후기
             </SidebarContent>
           </Sidebar>
           <Sidebar onClick={() => {setSelectMenu('상담내역')}} isSelected={selectMenu === '상담내역'}>
             <SidebarContent>
               <ProfileImage src={List} alt="Consult List" />
-              상담내역
+                 상담내역
             </SidebarContent>
           </Sidebar>
         </TabContainer>
@@ -90,19 +90,22 @@ const Sidebar = styled.div`
 `;
 
 const SidebarContent = styled.div`
-     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: "esamanru";
-    padding-top: 10px;
-        align-items: flex-end;
+  display: flex;
+  align-items: center;
+  font-family: "esamanru";
+  padding: 10px;
+  margin-left: 10px;
+
 `;
 
 const ProfileImage = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  padding-left: 10px;
+
 `;
+
 
 
 export default MyPageMentee;
