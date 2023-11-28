@@ -42,7 +42,7 @@ const HeaderMentee = () => {
           <MenuContainer>
             <Menu type={"text"} onClick={onClickMentorButton}>추천 멘토</Menu>
             <Menu type={"text"} onClick={onClickListButton}>멘토 둘러보기</Menu>
-            <Menu type={"text"}>마이페이지</Menu>
+            <Menu type={"text"} onClick={onClickMyPageButton}>마이페이지</Menu>
             <LogoutButton type={"text"}>로그아웃</LogoutButton>
           </MenuContainer>
           <ChamContainer>
