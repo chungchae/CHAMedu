@@ -9,14 +9,18 @@ const MentorJoinPage = () => {
   const onSignUpClick = () => {
     navigate("/welcome/join");
   };
+  const [selectedHigh, setSelectedHigh] = useState('')
+  const handleHigh = (event) => {
+    setSelectedHigh(event.target.value)
+  }
 
-  const infoList = ["이름", "닉네임", "아이디", "비밀번호", "대학교"];
+  const infoList = ["이름", "닉네임", "아이디", "비밀번호", "대학교/전공"];
   const placeholderList = [
     "실명을 입력해주세요",
     "닉네임을 입력해주세요",
     "영문/숫자조합 8자 이상 20자 이하",
     "영문/숫자조합 8자 이상 20자 이하",
-    "입력해주세요",
+    "예) 동국대학교 컴퓨터공학과",
   ];
 
   const [selectedUniv, setSelectedUniv] = useState("");
@@ -54,6 +58,18 @@ const MentorJoinPage = () => {
             );
           }
         })}
+        <InfoWrapper>
+          <InfoTitle>전형</InfoTitle>
+          <BigSelect value={selectedHigh} onChange={handleHigh} defaultValue="">
+            <option value="" disabled hidden>
+              선택
+            </option>
+            <option value="option1">학종</option>
+            <option value="option2">정시</option>
+            <option value="option3">교과</option>
+            <option value="option4">논술</option>
+          </BigSelect>
+        </InfoWrapper>
        {/*  <InfoWrapper>
           <InfoTitle>휴대폰 번호</InfoTitle>
           <BigSelect
