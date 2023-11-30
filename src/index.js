@@ -9,10 +9,8 @@ import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
 import WelcomePage from "./pages/Login/WelcomePage";
 import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
-
 import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
-
 import PointChargePage from "./pages/Point/PointChargePage";
 import MentorListPage from "./pages/MentorPage/MentorListPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,7 +21,6 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<MainPage/>} />
         <Route path="/user/mentor" element={<MentorPageMentee/>} />
         <Route path="/user/mentor/:mentorKey" element={<MentorDetailPageMentee/>} />

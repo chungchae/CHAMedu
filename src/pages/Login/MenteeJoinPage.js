@@ -84,6 +84,7 @@ const MenteeJoinPage = () => {
             <option value="option1">자연대</option>
             <option value="option2">공대</option>
             <option value="option3">문과대</option>
+            
           </BigSelect>
         </InfoWrapper>
         {/* <InfoWrapper>

@@ -70,6 +70,8 @@ const HeaderText = styled.div`
 
 
 const RequestButton2 = styled.div`
+  font-family: "esamanru";
+  cursor: pointer;
   background-color: #C4C4C4;
   padding: 10px;
   color: #fff;
@@ -77,6 +79,8 @@ const RequestButton2 = styled.div`
 `;
 
 const RequestButton1 = styled.div`
+  font-family: "esamanru";
+  cursor: pointer;
   background-color: #89CC8B;
   padding: 10px;
   color: #fff;

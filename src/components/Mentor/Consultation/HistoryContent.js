@@ -67,11 +67,13 @@ const SubText = styled.div`
 `;
 
 const CompleteTrue = styled.div`
+    font-family: "esamanru";
     font-weight: 500;
     color: gray;
 `;
 
 const CompleteFalse = styled.div`
+    font-family: "esamanru";
     font-weight: 500;
     color: gray;
     text-decoration: underline;

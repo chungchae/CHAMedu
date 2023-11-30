@@ -3,15 +3,24 @@ import React, {useState} from 'react';
 import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
-import MentorReserveModal from "../MentorReserveModal";
+import MentorModifyModal from "../../../components/Mentor/MentorModifyModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import ReviewSlider from "../ReviewSlider";
+
 
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
 import {GRAY, PRIMARY} from '../../../colors';
 
 const MyProfile = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+  const [modalModifyOpen, setModalModifyOpen] = useState(false);
+  const openModifyModal = () => {
+    setModalModifyOpen(true);
+  };
+  const closeModifyModal = () => {
+    setModalModifyOpen(false);
+  };
+
+  const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -48,14 +57,22 @@ const MyProfile = () => {
                     성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
                     분 환영합니다.
                 </MentorIntroTypo>
-                
+                <ButtonContainer>
+                <ModifyButton onClick={openModifyModal}>
+                프로필 수정하기
+                </ModifyButton>
+                <MentorModifyModal
+                isOpen={modalModifyOpen}
+                closeModal={closeModifyModal}
+              />
+            </ButtonContainer>
                 </Infocontainer>
             </Profilecontainer>
             <Reviewcontainer>
                 <TextContainer>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <IconImg src={NoteIcon} />
-                    <ReviewTypo2>후기 26개</ReviewTypo2>
+                    <ReviewTypo2>예정된 상담</ReviewTypo2>
                 </div>
                 
                 </TextContainer>
@@ -165,16 +182,7 @@ const ReviewTypo2 = styled(Typography)`
   font-family: "esamanru";
 `;
 
-const WriteReviewButtonContainer = styled.div`
-  cursor: pointer;
-`;
 
-const WriteReviewTypo = styled(Typography)`
-  font-size: 18px;
-  font-family: "esamanru";
-  text-decoration: underline;
-  color: ${GRAY.DARK};
-`;
 
 const MentorNameTypo = styled(Typography)`
   font-size: 18px;
@@ -217,7 +225,9 @@ const IconImg = styled.img`
   object-fit: cover;
 `;
 
-const ReserveButton = styled(Button)`
+const ModifyButton = styled(Button)`
+  margin-left: 345px;
+  margin-top: 90px;
   color: ${PRIMARY.DEFAULT};
   &:hover {
     color: ${PRIMARY.DEFAULT}!important;

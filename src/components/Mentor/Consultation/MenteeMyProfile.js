@@ -57,13 +57,7 @@ const MenteeMyProfile = () => {
         </Time>
         <Container>
             <Profilecontainer>
-                <Mentorcontainer>
-                <MentorProfileImg src={ProfileImg} />
-                <RateContainer>
-                    <ReviewTypo>진행한 상담 105건</ReviewTypo>
-                    <ReviewTypo>작성한 후기 10건</ReviewTypo>
-                </RateContainer>
-                </Mentorcontainer>
+                
                 <Infocontainer>
                 <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
                  <MentorNameTypo>김몽실</MentorNameTypo>
@@ -118,6 +112,7 @@ const TimeSpan = styled.span`
     margin-left: 20px;
     color: gray;
     text-decoration: underline;
+    cursor: pointer;
 `;
 
 const Container = styled.div`
@@ -133,48 +128,16 @@ const Profilecontainer = styled.div`
   display: flex;
   margin: 30px 0px;
   border-radius: 20px;
-  padding: 40px;
+  padding: 30px;
 `;
 
 
-
-const Mentorcontainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
-  flex-direction: column;
-`;
 
 const Infocontainer = styled.div`
 padding: 10px;
   flex-direction: column;
 `;
 
-const MentorProfileImg = styled.img`
-  width: 500px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 200px;
-  padding: 0px 30px;
-  padding-bottom: 20px;
-`;
-const RateContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ReviewTypo = styled(Typography)`
-  font-size: 18px;
-  font-family: "esamanru";
-  color: ${GRAY.DARK};
-  padding-right: 25px;
-  padding-left: 15px;
-`;
 
 const MentorNameTypo = styled(Typography)`
   font-size: 18px;
