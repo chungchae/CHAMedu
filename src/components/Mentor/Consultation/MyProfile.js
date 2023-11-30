@@ -5,7 +5,7 @@ import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
 import MentorModifyModal from "../../../components/Mentor/MentorModifyModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
-import ReviewSlider from "../ReviewSlider";
+import Person from "../../../assets/images/mypage_person.png";
 
 
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
@@ -27,6 +27,27 @@ const MyProfile = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const imageList = [
+    {
+      imageName: Person,
+      name: "이한별",
+      date: '2023-11-14',
+      time: '13:00~13:30',
+      title: '동국대학교 논술 문제유형관련 질문',
+      onAccept: () => console.log('Accepted 1'),
+      onReject: () => console.log('Rejected 1'),
+    },
+    {
+      imageName: Person,
+      name: "홍길동",
+      date: '2023-12-14',
+      time: '20:00~20:30',
+      title: '논술 수학 범위 관련 질문',
+      onAccept: () => console.log('Accepted 1'),
+      onReject: () => console.log('Rejected 1'),
+    },
+    
+  ];
     return (
         <>
         <Time>
@@ -68,7 +89,7 @@ const MyProfile = () => {
             </ButtonContainer>
                 </Infocontainer>
             </Profilecontainer>
-            <Reviewcontainer>
+           
                 <TextContainer>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <IconImg src={NoteIcon} />
@@ -76,8 +97,26 @@ const MyProfile = () => {
                 </div>
                 
                 </TextContainer>
-                <ReviewSlider />
-            </Reviewcontainer>
+              <Waitingcontainer>
+            {imageList.map((image, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt="Image"/>
+                    <div>{image.name}</div>
+                  </RequestImageWrapper>
+                  <div>{image.date}</div>
+                  <div>{image.time}</div>
+                  <div>{image.title}</div>
+                </RequestUserWrapper>
+
+                
+              </RequestWrapper>  
+            ))}
+         
+        
+        
+         </Waitingcontainer>
             </Container>
         </>
     );
@@ -113,7 +152,12 @@ const Profilecontainer = styled.div`
   border-radius: 20px;
   padding: 40px;
 `;
-
+const Waitingcontainer = styled.div`
+  background-color: white;
+  margin: 30px 0px;
+  border-radius: 20px;
+  padding: 20px;
+`;
 const Reviewcontainer = styled.div`
   padding: 20px 0px;
   `;
@@ -238,4 +282,40 @@ const ModifyButton = styled(Button)`
     border-color: ${PRIMARY.DEFAULT}!important;
   }
 `;
+const RequestWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+    width: 95%;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 20px;
+    justify-content: space-between;
+    font-weight: 900;
+`;
+const RequestUserWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+    gap:30px;
+
+`;
+
+const RequestImageWrapper = styled.div`
+    display: inline-flex;
+    align-items: center;
+`;
+
+const RequestImage = styled.img``;
+
+const RoundedBox = styled.div`
+  background-color: white;
+  height: auto;
+  width: calc(100% - 150px);
+  margin-top: 10px;
+  margin-left: 50px;
+  padding-right: 50px;
+  border-radius: 20px;
+`;
+
+
 export default MyProfile;
