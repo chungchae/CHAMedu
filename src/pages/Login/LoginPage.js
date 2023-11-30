@@ -29,7 +29,8 @@ const LoginPage = () => {
   return (
     <Root>
       <Header />
-      <Container>CHAMedu</Container>
+      <Container>
+      <CHAMeduTypo>CHAMedu</CHAMeduTypo>
       <Subtitle>바른 교육의 출발, 지금 시작해보세요!</Subtitle>
 
       <LoginForm>
@@ -68,6 +69,7 @@ const LoginPage = () => {
           <ButtonSignup onClick={onClickJoinButton}>회원가입</ButtonSignup>
         </SignupTTTT>
       </LoginForm>
+      </Container>
     </Root>
   );
 };
@@ -95,20 +97,28 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
+  flex-direction: column;
   width: ${CONTAINER_WIDTH}px;
   display: flex;
   justify-content: center;
+  align-items: center;
   background: white;
-  font-size: 34px;
-  margin-top: 10px;
+`;
+
+const CHAMeduTypo = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
   color: #4caf4f;
+  font-weight: bold;
   font-family: "esamanru";
+  padding-top: 30px;
 `;
 
 const Subtitle = styled.div`
-  font-size: 16px;
+margin-top: 10px;
+  font-size: 20px;
   color: #4caf4f;
-  margin-top: 30px;
   margin-bottom: 50px;
   font-family: "esamanru";
 `;
