@@ -9,10 +9,8 @@ import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
 import WelcomePage from "./pages/Login/WelcomePage";
 import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
-
 import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
-
 import PointChargePage from "./pages/Point/PointChargePage";
 import MentorListPage from "./pages/MentorPage/MentorListPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
