@@ -6,17 +6,32 @@ import MentorCard from "../../components/Mentor/MentorCard";
 import MentorSmaple from "../../constants/json/mentor_list_sample.json";
 import camelizeKey from "../../utils/camelizeKey";
 import Search from "antd/es/input/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, ConfigProvider } from "antd";
+import axios from "axios";
 
 const MentorListPage = () => {
   const mentorList = camelizeKey(MentorSmaple.mentor_list); //멘토 샘플
-  console.log(mentorList);
+  console.log("망", mentorList);
 
   const [search, setSearch] = useState(""); //검색어
   const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
   const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
+  const [mentorList1, setMentorList1] = useState();
 
+  useEffect(() => {
+  const test = () => {
+    axios.get(`http://localhost:8080/mentor-profile-list`).then((res) => {
+      
+      setMentorList1(res.data.content);
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+  }
+  test();
+},[]);
+
+  console.log("파", mentorList1);
   //int 값으로 변경 필요
   const admissionOptions = [
     { value: "All", label: "All" },
@@ -86,13 +101,14 @@ const MentorListPage = () => {
             />
           </SelectContainer>
           <MentorCardContainer>
-            {filteredMentorListData.length === 0 ? (
+            {mentorList1?.length === 0 ? (
               <NoResultsMessage>검색 결과가 없습니다</NoResultsMessage>
             ) : (
-              filteredMentorListData.map((MentorItem) => (
+              mentorList1?.map((mentor, index) => (
                 <MentorCard
-                  MentorItem={MentorItem}
-                  key={`mentor_card_${MentorItem.key}`}
+                  mentor={mentor}
+                  index={index}
+                  key={`mentor_card_${index}`}
                 />
               ))
             )}
