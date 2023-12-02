@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ConfigProvider, Input } from "antd";
 import { PRIMARY } from "../../colors";
 import { URL } from "../../env";
+import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -29,35 +30,36 @@ const LoginPage = () => {
     setIsChecked(event.target.checked);
   };
 
-
-  const mentorLoginApi = () => {
-    const data = {
-      userId: id,
-      password: pw,
-    };
-    console.log(URL)
-    fetch(`${URL}/api/login/mentor`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        console.log('Complete Response:', res);
-        console.log('Response Status:', res.status);
-        return res.json();
-      })
-      .then((res) => {
-        // Log the parsed JSON response
-        console.log('Parsed Response:', res);
-      })
-      .catch((error) => {
-        console.log('Fetch Error:', error);
-      });
+const mentorLoginApi = () => {
+  const data = {
+    userId: id,
+    password: pw,
   };
-  
-  
+
+  axios.post(`/api/login/mentor`, data, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  })
+    .then((res) => {
+      console.log('Complete Response:', res);
+      console.log('Response Status:', res.status);
+
+      if (res.data === 'Mentor Login successful') {
+        // If login is successful, navigate to the main page
+        navigate("/user/mentor");
+      }
+
+      return res.data;
+    })
+    .then((res) => {
+      console.log('Parsed Response:', res);
+    })
+    .catch((error) => {
+      console.log('Axios Error:', error);
+    });
+};
+
 
   return (
     <ConfigProvider
@@ -67,47 +69,43 @@ const LoginPage = () => {
         },
       }}
     >
-    <Root>
-      <Header />
-      <Container>
-      <CHAMeduTypo>CHAMedu</CHAMeduTypo>
-      <Subtitle>바른 교육의 출발, 지금 시작해보세요!</Subtitle>
+      <Root>
+        <Header />
+        <Container>
+          <CHAMeduTypo>CHAMedu</CHAMeduTypo>
+          <Subtitle>바른 교육의 출발, 지금 시작해보세요!</Subtitle>
 
-      <LoginForm>
-        <InputField
-          type='text'
-          placeholder='아이디'
-          value={id}
-          onChange={handleIdChange}
-        />
-        <InputField
-          type='password'
-          placeholder='비밀번호'
-          value={pw}
-          onChange={handlePwChange}
-        />
-        <LabelTTTT>
-          <input
-            type='checkbox'
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-          />
-          아이디 저장
-        </LabelTTTT>
+          <LoginForm>
+            <InputField
+              type='text'
+              placeholder='아이디'
+              value={id}
+              onChange={handleIdChange}
+            />
+            <InputField
+              type='password'
+              placeholder='비밀번호'
+              value={pw}
+              onChange={handlePwChange}
+            />
+            <LabelTTTT>
+              <input
+                type='checkbox'
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
+              아이디 저장
+            </LabelTTTT>
 
-        <LoginButton
-          onClick={mentorLoginApi}
-        >
-          로그인
-        </LoginButton>
+            <LoginButton onClick={mentorLoginApi}>로그인</LoginButton>
 
-        <SignupTTTT>
-          <div>아직 회원이 아니세요?</div>
-          <ButtonSignup onClick={onClickJoinButton}>회원가입</ButtonSignup>
-        </SignupTTTT>
-      </LoginForm>
-      </Container>
-    </Root>
+            <SignupTTTT>
+              <div>아직 회원이 아니세요?</div>
+              <ButtonSignup onClick={onClickJoinButton}>회원가입</ButtonSignup>
+            </SignupTTTT>
+          </LoginForm>
+        </Container>
+      </Root>
     </ConfigProvider>
   );
 };
@@ -154,7 +152,7 @@ const CHAMeduTypo = styled.div`
 `;
 
 const Subtitle = styled.div`
-margin-top: 10px;
+  margin-top: 10px;
   font-size: 20px;
   color: #4caf4f;
   margin-bottom: 50px;
