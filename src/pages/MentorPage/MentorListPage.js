@@ -1,38 +1,31 @@
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
+import NewMentorCard from "../../components/Mentor/NewMentorCard";
 import styled from "styled-components";
-import MentorCard from "../../components/Mentor/MentorCard";
-import MentorSmaple from "../../constants/json/mentor_list_sample.json";
-import camelizeKey from "../../utils/camelizeKey";
 import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import { Select, ConfigProvider } from "antd";
 import axios from "axios";
 
 const MentorListPage = () => {
-  const mentorList = camelizeKey(MentorSmaple.mentor_list); //멘토 샘플
-  console.log("망", mentorList);
-
   const [search, setSearch] = useState(""); //검색어
-  const [admissionSelect, setAdmissionSelect] = useState(); //전형 옵션
+  const [admissionSelect, setAdmissionSelect] = useState(4); //전형 옵션
+  const [mentorList, setMentorList] = useState();
   const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
-  const [mentorList1, setMentorList1] = useState();
 
   useEffect(() => {
-  const test = () => {
+  const getMentorList = () => {
     axios.get(`http://localhost:8080/mentor-profile-list`).then((res) => {
       
-      setMentorList1(res.data.content);
+      setMentorList(res.data.content);
     }).catch((error) =>{
       console.error('Axios Error', error);
     })
   }
-  test();
+  getMentorList();
 },[]);
 
-  console.log("파", mentorList1);
-  //int 값으로 변경 필요
   const admissionOptions = [
     { value: 4, label: "All" },
     { value: 0, label: "학종" },
@@ -41,7 +34,7 @@ const MentorListPage = () => {
     { value: 3, label: "논술" },
   ];
 
-  const collegeOptions = [
+   const collegeOptions = [
     { value: "All", label: "All" },
     { value: "공과대", label: "공과대" },
     { value: "자연대", label: "자연대" },
@@ -60,10 +53,10 @@ const MentorListPage = () => {
   };
 
   //검색어, 전형, 단과대로 데이터 필터링
-  const filteredMentorListData = mentorList1?.filter((mentor) => {
+  const filteredMentorListData = mentorList?.filter((mentor) => {
     const nicknameIncludes = mentor.nickname.toLowerCase().includes(search.toLowerCase());
     const admissionIncludes = admissionSelect === 4 || mentor.admissionType === admissionSelect;
-    // const collegeIncludes = collegeSelect === "All" || MentorItem.college.toLowerCase().includes(collegeSelect.toLowerCase());
+    //const collegeIncludes = collegeSelect === "All" || mentor.college.toLowerCase().includes(collegeSelect.toLowerCase());
     return nicknameIncludes && admissionIncludes; //&& collegeIncludes;
   });
 
@@ -94,18 +87,18 @@ const MentorListPage = () => {
               placeholder='입시 전형 선택'
               options={admissionOptions}
             />
-            <SelectBox
+            {/* <SelectBox
               onChange={(option) => handleCollegeChange(option)}
               placeholder='단과대 선택'
               options={collegeOptions}
-            />
+            /> */}
           </SelectContainer>
           <MentorCardContainer>
-            {mentorList1?.length === 0 ? (
+            {mentorList?.length === 0 ? (
               <NoResultsMessage>검색 결과가 없습니다</NoResultsMessage>
             ) : (
               filteredMentorListData?.map((mentor, index) => (
-                <MentorCard
+                <NewMentorCard
                   mentor={mentor}
                   index={index}
                   key={`mentor_card_${index}`}

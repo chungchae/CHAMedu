@@ -6,23 +6,35 @@ import { GRAY } from "../../colors";
 import Bunting from "../../assets/images/buntingIcon.png";
 import { getAdmissionColor } from "../../utils/color";
 
-const MentorCard = ({ className, MentorItem }) => {
+const NewMentorCard = ({ mentor, index }) => {
   const navigate = useNavigate();
 
   const onClickMentorCard = () => {
-    if (MentorItem) {
-      navigate(`/user/mentor/${MentorItem.key}`);
+    if (mentor) {
+      navigate(`/user/mentor/${index}`);
     }
   }; //멘토 카드 클릭 시 멘토의 디테일 페이지로 이동
 
-  const shouldDisplayBunting = MentorItem && MentorItem.star >= 4.5;
+  const shouldDisplayBunting = mentor && mentor.star >= 4.5;
   //멘토의 평균 별점이 4.5 이상이면 휘장 표시
+
+  const admissionTypeChange = (admission) => {
+    if(admission === 0){
+      return '학종';
+    }else if (admission === 1){
+      return '정시';
+    }else if(admission===2){
+      return '교과';
+    }else if (admission ===3){
+      return '논술';
+    }
+    return 'All';
+  }
 
   return (
     <div style={{ position: "relative" }}>
       {shouldDisplayBunting && <BuntingImg src={Bunting} alt='Bunting Icon' />}
       <Root
-        className={className}
         onClick={onClickMentorCard}
         hoverable
         cover={
@@ -34,15 +46,15 @@ const MentorCard = ({ className, MentorItem }) => {
           </RepresentativeImgContainer>
         }
       >
-        <CardTitle>{MentorItem ? MentorItem.nickname : "멘토 이름"}</CardTitle>
+        <CardTitle>{mentor ? mentor.nickname : "멘토 이름"}</CardTitle>
         <CardDescription>
-          {MentorItem ? `${MentorItem.education}` : "멘토 학력"}
+          {mentor ? `${mentor.university}` : "멘토 학력"}
         </CardDescription>
         <AdmissionTag
-          color={getAdmissionColor(MentorItem.admission)}
+          color={getAdmissionColor(mentor?.admissionType)}
           /* 멘토의 분야를 태그로 표시 */
         >
-          {MentorItem.admission}
+          {admissionTypeChange(mentor?.admissionType)}
         </AdmissionTag>
       </Root>
     </div>
@@ -104,4 +116,4 @@ const CardDescription = styled.div`
   font-family: "esamanru";
 `;
 
-export default MentorCard;
+export default NewMentorCard;
