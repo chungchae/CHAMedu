@@ -15,7 +15,7 @@ const MentorListPage = () => {
   console.log("망", mentorList);
 
   const [search, setSearch] = useState(""); //검색어
-  const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
+  const [admissionSelect, setAdmissionSelect] = useState(); //전형 옵션
   const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
   const [mentorList1, setMentorList1] = useState();
 
@@ -34,11 +34,11 @@ const MentorListPage = () => {
   console.log("파", mentorList1);
   //int 값으로 변경 필요
   const admissionOptions = [
-    { value: "All", label: "All" },
-    { value: "학종", label: "학종" },
-    { value: "정시", label: "정시" },
-    { value: "교과", label: "교과" },
-    { value: "논술", label: "논술" },
+    { value: 4, label: "All" },
+    { value: 0, label: "학종" },
+    { value: 1, label: "정시" },
+    { value: 2, label: "교과" },
+    { value: 3, label: "논술" },
   ];
 
   const collegeOptions = [
@@ -60,11 +60,11 @@ const MentorListPage = () => {
   };
 
   //검색어, 전형, 단과대로 데이터 필터링
-  const filteredMentorListData = mentorList.filter((MentorItem) => {
-    const nicknameIncludes = MentorItem.nickname.toLowerCase().includes(search.toLowerCase());
-    const admissionIncludes = admissionSelect === "All" || MentorItem.admission.toLowerCase().includes(admissionSelect.toLowerCase());
-    const collegeIncludes = collegeSelect === "All" || MentorItem.college.toLowerCase().includes(collegeSelect.toLowerCase());
-    return nicknameIncludes && admissionIncludes && collegeIncludes;
+  const filteredMentorListData = mentorList1?.filter((mentor) => {
+    const nicknameIncludes = mentor.nickname.toLowerCase().includes(search.toLowerCase());
+    const admissionIncludes = admissionSelect === 4 || mentor.admissionType === admissionSelect;
+    // const collegeIncludes = collegeSelect === "All" || MentorItem.college.toLowerCase().includes(collegeSelect.toLowerCase());
+    return nicknameIncludes && admissionIncludes; //&& collegeIncludes;
   });
 
   return (
@@ -104,7 +104,7 @@ const MentorListPage = () => {
             {mentorList1?.length === 0 ? (
               <NoResultsMessage>검색 결과가 없습니다</NoResultsMessage>
             ) : (
-              mentorList1?.map((mentor, index) => (
+              filteredMentorListData?.map((mentor, index) => (
                 <MentorCard
                   mentor={mentor}
                   index={index}
