@@ -9,11 +9,26 @@ import NoteIcon from "../../assets/images/note_icon.png";
 import MentorCard from "../../components/Mentor/MentorCard";
 import MentorSmaple from "../../constants/json/mentor_list_sample.json";
 import camelizeKey from "../../utils/camelizeKey";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 
 const MentorPageMentee = () => {
   const mentorList = camelizeKey(MentorSmaple.mentor_list);
-  console.log(mentorList);
-
+  const [mentorList1, setMentorList1] = useState();
+  console.log('망',mentorList);
+  useEffect(() => {
+    const getMentorList = () => {
+      axios.get(`http://localhost:8080/recommend-mentor-profile-list`).then((res) => {
+        console.log(res);
+        //setMentorList1(res.data.content);
+      }).catch((error) =>{
+        console.error('Axios Error', error);
+      })
+    }
+    getMentorList();
+  },[]);
+  
   return (
     <Root>
       <Header />
@@ -23,12 +38,19 @@ const MentorPageMentee = () => {
           <MentorTypo>인기 멘토</MentorTypo>
         </TitleContainer>
         <PopularMentorContainer>
-          {mentorList.slice(0, 4).map((MentorItem) => (
+          {mentorList.slice(0, 4).map((mentor) => (
             <MentorCard
-              MentorItem={MentorItem}
-              key={`mentor_card_${MentorItem.key}`}
+              MentorItem={mentor}
+              key={`mentor_card_${mentor.key}`}
             />
           ))}
+          {/* {mentorList.slice(0, 4).map((mentor, index) => (
+            <NewMentorCard
+              mentor={mentor}
+              index={index}
+              key={`mentor_card_${index}`}
+            />
+          ))} */}
         </PopularMentorContainer>
 
         <TitleContainer>
@@ -36,12 +58,19 @@ const MentorPageMentee = () => {
           <MentorTypo>내 전형 추천 멘토</MentorTypo>
         </TitleContainer>
         <AdmissionMentorContainer>
-          {mentorList.slice(0, 4).map((MentorItem) => (
-            <MentorCard
-              MentorItem={MentorItem}
-              key={`mentor_card_${MentorItem.key}`}
+          {mentorList.slice(0, 4).map((mentor) => (
+            <MentorCard //나중에는 NewMentor로
+              MentorItem={mentor}
+              key={`mentor_card_${mentor.key}`}
             />
           ))}
+          {/* {mentorList.slice(0, 4).map((mentor, index) => (
+            <NewMentorCard
+              mentor={mentor}
+              index={index}
+              key={`mentor_card_${index}`}
+            />
+          ))} */}
         </AdmissionMentorContainer>
 
         <TitleContainer>
@@ -49,12 +78,19 @@ const MentorPageMentee = () => {
           <MentorTypo>내 전공 추천 멘토</MentorTypo>
         </TitleContainer>
         <MajorMentorContainer>
-          {mentorList.slice(0, 4).map((MentorItem) => (
+          {mentorList.slice(0, 4).map((mentor) => (
             <MentorCard
-              MentorItem={MentorItem}
-              key={`mentor_card_${MentorItem.key}`}
+              MentorItem={mentor}
+              key={`mentor_card_${mentor.key}`}
             />
           ))}
+          {/* {mentorList.slice(0, 4).map((mentor, index) => (
+            <NewMentorCard
+              mentor={mentor}
+              index={index}
+              key={`mentor_card_${index}`}
+            />
+          ))} */}
         </MajorMentorContainer>
       </Container>
     </Root>
