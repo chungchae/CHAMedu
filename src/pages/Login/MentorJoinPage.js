@@ -3,6 +3,8 @@ import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
+import { Input, Select, ConfigProvider, Button } from "antd";
+import { PRIMARY } from "../../colors";
 
 const MentorJoinPage = () => {
   const navigate = useNavigate();
@@ -36,6 +38,13 @@ const MentorJoinPage = () => {
   };
 
   return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
     <Root>
       <Header />
       <Title>멘토 회원가입</Title>
@@ -46,7 +55,7 @@ const MentorJoinPage = () => {
               <InfoWrapper>
                 <InfoTitle>{info}</InfoTitle>
                 <StyledInput placeholder={placeholderList[index]}></StyledInput>
-                <JungBok>중복확인</JungBok>
+                <DuplicationButton>중복확인</DuplicationButton>
               </InfoWrapper>
             );
           } else {
@@ -103,19 +112,24 @@ const MentorJoinPage = () => {
         </InfoWrapper> */}
         <InfoWrapper2></InfoWrapper2>
       </InfoListWrapper>
-      <SignUp onClick={onSignUpClick}>회원가입</SignUp>
+      <SignUpButton  type="primary" onClick={onSignUpClick}>회원가입</SignUpButton>
     </Root>
+    </ConfigProvider>
   );
 };
 
-const BigSelect = styled.select`
+const Root = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: ${HEADER_HEIGHT}px;
+  position: relative;
+`;
+
+const BigSelect = styled(Select)`
   height: 30px;
   width: 80px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  &:hover {
-    border-color: green; /* 원하는 초록색으로 변경 */
-}
 `;
 
 const SmallInput = styled.input`
@@ -124,29 +138,22 @@ const SmallInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   &:hover {
-    border-color: green; /* 원하는 초록색으로 변경 */
+    border-color: green;
 }
 `;
 
-const JungBok = styled.div`
-  padding: 10px;
-  background-color: #dff1e0;
-  border-radius: 4px;
+const DuplicationButton = styled(Button)`
   font-family: "esamanru";
 `;
 
-const StyledInput = styled.input`
+
+const StyledInput = styled(Input)`
   width: 300px;
-  padding: 10px;
   margin: 1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  &:hover {
-    border-color: green; /* 원하는 초록색으로 변경 */
-  }
 `;
 
 const InfoTitle = styled.div`
+width: 110px;
   font-size: 20px;
   font-weight: 800;
 `;
@@ -159,6 +166,7 @@ const InfoWrapper = styled.div`
   align-items: center;
   gap: 30px;
 `;
+
 const InfoWrapper2 = styled.div`
   border-bottom: 1px solid #ccc;
   display: inline-flex;
@@ -166,6 +174,7 @@ const InfoWrapper2 = styled.div`
   align-items: center;
   gap: 30px;
 `;
+
 const InfoListWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
@@ -176,30 +185,15 @@ const Title = styled.div`
   color: #4caf4f;
   font-size: 30px;
   font-weight: 900;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   font-family: "esamanru";
+  padding-top: 20px;
 `;
 
-const Root = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: ${HEADER_HEIGHT}px;
-  position: relative;
-`;
-const SignUp = styled.div`
-  background-color: #c9e6ca;
-  color: #000000;
+const SignUpButton = styled(Button)`
   width: 280px;
-  padding: 13px 20px;
-  border-radius: 6px;
   margin-top: 37px;
-  margin-bottom: 100px;
   font-size: 15px;
-  display: inline-flex;
-  justify-content: space-around;
-  cursor: pointer;
   font-family: "esamanru";
 `;
 export default MentorJoinPage;
