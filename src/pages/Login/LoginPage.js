@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { useNavigate } from "react-router-dom";
+import { ConfigProvider, Input } from "antd";
+import { PRIMARY } from "../../colors";
+import { URL } from "../../env";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -26,7 +29,44 @@ const LoginPage = () => {
     setIsChecked(event.target.checked);
   };
 
+
+  const mentorLoginApi = () => {
+    const data = {
+      userId: id,
+      password: pw,
+    };
+    console.log(URL)
+    fetch(`${URL}/api/login/mentor`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        console.log('Complete Response:', res);
+        console.log('Response Status:', res.status);
+        return res.json();
+      })
+      .then((res) => {
+        // Log the parsed JSON response
+        console.log('Parsed Response:', res);
+      })
+      .catch((error) => {
+        console.log('Fetch Error:', error);
+      });
+  };
+  
+  
+
   return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
     <Root>
       <Header />
       <Container>
@@ -56,10 +96,7 @@ const LoginPage = () => {
         </LabelTTTT>
 
         <LoginButton
-          onClick={() => {
-            console.log("id : ", id);
-            console.log("pw : ", pw);
-          }}
+          onClick={mentorLoginApi}
         >
           로그인
         </LoginButton>
@@ -71,6 +108,7 @@ const LoginPage = () => {
       </LoginForm>
       </Container>
     </Root>
+    </ConfigProvider>
   );
 };
 
@@ -129,12 +167,8 @@ const LoginForm = styled.div`
   align-items: center;
 `;
 
-const InputField = styled.input`
+const InputField = styled(Input)`
   width: 300px;
-  padding: 10px;
-  margin: 1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   margin-top: 10px;
 `;
 

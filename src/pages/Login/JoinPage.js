@@ -11,12 +11,10 @@ const JoinPage = () => {
   const navigate = useNavigate();
 
   const onBox1Click = () => {
-    // Box1 클릭 시 수행할 작업 추가
     navigate("/mentee/join");
   };
 
   const onBox2Click = () => {
-    // Box2 클릭 시 수행할 작업 추가
     navigate("/mentor/join");
   };
   const onClickLoginButton = () => {
