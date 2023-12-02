@@ -8,6 +8,8 @@ import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from '@ant-design/icons'
+import axios from "axios";
+
 
 const HeaderMentee = () => {
   const navigate = useNavigate();
@@ -30,6 +32,22 @@ const HeaderMentee = () => {
   const onClickMyPageButton = () => {
     navigate('/mentor/request')
   }
+  const logoutApi = () => {
+    axios.get(`/api/logout`)
+      .then((res) => {
+        console.log('Logout Successful');
+        
+        // 세션 정보 삭제
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('role');
+        // 로그아웃 후 메인 페이지로 이동
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log('Axios Error:', error);
+      });
+  };
+  
  
   return (
     <Container>
@@ -43,7 +61,7 @@ const HeaderMentee = () => {
             <Menu type={"text"} onClick={onClickMentorButton}>추천 멘토</Menu>
             <Menu type={"text"} onClick={onClickListButton}>멘토 둘러보기</Menu>
             <Menu type={"text"} onClick={onClickMyPageButton}>마이페이지</Menu>
-            <LogoutButton type={"text"}>로그아웃</LogoutButton>
+            <LogoutButton type={"text"} onClick={logoutApi}>로그아웃</LogoutButton>
           </MenuContainer>
           <ChamContainer>
             <ChamImg src={ChamIcon}></ChamImg>

@@ -5,10 +5,9 @@ import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { useNavigate } from "react-router-dom";
 import { ConfigProvider, Input } from "antd";
 import { PRIMARY } from "../../colors";
-import { URL } from "../../env";
 import axios from "axios";
 
-const LoginPage = () => {
+const MentorLoginPage = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -46,7 +45,12 @@ const mentorLoginApi = () => {
       console.log('Response Status:', res.status);
 
       if (res.data === 'Mentor Login successful') {
-        // If login is successful, navigate to the main page
+        //세션에 유저아이디, 유저 유형 설정
+        sessionStorage.setItem('userId', id);
+        sessionStorage.setItem('role', "mentor");
+        // 세션 스토리지에 저장된 값을 확인
+        console.log("세션 스토리지 userId:", sessionStorage.getItem('userId'));
+        console.log("세션 스토리지 role:", sessionStorage.getItem('role'));
         navigate("/user/mentor");
       }
 
@@ -202,4 +206,4 @@ const LabelTTTT = styled.label`
   font-size: 14px;
 `;
 
-export default LoginPage;
+export default MentorLoginPage;

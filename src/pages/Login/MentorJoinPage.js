@@ -5,36 +5,76 @@ import { useNavigate } from "react-router-dom";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { Input, Select, ConfigProvider, Button } from "antd";
 import { PRIMARY } from "../../colors";
+import axios from "axios";
 
 const MentorJoinPage = () => {
   const navigate = useNavigate();
-  const onSignUpClick = () => {
-    navigate("/welcome/join");
+
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [university, setUniversity] = useState("");
+  /* const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
+  const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션 */
+
+  const handleNameChange = (event) => {
+    setName(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
   };
-  const [selectedHigh, setSelectedHigh] = useState('')
-  const handleHigh = (event) => {
-    setSelectedHigh(event.target.value)
-  }
-
-  const infoList = ["이름", "닉네임", "아이디", "비밀번호", "대학교/전공"];
-  const placeholderList = [
-    "실명을 입력해주세요",
-    "닉네임을 입력해주세요",
-    "영문/숫자조합 8자 이상 20자 이하",
-    "영문/숫자조합 8자 이상 20자 이하",
-    "예) 동국대학교 컴퓨터공학과",
-  ];
-
-  const [selectedUniv, setSelectedUniv] = useState("");
-  const [selectedPhone, setSelectedPhone] = useState("");
-
-  // 드롭다운의 값이 바뀌었을 때 호출될 함수입니다.
-  const handleChange = (event) => {
-    setSelectedUniv(event.target.value);
+  const handleIdChange = (event) => {
+    setId(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+  };
+  const handlePwChange = (event) => {
+    setPw(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+  };
+  const handleNicknameChange = (event) => {
+    setNickname(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+  };
+  const handleUniversityChange = (event) => {
+    setUniversity(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
   };
 
-  const handlePhone = (event) => {
-    setSelectedPhone(event.target.value);
+  const isFormValid = () => {
+    return (
+      name !== "" &&
+      id !== "" &&
+      pw !== "" &&
+      nickname !== "" &&
+      university !== ""
+    );
+  };
+
+  const mentorJoinApi = () => {
+    const data = {
+      userId: id,
+      password: pw,
+      nickname: nickname,
+      university: university,
+      name: name,
+    };
+
+    axios
+      .post(`/api/join/mentor`, data, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      })
+      .then((res) => {
+        console.log("Complete Response:", res);
+        console.log("Response Status:", res.status);
+
+        if (res.data === "멘토가 성공적으로 회원가입이 완료되었습니다.") {
+          // If Join is successful, navigate to the main page
+          navigate("/user/mentor");
+        }
+        return res.data;
+      })
+      .then((res) => {
+        console.log("Parsed Response:", res);
+      })
+      .catch((error) => {
+        console.log("Axios Error:", error);
+      });
   };
 
   return (
@@ -45,75 +85,62 @@ const MentorJoinPage = () => {
         },
       }}
     >
-    <Root>
-      <Header />
-      <Title>멘토 회원가입</Title>
-      <InfoListWrapper>
-        {infoList.map((info, index) => {
-          if (info === "아이디") {
-            return (
-              <InfoWrapper>
-                <InfoTitle>{info}</InfoTitle>
-                <StyledInput placeholder={placeholderList[index]}></StyledInput>
-                <DuplicationButton>중복확인</DuplicationButton>
-              </InfoWrapper>
-            );
-          } else {
-            return (
-              <InfoWrapper>
-                <InfoTitle>{info}</InfoTitle>
-                <StyledInput placeholder={placeholderList[index]}></StyledInput>
-              </InfoWrapper>
-            );
-          }
-        })}
-        <InfoWrapper>
-          <InfoTitle>전형</InfoTitle>
-          <BigSelect value={selectedHigh} onChange={handleHigh} defaultValue="">
-            <option value="" disabled hidden>
-              선택
-            </option>
-            <option value="option1">학종</option>
-            <option value="option2">정시</option>
-            <option value="option3">교과</option>
-            <option value="option4">논술</option>
-          </BigSelect>
-        </InfoWrapper>
-       {/*  <InfoWrapper>
-          <InfoTitle>휴대폰 번호</InfoTitle>
-          <BigSelect
-            value={selectedPhone}
-            onChange={handlePhone}
-            defaultValue=""
+      <Root>
+        <Header />
+        <Container>
+          <Title>멘토 회원가입</Title>
+          <InfoListWrapper>
+            <InfoWrapper>
+              <InfoTitle>이름</InfoTitle>
+              <StyledInput
+                value={name}
+                onChange={handleNameChange}
+                placeholder='실명을 입력해주세요'
+              />
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>닉네임</InfoTitle>
+              <StyledInput
+                value={nickname}
+                onChange={handleNicknameChange}
+                placeholder='닉네임을 입력해주세요'
+              />
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>아이디</InfoTitle>
+              <StyledInput
+                value={id}
+                onChange={handleIdChange}
+                placeholder='영문/숫자조합 8자 이상 20자 이하'
+              />
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>비밀번호</InfoTitle>
+              <StyledInput
+                value={pw}
+                onChange={handlePwChange}
+                placeholder='영문/숫자조합 8자 이상 20자 이하'
+              />
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>대학교/전공</InfoTitle>
+              <StyledInput
+                value={university}
+                onChange={handleUniversityChange}
+                placeholder='동국대학교 컴퓨터공학과'
+              />
+            </InfoWrapper>
+            <InfoWrapper2></InfoWrapper2>
+          </InfoListWrapper>
+          <SignUpButton
+            type='primary'
+            onClick={mentorJoinApi}
+            disabled={!isFormValid()} // Disable button if the form is not valid
           >
-            <option value="" disabled hidden>
-              선택
-            </option>
-            <option value="option1">010</option>
-            <option value="option2">011</option>
-            <option value="option3">019</option>
-          </BigSelect>{" "}
-          ㅡ <SmallInput></SmallInput> ㅡ <SmallInput></SmallInput>
-        </InfoWrapper> */}
-        {/* <InfoWrapper>
-          <InfoTitle>대학교</InfoTitle>
-          <BigSelect
-            value={selectedUniv}
-            onChange={handleChange}
-            defaultValue=""
-          >
-            <option value="" disabled hidden>
-              선택
-            </option>
-            <option value="option1">동국대</option>
-            <option value="option2">홍익대</option>
-            <option value="option3">단국대</option>
-          </BigSelect>
-        </InfoWrapper> */}
-        <InfoWrapper2></InfoWrapper2>
-      </InfoListWrapper>
-      <SignUpButton  type="primary" onClick={onSignUpClick}>회원가입</SignUpButton>
-    </Root>
+            회원가입
+          </SignUpButton>
+        </Container>
+      </Root>
     </ConfigProvider>
   );
 };
@@ -123,37 +150,29 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: ${HEADER_HEIGHT}px;
-  position: relative;
+`;
+
+const Container = styled.div`
+  flex-direction: column;
+  width: ${CONTAINER_WIDTH}px;
+  display: flex;
+  align-items: center;
 `;
 
 const BigSelect = styled(Select)`
   height: 30px;
-  width: 80px;
+  width: 250px;
 `;
-
-const SmallInput = styled.input`
-  width: 80px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  &:hover {
-    border-color: green;
-}
-`;
-
-const DuplicationButton = styled(Button)`
-  font-family: "esamanru";
-`;
-
 
 const StyledInput = styled(Input)`
-  width: 300px;
+  width: 250px;
   margin: 1;
 `;
 
 const InfoTitle = styled.div`
-width: 110px;
+  width: 110px;
   font-size: 20px;
   font-weight: 800;
 `;
@@ -162,7 +181,6 @@ const InfoWrapper = styled.div`
   padding: 17px 0px;
   border-top: 1px solid #ccc;
   display: inline-flex;
-  justify-content: flex-start;
   align-items: center;
   gap: 30px;
 `;
@@ -178,7 +196,6 @@ const InfoWrapper2 = styled.div`
 const InfoListWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
-  width: 60%;
 `;
 
 const Title = styled.div`

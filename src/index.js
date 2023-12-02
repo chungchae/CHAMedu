@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import MainPage from "./pages/Main/MainPage";
-import LoginPage from "./pages/Login/LoginPage";
+import MentorLoginPage from "./pages/Login/MentorLoginPage";
+import MenteeLoginPage from "./pages/Login/MenteeLoginPage";
+
 import JoinPage from "./pages/Login/JoinPage";
 import MentorPageMentee from "./pages/MentorPage/MentorPageMentee";
 import MentorDetailPageMentee from "./pages/MentorDetailPage/MentorDetailPage_Mentee";
@@ -13,6 +15,8 @@ import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
 import PointChargePage from "./pages/Point/PointChargePage";
 import MentorListPage from "./pages/MentorPage/MentorListPage";
+import ChooseLogin from "./pages/Login/ChooseLogin";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/fonts/font.css";
 
@@ -24,7 +28,10 @@ root.render(
         <Route path="/" element={<MainPage/>} />
         <Route path="/user/mentor" element={<MentorPageMentee/>} />
         <Route path="/user/mentor/:mentorKey" element={<MentorDetailPageMentee/>} />
-        <Route path="/user/login" element={<LoginPage/>} />
+        <Route path="/user/login" element={<ChooseLogin/>} />
+        <Route path="/user/login/mentor" element={<MentorLoginPage/>} />
+        <Route path="/user/login/mentee" element={<MenteeLoginPage/>} />
+
         <Route path="/user/join" element={<JoinPage/>}/>
         <Route path="/mentor/join" element={<MentorJoinPage/>}/>
         <Route path="/mentee/join" element={<MenteeJoinPage/>}/>
@@ -38,7 +45,6 @@ root.render(
           path='/user/mentor/:mentorKey'
           element={<MentorDetailPageMentee />}
         />
-        <Route path='/user/login' element={<LoginPage />} />
         <Route path='/user/join' element={<JoinPage />} />
         <Route path='/mentor/join' element={<MentorJoinPage />} />
         <Route path='/mentee/join' element={<MenteeJoinPage />} />
