@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import Header from "../../../components/Header/HeaderMentee";
+import React, { useEffect, useState } from 'react';
+import Header from '../../../components/Header/Header';
 import styled from "styled-components";
 import { HEADER_HEIGHT } from "../../../assets/system/layout";
 import { GRAY } from "../../../colors";
@@ -10,10 +10,27 @@ import ReviewContent from '../../../components/Mentor/Consultation/ReviewContent
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 import MenteeMyProfile from '../../../components/Mentor/Consultation/MenteeMyProfile';
 import { useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 const MyPageMentee = () => {
   const [selectMenu, setSelectMenu] = useState('내 프로필');
+
+  useEffect(() => {
+    getMenteeMypageData();
+  }, []); // 빈 배열을 전달하여 마운트 시 한 번만 호출
+
+  const getMenteeMypageData = () => {
+    axios.get('/mentee-mypage')
+      .then((res) => {
+        console.log('Response from /mentee-mypage:', res);
   
+        // 여기에서 res를 이용하여 받아온 데이터에 대한 추가 작업을 수행할 수 있습니다.
+      })
+      .catch((error) => {
+        console.error('Axios Error:', error);
+      });
+  };
+
   return (
     <Root>
       <Header />

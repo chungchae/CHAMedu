@@ -1,6 +1,6 @@
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY } from "../../colors";
-import Header from "../../components/Header/HeaderMentee";
+import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import { Typography } from "antd";
 import FlameIcon from "../../assets/images/flame_icon.png";

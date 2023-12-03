@@ -7,12 +7,14 @@ import ChamIcon from "../../assets/images/cham.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import { useNavigate } from "react-router-dom";
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, RetweetOutlined } from '@ant-design/icons'
 import axios from "axios";
 
 
-const HeaderMentee = () => {
+const Header = () => {
   const navigate = useNavigate();
+  const role = sessionStorage.getItem("role");
+
 
   const onClickMentorButton = () => {
     navigate('/user/mentor')
@@ -25,6 +27,10 @@ const HeaderMentee = () => {
   const onClickChargeButton = () => {
     navigate('/mentee/charge')
   }
+  const onClickExchangeButton = () => {
+    navigate('/mentor/exchange')
+  }
+
   const onClickMyPageButton = () => {
     navigate('/user/mypage')
   }
@@ -54,15 +60,32 @@ const HeaderMentee = () => {
         </LogoContainer>
         <HeaderContainer>
           <MenuContainer>
-            <Menu type={"text"} onClick={onClickMentorButton}>추천 멘토</Menu>
-            <Menu type={"text"} onClick={onClickListButton}>멘토 둘러보기</Menu>
-            <Menu type={"text"} onClick={onClickMyPageButton}>마이페이지</Menu>
-            <LogoutButton type={"text"} onClick={logoutApi}>로그아웃</LogoutButton>
+            <Menu type={"text"} onClick={onClickMentorButton}>
+              추천 멘토
+            </Menu>
+            <Menu type={"text"} onClick={onClickListButton}>
+              멘토 둘러보기
+            </Menu>
+            <Menu type={"text"} onClick={onClickMyPageButton}>
+              마이페이지
+            </Menu>
+            <LogoutButton type={"text"} onClick={logoutApi}>
+              로그아웃
+            </LogoutButton>
           </MenuContainer>
           <ChamContainer>
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>370 CHAM</ChamTypo>
-            <PlusIcon onClick={onClickChargeButton}/>
+            {role === "mentor" && (
+              <>
+                <ExchangeIcon onClick={onClickExchangeButton}/>
+              </>
+            )}
+            {role === "mentee" && (
+              <>
+                <PlusIcon onClick={onClickChargeButton}/>
+              </>
+            )}
           </ChamContainer>
           <ProImg src={ProfileImg} alt={"프로필 이미지"}></ProImg>
         </HeaderContainer>
@@ -169,11 +192,17 @@ const LogoutButton = styled(Button)`
   }
 `;
 
-export const PlusIcon = styled(PlusOutlined)`
+const ExchangeIcon = styled(RetweetOutlined)`
+  margin: 5px;
+  color: ${PRIMARY.DARK};
+  font-size: 20px;
+  cursor: pointer;
+`
+const PlusIcon = styled(PlusOutlined)`
   margin: 5px;
   color: ${PRIMARY.DARK};
   font-size: 20px;
   cursor: pointer;
 `
 
-export default HeaderMentee;
+export default Header;
