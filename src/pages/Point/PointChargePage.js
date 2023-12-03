@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
-import { GRAY, PRIMARY } from "../../colors";
+import { GRAY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
-import { Typography } from "antd";
+import { Typography, message } from "antd";
 import ChamIcon from "../../assets/images/cham.png";
 import axios from "axios";
 
@@ -19,6 +19,8 @@ const PointChargePage = () => {
 
     console.log(userId);
     console.log(changedPoints);
+    console.log(data);
+    
 
     axios
       .post(`/point/charge`, data, {
@@ -34,6 +36,7 @@ const PointChargePage = () => {
         if (res.status >= 200 && res.status < 300) {
           // HTTP 상태 코드가 2xx 범위이면 성공으로 간주합니다.
           console.log(changedPoints, "CHAM 충전 성공!");
+          message.success("충전 성공!");
         }
         return res.data;
       })
