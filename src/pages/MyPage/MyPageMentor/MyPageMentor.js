@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../../../components/Header/Header';
 import styled from "styled-components";
 import { HEADER_HEIGHT } from "../../../assets/system/layout";

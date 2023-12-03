@@ -8,6 +8,7 @@ import { Button, ConfigProvider, Typography } from "antd";
 import { PRIMARY } from "../../../colors";
 
 const RequestContent = () => {
+  //상담 신청 데이터
   const [requestData, setRequestData] = useState([]);
 
   //상담 신청 목록 API
@@ -56,6 +57,7 @@ const RequestContent = () => {
       });
   };
 
+  //페이지가 렌더링될 때
   useEffect(() => {
     getChatRequestData();
   }, []);

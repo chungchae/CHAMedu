@@ -1,21 +1,22 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
 import MentorModifyModal from "../../../components/Mentor/MentorModifyModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import Person from "../../../assets/images/mypage_person.png";
-import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../../assets/system/layout";
+import { CONTAINER_WIDTH } from "../../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../../colors";
-import { useEffect } from "react";
-import axios from "axios";
 import { translateAdmission } from "../../../utils/translate";
 import { getAdmissionColor } from "../../../utils/color";
+import axios from "axios";
 
 const MyProfile = () => {
   const [modalModifyOpen, setModalModifyOpen] = useState(false);
+  //멘토 정보 데이터
   const [mentorData, setMentorData] = useState({});
+  //예정 상담 데이터
   const [planData, setPlanData] = useState();
 
   const openModifyModal = () => {
@@ -33,6 +34,7 @@ const MyProfile = () => {
     setModalOpen(false);
   };
 
+  //멘토 데이터 API
   const getMentorMypageData = () => {
     axios
       .get("/api/mentor-mypage", { withCredentials: true })
@@ -46,6 +48,7 @@ const MyProfile = () => {
       });
   };
 
+  //예정 상담 데이터 API
   const getChatPlanData = () => {
     axios
       .get("/api/mentor-mypage/chat-plans", { withCredentials: true })
