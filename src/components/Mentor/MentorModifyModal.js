@@ -1,25 +1,56 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import { Input, Typography, Button, ConfigProvider, Select } from "antd";
+import {
+  Input,
+  Typography,
+  Button,
+  ConfigProvider,
+  Select,
+  message,
+} from "antd";
 import { PRIMARY } from "../../colors";
 import ProImg from "../../assets/images/profile.png";
 import TextArea from "antd/es/input/TextArea";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect } from "react";
+import axios from "axios";
 
-const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
+const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
   const [nickname, setNickname] = useState(""); //닉네임
   const [university, setUniversity] = useState(""); //동국대 컴퓨터공학과
   const [promotionText, setPromotionText] = useState(""); //자기소개
-
   const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
   const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
 
-  const [startDate, setStartDate] = useState(new Date());
-
+  const [startDate, setStartDate] = useState(new Date()); //가능 시간 선택
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedTimes, setSelectedTimes] = useState([]);
+  const [selectedTimes, setSelectedTimes] = useState([]); //가능한 시간 리스트
+
+  const data = { //API에 전송할 data 정의
+    nickName: nickname,
+    promotionText: promotionText,
+    userImg: null,
+    university: university,
+    admissionType: admissionSelect,
+    college: collegeSelect,
+    availableTime: selectedTimes,
+  };
+
+  const MentorModifyApi = (data) => {
+    return axios
+      .put("/api/mentor-mypage/profile/update", data)
+      .then((response) => {
+        console.log("Mentor Modify API Response:", response.data);
+        message.success("수정 성공!"); // 수정 성공 메시지 표시
+        closeModal(); // 모달 창 닫기
+        return response.data;
+      })
+      .catch((error) => {
+        console.error("Mentor Modify API Error:", error);
+        throw error;
+      });
+  };
 
   const admissionOptions = [
     { value: 0, label: "학종" },
@@ -61,15 +92,11 @@ const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
     console.log("멘토데이터!!", mentorData);
     setNickname(mentorData.nickname || "");
     setUniversity(mentorData.university || "");
-    setPromotionText(mentorData.promotionText || "")
+    setPromotionText(mentorData.promotionText || "");
 
     setAdmissionSelect(mentorData.admissionType || "");
     setCollegeSelect(mentorData.university || "");
   }, [mentorData]);
-
-  const test = () => {
-    console.log(selectedTimes)
-  }
 
   const handleAdmissionChange = (option) => {
     setAdmissionSelect(option);
@@ -120,12 +147,21 @@ const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
             <InfoContainer>
               <MentorProfileImg src={ProImg} />
               <InfoContainer2>
-                <InfoTypo >닉네임</InfoTypo>
-                <InfoInput value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                <InfoTypo>닉네임</InfoTypo>
+                <InfoInput
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
                 <InfoTypo>학력</InfoTypo>
-                <InfoInput value={university} onChange={(e) => setUniversity(e.target.value)} />
+                <InfoInput
+                  value={university}
+                  onChange={(e) => setUniversity(e.target.value)}
+                />
                 <InfoTypo>자기소개</InfoTypo>
-                <ContentInput value={promotionText} onChange={(e) => setPromotionText(e.target.value)} />
+                <ContentInput
+                  value={promotionText}
+                  onChange={(e) => setPromotionText(e.target.value)}
+                />
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <SelectContainer>
                     <InfoTypo>입시 전형 선택</InfoTypo>
@@ -139,7 +175,7 @@ const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
                   <SelectContainer>
                     <InfoTypo>단과대 선택</InfoTypo>
                     <SelectBox
-                    value={admissionSelect}
+                      /* value={admissionSelect} */
                       onChange={(option) => handleCollegeChange(option)}
                       placeholder='단과대 선택'
                       options={collegeOptions}
@@ -149,7 +185,9 @@ const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
               </InfoContainer2>
             </InfoContainer>
             <TimeContainer>
-            <InfoTypo style={{ marginLeft: "7px" }}>상담 가능 시간 선택</InfoTypo>
+              <InfoTypo style={{ marginLeft: "7px" }}>
+                상담 가능 시간 선택
+              </InfoTypo>
               <TimeSelection>
                 {timeOptions.map((time) => (
                   <TimeButton
@@ -162,7 +200,9 @@ const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
                 ))}
               </TimeSelection>
             </TimeContainer>
-            <ModifyButton onClick={test()}>프로필 수정하기</ModifyButton>
+            <ModifyButton onClick={() => MentorModifyApi(data)}>
+              프로필 수정하기
+            </ModifyButton>
           </Container>
         </Root>
       </Modal>
