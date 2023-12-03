@@ -42,8 +42,10 @@ const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
       .put("/api/mentor-mypage/profile/update", data)
       .then((response) => {
         console.log("Mentor Modify API Response:", response.data);
-        message.success("수정 성공!"); // 수정 성공 메시지 표시
+        
         closeModal(); // 모달 창 닫기
+        window.location.replace("/user/mypage")
+        message.success("수정 성공!"); // 수정 성공 메시지 표시
         return response.data;
       })
       .catch((error) => {
