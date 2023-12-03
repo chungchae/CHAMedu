@@ -1,15 +1,58 @@
 import styled from "styled-components";
 import { GRAY, PRIMARY } from "../../colors";
 import Modal from "react-modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import ProImg from "../../assets/images/profile.png";
 import "react-datepicker/dist/react-datepicker.css";
 import { Typography } from "antd";
+import axios from "axios";
 
 const MentorReserveModal = ({ isOpen, closeModal }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
+  const [timeList, setTimeList] = useState();
+
+  useEffect(() => {  // 조회하는거
+    const getPathLastSegment = () => {
+      const pathArray = window.location.pathname.split('/');
+      return pathArray[pathArray.length - 1];
+    };
+  
+    const mentorId = getPathLastSegment(); 
+
+    const getReserve = () => {
+      axios.get(`http://localhost:8080/mentor-profile/request/${mentorId}`).then((res) => {
+      
+      console.log(res);
+      if (Array.isArray(res.data)) { //데이터가 빈배열로 넘어오다보니 자바스크립트가 object로 오판단
+        // 그래서 빈 배열인 경우, 빈 배열로 넣어주기 위해서 array 판단
+        setTimeList(res.data);
+      } else {
+        setTimeList([]); //빈 배열로 넣음
+      }
+      
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
+    getReserve();
+  },[]);
+
+  const clickHandler = () => { //진행중인 api , 클릭하는 순간 진행
+    const getPathLastSegment = () => {
+      const pathArray = window.location.pathname.split('/');
+      return pathArray[pathArray.length - 1];
+    };
+  
+    const mentorId = getPathLastSegment();
+    
+    axios.post(`http://localhost:8080/mentor-profile/request/${mentorId}`).then((res) => { // post로
+      console.log("success", res); //selectedTime => 해당 페이지에서 selectedTime으로 선택된것을 post로 보냄
+    }).catch((error) => {
+      console.error('Axios Error', error)
+    })
+  } 
 
   const timeOptions = [
     "09:00",
@@ -80,7 +123,8 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
             <TimeContainer>
               <MenuTypo>상담 시간 선택</MenuTypo>
               <TimeSelection>
-                {timeOptions.map((time) => (
+                {/* {timeOptions.map((time) => ( */}
+                {timeList?.map((time) => (
                   <TimeButton
                     key={time}
                     onClick={() => handleTimeButtonClick(time)}
@@ -92,7 +136,7 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
               </TimeSelection>
               <MenuTypo>선택한 시간</MenuTypo>
               <SelectedTime>{startDate.toLocaleString().slice(0, -3)}</SelectedTime>
-              <ReserveButtonStyled>상담 신청하기 →</ReserveButtonStyled>
+              <ReserveButtonStyled onClick={() => {clickHandler()}}>상담 신청하기 →</ReserveButtonStyled>
             </TimeContainer>
           </DateContainer>
         </Container>

@@ -115,7 +115,9 @@ const MentorDetailPageMentee = () => {
               closeModal={closeReviewModal}
             />
           </TextContainer>
-          <ReviewSlider />
+          {mentorData?.reviewList && (
+            <ReviewSlider reviewList={mentorData?.reviewList}/>
+          )}
         </Reviewcontainer>
       </Container>
     </Root>

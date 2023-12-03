@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
@@ -9,6 +9,7 @@ import ReviewSlider from "../ReviewSlider";
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
 import {GRAY, PRIMARY} from '../../../colors';
 import Person from "../../../assets/images/mypage_person.png";
+import axios from "axios";
 
 const MenteeMyProfile = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -48,6 +49,19 @@ const MenteeMyProfile = () => {
       },
     
   ];
+
+   useEffect(() => {
+  const getMentee = () => {
+      axios.get(`http://localhost:8080/api/mentee-mypage`).then((res) => {
+      
+      console.log(res);
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
+    getMentee();
+  },[]);
+
     return (
         <>
         <Time>
