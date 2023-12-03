@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Header from "../../../components/Header/HeaderMentee";
+import React, { useEffect, useState } from 'react';
+import Header from '../../../components/Header/Header';
 import styled from "styled-components";
 import { HEADER_HEIGHT } from "../../../assets/system/layout";
 import { GRAY } from "../../../colors";
@@ -9,10 +9,26 @@ import List from "../../../assets/images/mypage_list.png";
 import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
-import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+
 
 const MyPageMentor = () => {
   const [selectMenu, setSelectMenu] = useState("내 프로필");
+
+ 
+  const getMentorMypageData = () => {
+    axios.get('http://localhost:8080/mentor-mypage')
+      .then((res) => {
+        console.log('Response from /mentor-mypage:', res);
+        // 여기에서 res를 이용하여 받아온 데이터에 대한 추가 작업을 수행할 수 있습니다.
+      })
+      .catch((error) => {
+        console.error('Axios Error:', error);
+      });
+  };
+  useEffect(() => {
+    getMentorMypageData();
+  }, []);
 
   return (
     <Root>
@@ -68,8 +84,7 @@ const Root = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: ${HEADER_HEIGHT}px;
-  background-color: ${GRAY.LIGHT};
+  padding-top: ${HEADER_HEIGHT -5}px;
 `;
 
 const TabContainer = styled.div`
@@ -86,6 +101,7 @@ const Container = styled.div`
 
 const Contentcontainer = styled.div`
   width: 100%;
+  background-color: ${GRAY.LIGHT};
 `;
 
 const Sidebar = styled.div`

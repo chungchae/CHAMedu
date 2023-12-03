@@ -6,8 +6,45 @@ import Header from "../../components/Header/HeaderMentee";
 import styled from "styled-components";
 import { Typography } from "antd";
 import ChamIcon from "../../assets/images/cham.png";
+import axios from "axios";
 
 const PointChargePage = () => {
+  const userId = sessionStorage.getItem("userId");
+
+  const chargePoints = (changedPoints) => {
+    const data = {
+      userId: userId,
+      changedPoints: changedPoints,
+    };
+
+    console.log(userId);
+    console.log(changedPoints);
+
+    axios
+      .post(`/point/charge`, data, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      })
+      .then((res) => {
+        console.log("Complete Response:", res);
+        console.log("Response Status:", res.status);
+
+        // 여기서 로그인 성공 여부 또는 다른 조건에 따라 로직을 추가할 수 있습니다.
+        if (res.status >= 200 && res.status < 300) {
+          // HTTP 상태 코드가 2xx 범위이면 성공으로 간주합니다.
+          console.log(changedPoints, "CHAM 충전 성공!");
+        }
+        return res.data;
+      })
+      .then((res) => {
+        console.log("Parsed Response:", res);
+      })
+      .catch((error) => {
+        console.log("Axios Error:", error);
+      });
+  };
+
   return (
     <Root>
       <Header></Header>
@@ -16,37 +53,54 @@ const PointChargePage = () => {
           <MenuTypo>포인트 충전</MenuTypo>
         </div>
         <MenuContainer>
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>100 CHAM</ChamTypo>
             <WonTypo>10000 원</WonTypo>
           </div>
-          <ChargeContainer>
+          <ChargeContainer onClick={() => chargePoints(100)}>
             <ChargeTypo>결제하기</ChargeTypo>
           </ChargeContainer>
         </MenuContainer>
         <MenuContainer>
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>500 CHAM</ChamTypo>
             <WonTypo>45000 원</WonTypo>
           </div>
-          <ChargeContainer>
+          <ChargeContainer onClick={() => chargePoints(500)}>
             <ChargeTypo>결제하기</ChargeTypo>
           </ChargeContainer>
         </MenuContainer>
         <MenuContainer>
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <ChamImg src={ChamIcon}></ChamImg>
             <ChamTypo>1000 CHAM</ChamTypo>
             <WonTypo>90000 원</WonTypo>
           </div>
-          <ChargeContainer>
+          <ChargeContainer onClick={() => chargePoints(1000)}>
             <ChargeTypo>결제하기</ChargeTypo>
           </ChargeContainer>
         </MenuContainer>
       </Container>
-      
     </Root>
   );
 };
@@ -94,13 +148,14 @@ const MenuTypo = styled(Typography)`
   font-size: 18px;
   font-weight: 700;
   padding-bottom: 10px;
+  font-family: "esamanru";
 `;
 
 const ChamTypo = styled(Typography)`
+  width: 120px;
   font-size: 18px;
   font-weight: 500;
   padding-right: 10px;
-
 `;
 
 const WonTypo = styled(Typography)`

@@ -31,6 +31,8 @@ const MentorDetailPageMentee = () => {
     setModalReviewOpen(false);
   };
 
+  const role = sessionStorage.getItem("role");
+
   return (
     <Root>
       <Header></Header>
@@ -46,7 +48,13 @@ const MentorDetailPageMentee = () => {
             </RateContainer>
           </Mentorcontainer>
           <Infocontainer>
-            <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignContent: "center",
+              }}
+            >
               <MentorNameTypo>치와와교수</MentorNameTypo>
               <AdmissionTag color={"#99DDEC"}>논술</AdmissionTag>
             </div>
@@ -59,13 +67,17 @@ const MentorDetailPageMentee = () => {
               분 환영합니다.
             </MentorIntroTypo>
             <ButtonContainer>
-              <ReserveButton onClick={openReserveModal}>
-                상담 예약하기 →
-              </ReserveButton>
-              <MentorReserveModal
-                isOpen={modalReserveOpen}
-                closeModal={closeReserveModal}
-              />
+              {role === "mentee" && (
+                <>
+                  <ReserveButton onClick={openReserveModal}>
+                    상담 예약하기 →
+                  </ReserveButton>
+                  <MentorReserveModal
+                    isOpen={modalReserveOpen}
+                    closeModal={closeReserveModal}
+                  />
+                </>
+              )}
             </ButtonContainer>
           </Infocontainer>
         </Profilecontainer>
@@ -75,9 +87,11 @@ const MentorDetailPageMentee = () => {
               <IconImg src={NoteIcon} />
               <ReviewTypo2>후기 26개</ReviewTypo2>
             </div>
-            <WriteReviewButtonContainer onClick={openReviewModal}>
-              <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
-            </WriteReviewButtonContainer>
+            {role === "mentee" && (
+              <WriteReviewButtonContainer onClick={openReviewModal}>
+                <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
+              </WriteReviewButtonContainer>
+            )}
             <MentorReviewModal
               isOpen={modalReviewOpen}
               closeModal={closeReviewModal}
@@ -144,13 +158,13 @@ const Infocontainer = styled.div`
 `;
 
 const AdmissionTag = styled(Tag)`
-display: flex;
-align-items: center;
-height: 27px;
-border: none;
-font-size: 14px;
-color: white;
-font-family: "esamanru";
+  display: flex;
+  align-items: center;
+  height: 27px;
+  border: none;
+  font-size: 14px;
+  color: white;
+  font-family: "esamanru";
 `;
 
 const MentorProfileImg = styled.img`
