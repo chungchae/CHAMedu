@@ -8,6 +8,5 @@ module.exports = function(app) {
             changeOrigin: true,
             withCredentials: true,
         })
-        
     );
 };

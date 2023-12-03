@@ -9,26 +9,9 @@ import List from "../../../assets/images/mypage_list.png";
 import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
-import axios from "axios";
-
 
 const MyPageMentor = () => {
   const [selectMenu, setSelectMenu] = useState("내 프로필");
-
- 
-  const getMentorMypageData = () => {
-    axios.get('http://localhost:8080/mentor-mypage')
-      .then((res) => {
-        console.log('Response from /mentor-mypage:', res);
-        // 여기에서 res를 이용하여 받아온 데이터에 대한 추가 작업을 수행할 수 있습니다.
-      })
-      .catch((error) => {
-        console.error('Axios Error:', error);
-      });
-  };
-  useEffect(() => {
-    getMentorMypageData();
-  }, []);
 
   return (
     <Root>
