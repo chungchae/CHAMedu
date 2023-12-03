@@ -5,33 +5,34 @@ import { Input, Typography, Button, ConfigProvider, Select } from "antd";
 import { PRIMARY } from "../../colors";
 import ProImg from "../../assets/images/profile.png";
 import TextArea from "antd/es/input/TextArea";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useEffect } from "react";
 
-const MentorModifyModal = ({ isOpen, closeModal }) => {
-  const [nickname, setNickname] = useState("");
-  const [education, setEducation] = useState("");
-  const [college, setCollege] = useState("");
-  const [intro, setIntro] = useState("");
+const MentorModifyModal = ( {mentorData,  isOpen, closeModal }) => {
+  const [nickname, setNickname] = useState(""); //닉네임
+  const [university, setUniversity] = useState(""); //동국대 컴퓨터공학과
+  const [promotionText, setPromotionText] = useState(""); //자기소개
+
   const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
   const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
 
   const [startDate, setStartDate] = useState(new Date());
+
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedTimes, setSelectedTimes] = useState([]);
 
   const admissionOptions = [
-    { value: "학종", label: "학종" },
-    { value: "정시", label: "정시" },
-    { value: "교과", label: "교과" },
-    { value: "논술", label: "논술" },
+    { value: 0, label: "학종" },
+    { value: 1, label: "정시" },
+    { value: 2, label: "교과" },
+    { value: 3, label: "논술" },
   ];
   const collegeOptions = [
-    { value: "공과대", label: "공과대" },
-    { value: "자연대", label: "자연대" },
-    { value: "문과대", label: "문과대" },
-    { value: "예대", label: "예대" },
-    { value: "체대", label: "체대" },
+    { value: 0, label: "공과대" },
+    { value: 1, label: "자연대" },
+    { value: 2, label: "문과대" },
+    { value: 3, label: "예대" },
+    { value: 4, label: "체대" },
   ];
 
   const timeOptions = [
@@ -55,6 +56,20 @@ const MentorModifyModal = ({ isOpen, closeModal }) => {
     "17:30",
     "18:00",
   ];
+
+  useEffect(() => {
+    console.log("멘토데이터!!", mentorData);
+    setNickname(mentorData.nickname || "");
+    setUniversity(mentorData.university || "");
+    setPromotionText(mentorData.promotionText || "")
+
+    setAdmissionSelect(mentorData.admissionType || "");
+    setCollegeSelect(mentorData.university || "");
+  }, [mentorData]);
+
+  const test = () => {
+    console.log(selectedTimes)
+  }
 
   const handleAdmissionChange = (option) => {
     setAdmissionSelect(option);
@@ -100,21 +115,22 @@ const MentorModifyModal = ({ isOpen, closeModal }) => {
           <CloseButton onClick={closeModal}>X</CloseButton>
           <Container>
             <TitleTypo>
-              <span>치와와교수</span>의 프로필 수정하기
+              <span>{mentorData.nickname}</span>의 프로필 수정하기
             </TitleTypo>
             <InfoContainer>
               <MentorProfileImg src={ProImg} />
               <InfoContainer2>
-                <InfoTypo>닉네임</InfoTypo>
-                <InfoInput />
+                <InfoTypo >닉네임</InfoTypo>
+                <InfoInput value={nickname} onChange={(e) => setNickname(e.target.value)} />
                 <InfoTypo>학력</InfoTypo>
-                <InfoInput />
+                <InfoInput value={university} onChange={(e) => setUniversity(e.target.value)} />
                 <InfoTypo>자기소개</InfoTypo>
-                <ContentInput />
+                <ContentInput value={promotionText} onChange={(e) => setPromotionText(e.target.value)} />
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <SelectContainer>
                     <InfoTypo>입시 전형 선택</InfoTypo>
                     <SelectBox
+                      value={admissionSelect}
                       onChange={(option) => handleAdmissionChange(option)}
                       placeholder='입시 전형 선택'
                       options={admissionOptions}
@@ -123,6 +139,7 @@ const MentorModifyModal = ({ isOpen, closeModal }) => {
                   <SelectContainer>
                     <InfoTypo>단과대 선택</InfoTypo>
                     <SelectBox
+                    value={admissionSelect}
                       onChange={(option) => handleCollegeChange(option)}
                       placeholder='단과대 선택'
                       options={collegeOptions}
@@ -145,7 +162,7 @@ const MentorModifyModal = ({ isOpen, closeModal }) => {
                 ))}
               </TimeSelection>
             </TimeContainer>
-            <ModifyButton>프로필 수정하기</ModifyButton>
+            <ModifyButton onClick={test()}>프로필 수정하기</ModifyButton>
           </Container>
         </Root>
       </Modal>
