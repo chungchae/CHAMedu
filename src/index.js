@@ -13,6 +13,7 @@ import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
 import PointChargePage from "./pages/Point/PointChargePage";
+import PointExchangePage from "./pages/Point/PointExchangePage";
 import MentorListPage from "./pages/MentorPage/MentorListPage";
 import ChooseLogin from "./pages/Login/ChooseLogin";
 
@@ -67,6 +68,7 @@ root.render(
         <Route path='/welcome/join' element={<WelcomePage />} />
         <Route path='/mentor/request' element={<MentorPage />} />
         <Route path='/mentee/charge' element={<PointChargePage />} />
+        <Route path='/mentor/exchange' element={<PointExchangePage />} />
         <Route path='/mentorlist' element={<MentorListPage />} />
       </Routes>
     </BrowserRouter>

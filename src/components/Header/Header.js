@@ -27,6 +27,10 @@ const Header = () => {
   const onClickChargeButton = () => {
     navigate('/mentee/charge')
   }
+  const onClickExchangeButton = () => {
+    navigate('/mentor/exchange')
+  }
+
   const onClickMyPageButton = () => {
     navigate('/user/mypage')
   }
@@ -74,7 +78,7 @@ const Header = () => {
             <ChamTypo>370 CHAM</ChamTypo>
             {role === "mentor" && (
               <>
-                <ExchangeIcon onClick={onClickChargeButton}/>
+                <ExchangeIcon onClick={onClickExchangeButton}/>
               </>
             )}
             {role === "mentee" && (
