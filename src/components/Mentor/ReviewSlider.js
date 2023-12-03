@@ -19,8 +19,8 @@ const ReviewSlider = () => {
             LeftArrow={LeftArrow}
             RightArrow={RightArrow}
           >
-            {ReviewList.map(({ title, rate, content }) => ( //샘플 리뷰 렌더링
-              <ReviewCard title={title} rate={rate} content={content} />
+            {ReviewList.map(({ title, rate, content }, index) => ( //샘플 리뷰 렌더링
+              <ReviewCard key={index} title={title} rate={rate} content={content} />
             ))}
           </ScrollMenu>
         </div>

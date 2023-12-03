@@ -12,7 +12,7 @@ const MentorListPage = () => {
   const [search, setSearch] = useState(""); //검색어
   const [admissionSelect, setAdmissionSelect] = useState(4); //전형 옵션
   const [mentorList, setMentorList] = useState();
-  const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
+  const [collegeSelect, setCollegeSelect] = useState(0); //단과대 옵션
 
   useEffect(() => {
   const getMentorList = () => {
@@ -34,13 +34,21 @@ const MentorListPage = () => {
     { value: 3, label: "논술" },
   ];
 
-   const collegeOptions = [
-    { value: "All", label: "All" },
-    { value: "공과대", label: "공과대" },
-    { value: "자연대", label: "자연대" },
-    { value: "문과대", label: "문과대" },
-    { value: "예대", label: "예대" },
-    { value: "체대", label: "체대" },
+  //  const collegeOptions = [
+  //   { value: "All", label: "All" },
+  //   { value: "공과대", label: "공과대" },
+  //   { value: "자연대", label: "자연대" },
+  //   { value: "문과대", label: "문과대" },
+  //   { value: "예대", label: "예대" },
+  //   { value: "체대", label: "체대" },
+  // ];
+  const collegeOptions = [
+    { value: "0", label: "All" },
+    { value: "1", label: "공과대" },
+    { value: "2", label: "자연대" },
+    { value: "3", label: "문과대" },
+    { value: "4", label: "예대" },
+    { value: "5", label: "체대" },
   ];
   const handleSearchChange = (event) => {
     setSearch(event.currentTarget.value);
@@ -56,8 +64,14 @@ const MentorListPage = () => {
   const filteredMentorListData = mentorList?.filter((mentor) => {
     const nicknameIncludes = mentor.nickname.toLowerCase().includes(search.toLowerCase());
     const admissionIncludes = admissionSelect === 4 || mentor.admissionType === admissionSelect;
-    //const collegeIncludes = collegeSelect === "All" || mentor.college.toLowerCase().includes(collegeSelect.toLowerCase());
-    return nicknameIncludes && admissionIncludes; //&& collegeIncludes;
+    const collegeIncludes = collegeSelect === 0 || mentor.collegeType === collegeSelect;
+    // const collegeIncludes = collegeSelect === "0" || mentor.college.toLowerCase().includes(collegeSelect?.toLowerCase()); //주석되었던 부분 다시 생성
+  //   const collegeIncludes =
+  // collegeSelect === "All" ||
+  // (mentor.college &&
+  //   mentor.college.toLowerCase().includes(collegeSelect.toLowerCase()));
+
+    return nicknameIncludes && admissionIncludes && collegeIncludes; //college 추가
   });
 
   return (
@@ -87,11 +101,11 @@ const MentorListPage = () => {
               placeholder='입시 전형 선택'
               options={admissionOptions}
             />
-            {/* <SelectBox
+            <SelectBox
               onChange={(option) => handleCollegeChange(option)}
               placeholder='단과대 선택'
-              options={collegeOptions}
-            /> */}
+              options={collegeOptions}   //주석되었던 부분 단과대 추가하여 생성
+            />
           </SelectContainer>
           <MentorCardContainer>
             {mentorList?.length === 0 ? (
