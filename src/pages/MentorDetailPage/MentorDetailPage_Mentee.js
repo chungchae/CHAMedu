@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import Header from "../../components/Header/HeaderMentee";
@@ -12,10 +11,12 @@ import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
 import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 import Bunting from "../../assets/images/buntingIcon.png";
-import { getAdmissionColor } from "../../utils/color";
+import axios from "axios";
+
 
 const MentorDetailPageMentee = () => {
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
+  const [mentorData, setMentorData]= useState();
   const openReserveModal = () => {
     setModalReserveOpen(true);
   };
@@ -31,6 +32,39 @@ const MentorDetailPageMentee = () => {
     setModalReviewOpen(false);
   };
 
+  const admissionTypeChange = (admission) => {
+    if(admission === 0){
+      return '학종';
+    }else if (admission === 1){
+      return '정시';
+    }else if(admission===2){
+      return '교과';
+    }else if (admission ===3){
+      return '논술';
+    }
+    return 'All';
+  }
+
+  useEffect(() => {
+    const getPathLastSegment = () => {
+      const pathArray = window.location.pathname.split('/');
+      return pathArray[pathArray.length - 1];
+    };
+  
+    const mentorId = getPathLastSegment();
+  
+    const getMentor = () => {
+      axios.get(`http://localhost:8080/mentor-profile/${mentorId}`).then((res) => {
+        console.log("망",res.data)
+        setMentorData(res.data);
+      }).catch((error) => {
+        console.error('Axios Error', error);
+      });
+    };
+  
+    getMentor();
+  }, []);
+
   return (
     <Root>
       <Header></Header>
@@ -39,24 +73,22 @@ const MentorDetailPageMentee = () => {
           <Mentorcontainer>
             <BuntingImg src={Bunting} alt='Bunting Icon' />
             <MentorProfileImg src={ProfileImg} />
+            {/* <MentorProfileImg src={`../../assets/images/${mentorData?.profileImg}`} /> */}
             <RateContainer>
               <RateStarImg src={StarIcon}></RateStarImg>
-              <RateTypo>4.5</RateTypo>
-              <ReviewTypo>진행한 상담 105건</ReviewTypo>
+              <RateTypo>{mentorData?.avgScore}</RateTypo>
+              <ReviewTypo>진행한 상담 {mentorData?.chatCount}건</ReviewTypo>
             </RateContainer>
           </Mentorcontainer>
           <Infocontainer>
             <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
-              <MentorNameTypo>치와와교수</MentorNameTypo>
-              <AdmissionTag color={"#99DDEC"}>논술</AdmissionTag>
+              <MentorNameTypo>{mentorData?.nickname}</MentorNameTypo>
+              <AdmissionTag color={"#99DDEC"}>{admissionTypeChange(mentorData?.addmissionType)}</AdmissionTag>
             </div>
 
-            <MentorEducationTypo>동국대 컴퓨터공학과 3학년</MentorEducationTypo>
+            <MentorEducationTypo>{mentorData?.university}</MentorEducationTypo>
             <MentorIntroTypo>
-              서울 수도권 대학 6개 논술 지원해 전부 합격했습니다. 과탐 논술은
-              물리 기하 및 벡터는 거의 공부 안하고 기출만 풀었어요. 친절하고
-              성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
-              분 환영합니다.
+              {mentorData?.promotonText}
             </MentorIntroTypo>
             <ButtonContainer>
               <ReserveButton onClick={openReserveModal}>
