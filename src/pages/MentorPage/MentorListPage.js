@@ -1,6 +1,6 @@
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
-import Header from "../../components/Header/HeaderMentee";
+import Header from "../../components/Header/Header";
 import NewMentorCard from "../../components/Mentor/NewMentorCard";
 import styled from "styled-components";
 import Search from "antd/es/input/Search";
@@ -43,12 +43,12 @@ const MentorListPage = () => {
   //   { value: "체대", label: "체대" },
   // ];
   const collegeOptions = [
-    { value: "0", label: "All" },
-    { value: "1", label: "공과대" },
-    { value: "2", label: "자연대" },
-    { value: "3", label: "문과대" },
-    { value: "4", label: "예대" },
-    { value: "5", label: "체대" },
+    { value: 0, label: "체대" },
+    { value: 1, label: "공과대" },
+    { value: 2, label: "자연대" },
+    { value: 3, label: "문과대" },
+    { value: 4, label: "예대" },
+    
   ];
   const handleSearchChange = (event) => {
     setSearch(event.currentTarget.value);
@@ -64,13 +64,7 @@ const MentorListPage = () => {
   const filteredMentorListData = mentorList?.filter((mentor) => {
     const nicknameIncludes = mentor.nickname.toLowerCase().includes(search.toLowerCase());
     const admissionIncludes = admissionSelect === 4 || mentor.admissionType === admissionSelect;
-    const collegeIncludes = collegeSelect === 0 || mentor.collegeType === collegeSelect;
-    // const collegeIncludes = collegeSelect === "0" || mentor.college.toLowerCase().includes(collegeSelect?.toLowerCase()); //주석되었던 부분 다시 생성
-  //   const collegeIncludes =
-  // collegeSelect === "All" ||
-  // (mentor.college &&
-  //   mentor.college.toLowerCase().includes(collegeSelect.toLowerCase()));
-
+    const collegeIncludes = collegeSelect === 0 || mentor.college === collegeSelect;
     return nicknameIncludes && admissionIncludes && collegeIncludes; //college 추가
   });
 
