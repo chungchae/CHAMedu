@@ -78,25 +78,18 @@ const HistoryContent = () => {
 }
 
 const SubText = styled.div`
-  font-size: 10px;
-  padding-top: 5px;
+  font-size: 15px;
   padding-bottom: 30px;
   padding-left: 20px;
   font-family: "esamanru";
-  color: gray;
-`;
-
-const CompleteTrue = styled.div`
-    font-family: "esamanru";
-    font-weight: 500;
-    color: gray;
+  color: ${GRAY.DARK};
 `;
 
 const CompleteFalse = styled.div`
-    font-family: "esamanru";
-    font-weight: 500;
-    color: gray;
-    text-decoration: underline;
+  font-family: "esamanru";
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
 `;
 
 const RoundedBox = styled.div`
@@ -105,46 +98,51 @@ const RoundedBox = styled.div`
   width: calc(100% - 150px);
   margin-top: 10px;
   margin-left: 50px;
-  padding-right: 50px;
+  padding: 20px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const HeaderText = styled.div`
-  font-size: 14px;
-  padding-top: 30px;
+  width: 100%;
+  font-size: 18px;
+  padding-top: 20px;
+  padding-bottom: 10px;
   padding-left: 20px;
   font-family: "esamanru";
 `;
 
 const RequestImageWrapper = styled.div`
-    display: inline-flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
 `;
 
 const RequestUserWrapper = styled.div`
-    display: inline-flex;
-    align-items: center;
-    gap:30px;
-
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
 `;
 
 const RequestButtonWrapper = styled.div`
   display: inline-flex;
-    gap: 10px;
+  gap: 10px;
 `;
 
 const RequestImage = styled.img``;
 
 const RequestWrapper = styled.div`
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    margin: 5px;
-    padding: 20px;
-    justify-content: space-between;
-    font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  width: calc(100% - 120px);
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 20px;
+  justify-content: space-between;
+  font-weight: 900;
 `;
 
 export default HistoryContent;

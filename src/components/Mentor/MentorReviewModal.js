@@ -5,6 +5,7 @@ import { Input, Typography, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { PRIMARY } from "../../colors";
 import StarRatings from "react-star-ratings";
+import axios from "axios";
 
 const MentorReviewModal = ({ isOpen, closeModal }) => {
   const [title, setTitle] = useState("");
@@ -21,10 +22,26 @@ const MentorReviewModal = ({ isOpen, closeModal }) => {
     setRating(newRating);
   };
 
-  const handleSubmit = () => {
-    console.log("Title:", title);
-    console.log("Content:", content);
-    console.log("Rating:", rating);
+  const handleSubmit = () => { // 등록 클릭시 동작
+    const getPathLastSegment = () => { //id 가져옴
+      const pathArray = window.location.pathname.split('/');
+      return pathArray[pathArray.length - 1];
+    };
+  
+    const mentorId = getPathLastSegment();
+
+    const requestBody = {
+      title: title,
+      content: content,
+      score: rating, //score라는 걸로 가려놓음
+    };
+    axios.post(`http://localhost:8080/mentor-profile/review/${mentorId}`, requestBody).then((res) => { //body에 넣어서 보냄
+      
+      console.log("success", res);
+    }).catch((error) => {
+      console.error('Axios Error', error)
+    })
+
     closeModal();
   };
 

@@ -1,4 +1,4 @@
-import { Button, Typography } from "antd";
+import { Button, Typography, message } from "antd";
 import styled from "styled-components";
 import React from "react";
 import HeaderIcon from "../../assets/images/HeaderIcon.png";
@@ -43,6 +43,7 @@ const Header = () => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('role');
         // 로그아웃 후 메인 페이지로 이동
+        message.success("로그아웃 성공!");
         navigate("/");
       })
       .catch((error) => {

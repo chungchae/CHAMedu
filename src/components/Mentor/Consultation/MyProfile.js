@@ -1,21 +1,24 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
 import MentorModifyModal from "../../../components/Mentor/MentorModifyModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import Person from "../../../assets/images/mypage_person.png";
-import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../../assets/system/layout";
+import { CONTAINER_WIDTH } from "../../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../../colors";
-import { useEffect } from "react";
-import axios from "axios";
 import { translateAdmission } from "../../../utils/translate";
 import { getAdmissionColor } from "../../../utils/color";
+import axios from "axios";
 
 const MyProfile = () => {
   const [modalModifyOpen, setModalModifyOpen] = useState(false);
+  //멘토 정보 데이터
   const [mentorData, setMentorData] = useState({});
+  //예정 상담 데이터
+  const [planData, setPlanData] = useState();
+
   const openModifyModal = () => {
     setModalModifyOpen(true);
   };
@@ -31,6 +34,7 @@ const MyProfile = () => {
     setModalOpen(false);
   };
 
+  //멘토 데이터 API
   const getMentorMypageData = () => {
     axios
       .get("/api/mentor-mypage", { withCredentials: true })
@@ -40,35 +44,29 @@ const MyProfile = () => {
       })
       .catch((error) => {
         console.error("Axios Error:", error);
-        // Log the entire response for more details
+        console.log("Full Axios Response:", error.response);
+      });
+  };
+
+  //예정 상담 데이터 API
+  const getChatPlanData = () => {
+    axios
+      .get("/api/mentor-mypage/chat-plans", { withCredentials: true })
+      .then((res) => {
+        console.log("플랜데이터:", res);
+        setPlanData(res.data);
+      })
+      .catch((error) => {
+        console.error("Axios Error:", error);
         console.log("Full Axios Response:", error.response);
       });
   };
 
   useEffect(() => {
     getMentorMypageData();
+    getChatPlanData();
   }, []);
 
-  const imageList = [
-    {
-      imageName: Person,
-      name: "이한별",
-      date: "2023-11-14",
-      time: "13:00~13:30",
-      title: "동국대학교 논술 문제유형관련 질문",
-      onAccept: () => console.log("Accepted 1"),
-      onReject: () => console.log("Rejected 1"),
-    },
-    {
-      imageName: Person,
-      name: "홍길동",
-      date: "2023-12-14",
-      time: "20:00~20:30",
-      title: "논술 수학 범위 관련 질문",
-      onAccept: () => console.log("Accepted 1"),
-      onReject: () => console.log("Rejected 1"),
-    },
-  ];
   return (
     <>
       <Time>
@@ -79,11 +77,13 @@ const MyProfile = () => {
       <Container>
         <Profilecontainer>
           <Mentorcontainer>
-          <MentorProfileImg src={mentorData.userImg || ProfileImg} />
+            <MentorProfileImg src={/* mentorData.userImg ||  */ ProfileImg} />
             <RateContainer>
               <RateStarImg src={StarIcon}></RateStarImg>
               <RateTypo>{mentorData.avgScore}</RateTypo>
-              <ReviewTypo>진행한 상담 {mentorData.requestRoomCount}건</ReviewTypo>
+              <ReviewTypo>
+                진행한 상담 {mentorData.requestRoomCount}건
+              </ReviewTypo>
             </RateContainer>
           </Mentorcontainer>
           <Infocontainer>
@@ -95,7 +95,11 @@ const MyProfile = () => {
               }}
             >
               <MentorNameTypo>{mentorData.nickname}</MentorNameTypo>
-              <DepartmentTag color={getAdmissionColor(mentorData.admissionType)}>{translateAdmission(mentorData.admissionType)}</DepartmentTag>
+              <DepartmentTag
+                color={getAdmissionColor(mentorData.admissionType)}
+              >
+                {translateAdmission(mentorData.admissionType)}
+              </DepartmentTag>
             </div>
 
             <MentorEducationTypo>{mentorData.university}</MentorEducationTypo>
@@ -105,7 +109,7 @@ const MyProfile = () => {
                 프로필 수정하기
               </ModifyButton>
               <MentorModifyModal
-                mentorData = {mentorData}
+                mentorData={mentorData}
                 isOpen={modalModifyOpen}
                 closeModal={closeModifyModal}
               />
@@ -120,19 +124,20 @@ const MyProfile = () => {
           </div>
         </TextContainer>
         <Waitingcontainer>
-          {imageList.map((image, index) => (
-            <RequestWrapper key={index}>
-              <RequestUserWrapper>
-                <RequestImageWrapper>
-                  <RequestImage src={Person} alt='Image' />
-                  <div>{image.name}</div>
-                </RequestImageWrapper>
-                <div>{image.date}</div>
-                <div>{image.time}</div>
-                <div>{image.title}</div>
-              </RequestUserWrapper>
-            </RequestWrapper>
-          ))}
+          {planData &&
+            planData.map((plan, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt='Image' />
+                    <div>{plan.menteeName}</div>
+                  </RequestImageWrapper>
+                  <div>{plan.startDate}</div>
+                  <div>{plan.durationTime}</div>
+                  <div>{plan.chatTitle}</div>
+                </RequestUserWrapper>
+              </RequestWrapper>
+            ))}
         </Waitingcontainer>
       </Container>
     </>
@@ -167,6 +172,7 @@ const Profilecontainer = styled.div`
   margin: 30px 0px;
   border-radius: 20px;
   padding: 40px;
+  position: relative;
 `;
 const Waitingcontainer = styled.div`
   background-color: white;
