@@ -74,7 +74,7 @@ const MentorPageMentee = () => {
           </PopularMentorContainer>
         ) : (
           <PopularMentorContainer>
-            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+            <NoRecommendMentor>인기 멘토가 없습니다.</NoRecommendMentor>
           </PopularMentorContainer>
         )}
 
@@ -94,7 +94,7 @@ const MentorPageMentee = () => {
           </AdmissionMentorContainer>
         ) : (
           <AdmissionMentorContainer>
-            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+            <NoRecommendMentor>전형 추천 멘토가 없습니다.</NoRecommendMentor>
           </AdmissionMentorContainer>
         )}
 
@@ -114,7 +114,7 @@ const MentorPageMentee = () => {
           </MajorMentorContainer>
         ) : (
           <MajorMentorContainer>
-            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+            <NoRecommendMentor>전공 추천 멘토가 없습니다.</NoRecommendMentor>
           </MajorMentorContainer>
         )}
       </Container>
