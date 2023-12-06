@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
-import Header from "../../components/Header/HeaderMentee";
+import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
@@ -109,7 +109,7 @@ const MentorDetailPageMentee = () => {
           <TextContainer>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <IconImg src={NoteIcon} />
-              <ReviewTypo2>후기 26개</ReviewTypo2>
+              <ReviewTypo2>후기 {mentorData?.reviewCount}개</ReviewTypo2>
             </div>
             <WriteReviewButtonContainer onClick={openReviewModal}>
               <WriteReviewTypo>후기 작성하기</WriteReviewTypo>

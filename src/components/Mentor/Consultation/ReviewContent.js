@@ -1,19 +1,35 @@
 import Person from "../../../assets/images/mypage_person.png";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GRAY, PRIMARY } from "../../../colors";
 import styled from "styled-components";
 import { Button, Typography, Tag } from "antd";
 import MentorReviewModal from "../../../components/Mentor/MentorReviewModal";
+import axios from "axios";
 
 const ReviewContent = () => {
   const [modalReviewOpen, setModalReviewOpen] = useState(false);
+  const [menteeData, setMenteeData] = useState({});
+  
   const openReviewModal = () => {
     setModalReviewOpen(true);
   };
   const closeReviewModal = () => {
     setModalReviewOpen(false);
   };
+
+   useEffect(() => {
+    const getMentee = () => { // api주소 가상으로
+      axios.get(`http://localhost:8080/api/mentee-mypage/review`).then((res) => {
+      
+      console.log(res);
+      setMenteeData(res.data);
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
+    getMentee();
+  },[]);
 
   const imageList = [
     {
@@ -65,14 +81,38 @@ const ReviewContent = () => {
                 <WriteReviewButtonContainer onClick={openReviewModal}>
                 <WriteReviewTypo>작성한 후기 보기</WriteReviewTypo>
               </WriteReviewButtonContainer>
-               
                 </RequestButtonWrapper>
                 <MentorReviewModal
-              isOpen={modalReviewOpen}
-              closeModal={closeReviewModal}
-               />
+                  isOpen={modalReviewOpen}
+                  closeModal={closeReviewModal}
+                />
               </RequestWrapper>  
-            ))}
+            ))} 
+
+            {/* /* 코드 오면 68-90 주석처리 menteeData.review
+            {Array.isArray(menteeData.review) && menteeData.review.map((review, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt="Image"/>
+                    <div>{review.name}</div>
+                  </RequestImageWrapper>
+                  <div>{review.date}</div>
+                  <div>{review.time}</div>
+                  <div>{review.title}</div>
+                </RequestUserWrapper>
+
+                <RequestButtonWrapper>
+                  <WriteReviewButtonContainer onClick={openReviewModal}>
+                    <WriteReviewTypo>작성한 후기 보기</WriteReviewTypo>
+                  </WriteReviewButtonContainer>
+                </RequestButtonWrapper>
+                <MentorReviewModal
+                  isOpen={modalReviewOpen}
+                  closeModal={closeReviewModal}
+                />
+              </RequestWrapper>  
+            ))} */}
           </RoundedBox>
           </>
     );

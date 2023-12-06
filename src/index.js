@@ -26,10 +26,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        
       <Route path='/user/mypage/mentor' element={<MyPageMentorPage />} />
       <Route path='/user/mypage/mentee' element={<MyPageMenteePage />} />
       <Route path='/user/mentor' element={<MentorPageMentee />} />
-        {/* {role === "mentor" && (
+        {role === "mentor" && (
           <>
             <Route path='/user/mentor' element={<MentorPageMentee />} />
             <Route path='/user/mypage' element={<MyPageMentorPage />} />
@@ -40,7 +41,7 @@ root.render(
             <Route path='/user/mentor' element={<MentorPageMentee />} />
             <Route path='/user/mypage' element={<MyPageMenteePage />} />
           </>
-        )} */}
+        )} 
         <Route path='/' element={<MainPage />} />
         <Route path='/user/mentor' element={<MentorPageMentee />} />
         <Route
