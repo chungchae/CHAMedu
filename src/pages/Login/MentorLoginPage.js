@@ -51,7 +51,7 @@ const mentorLoginApi = () => {
         // 세션 스토리지에 저장된 값을 확인
         console.log("세션 스토리지 userId:", sessionStorage.getItem('userId'));
         console.log("세션 스토리지 role:", sessionStorage.getItem('role'));
-        navigate("/user/mentor");
+        navigate("/mentorlist");
       }
 
       return res.data;

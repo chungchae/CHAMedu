@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   const onClickMyPageButton = () => {
-    navigate("/user/mypage");
+    navigate(`/user/mypage/${role}`);
   };
   const logoutApi = () => {
     axios
