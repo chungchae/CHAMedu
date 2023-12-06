@@ -12,9 +12,11 @@ import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
 import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 import Bunting from "../../assets/images/buntingIcon.png";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 
 const MentorDetailPageMentee = () => {
+  const mentorParams = useParams();
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
   const [mentorData, setMentorData]= useState();
   const openReserveModal = () => {
@@ -46,15 +48,10 @@ const MentorDetailPageMentee = () => {
   }
 
   useEffect(() => {
-    const getPathLastSegment = () => {
-      const pathArray = window.location.pathname.split('/');
-      return pathArray[pathArray.length - 1];
-    };
-  
-    const mentorId = getPathLastSegment();
+    console.log('멘토 파라미터:',mentorParams.mentorKey);
   
     const getMentor = () => {
-      axios.get(`http://localhost:8080/mentor-profile/${mentorId}`).then((res) => {
+      axios.get(`http://localhost:8080/mentor-profile/${mentorParams.mentorKey}`).then((res) => {
         console.log("망",res.data)
         setMentorData(res.data);
       }).catch((error) => {
