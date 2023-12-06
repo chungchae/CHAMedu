@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
-import Header from "../../components/Header/HeaderMentee";
+import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";

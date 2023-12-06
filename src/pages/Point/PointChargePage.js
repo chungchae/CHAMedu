@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY } from "../../colors";
-import Header from "../../components/Header/HeaderMentee";
+import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import { Typography, message } from "antd";
 import ChamIcon from "../../assets/images/cham.png";
