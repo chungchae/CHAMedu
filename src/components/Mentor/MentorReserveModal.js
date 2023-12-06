@@ -5,82 +5,87 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import ProImg from "../../assets/images/profile.png";
 import "react-datepicker/dist/react-datepicker.css";
-import { Typography } from "antd";
+import { Input, Typography } from "antd";
 import axios from "axios";
 
 const MentorReserveModal = ({ isOpen, closeModal }) => {
   const [startDate, setStartDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("11:00:00");
   const [timeList, setTimeList] = useState();
+  const [consultationInfo, setConsultationInfo] = useState("논술 상담");
+  console.log(selectedTime);
+  const handleConsultationInfoChange = (e) => {
+    setConsultationInfo(e.target.value);
+  };
 
-  useEffect(() => {  // 조회하는거
+  useEffect(() => {
+    // 조회하는거
     const getPathLastSegment = () => {
-      const pathArray = window.location.pathname.split('/');
+      const pathArray = window.location.pathname.split("/");
       return pathArray[pathArray.length - 1];
     };
-  
-    const mentorId = getPathLastSegment(); 
+
+    const mentorId = getPathLastSegment();
 
     const getReserve = () => {
-      axios.get(`http://localhost:8080/mentor-profile/request/${mentorId}`).then((res) => {
-      
-      console.log(res);
-      if (Array.isArray(res.data)) { //데이터가 빈배열로 넘어오다보니 자바스크립트가 object로 오판단
-        // 그래서 빈 배열인 경우, 빈 배열로 넣어주기 위해서 array 판단
-        setTimeList(res.data);
-      } else {
-        setTimeList([]); //빈 배열로 넣음
-      }
-      
-    }).catch((error) =>{
-      console.error('Axios Error', error);
-    })
-    }
+      axios
+        .get(`http://localhost:8080/mentor-profile/request/${mentorId}`)
+        .then((res) => {
+          console.log(res);
+          if (Array.isArray(res.data)) {
+            //데이터가 빈배열로 넘어오다보니 자바스크립트가 object로 오판단
+            // 그래서 빈 배열인 경우, 빈 배열로 넣어주기 위해서 array 판단
+            setTimeList(res.data);
+          } else {
+            setTimeList([]); //빈 배열로 넣음
+          }
+        })
+        .catch((error) => {
+          console.error("Axios Error", error);
+        });
+    };
     getReserve();
-  },[]);
+  }, []);
 
   const clickHandler = () => {
     const getPathLastSegment = () => {
-      const pathArray = window.location.pathname.split('/');
+      const pathArray = window.location.pathname.split("/");
       return pathArray[pathArray.length - 1];
     };
-  
+
     const mentorId = getPathLastSegment();
 
+    // startDate 연도, 월, 일로 분리합니다.
+    const [year, month, day] = startDate
+      .toLocaleString()
+      .slice(0, -3)
+      .split(". ")
+      .map(Number);
+
+    // selectedTime을 시, 분, 초로 분리합니다.
+    const [hours, minutes, seconds] = selectedTime?.split(":").map(Number);
+
+    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    console.log("@", formattedDate);
+
     const requestBody = {
-      selectedTime: selectedTime, // 여기에 선택된 시간을 포함 //13번째줄 저장한다음에 usestate
-      // 여기에 추가추가 
+      wishChatSchedule: formattedDate, // 여기에 선택된 시간을 포함 //13번째줄 저장한다음에 usestate
+      chatTitle: consultationInfo,
     };
 
-    axios.post(`http://localhost:8080/mentor-profile/request/${mentorId}`, requestBody).then((res) => {
-      
-      console.log("success", res);
-    }).catch((error) => {
-      console.error('Axios Error', error)
-    })
-  } 
-
-  const timeOptions = [
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-  ];
+    axios
+      .post(
+        `http://localhost:8080/mentor-profile/request/${mentorId}`,
+        requestBody
+      )
+      .then((res) => {
+        console.log("success", res);
+      })
+      .catch((error) => {
+        console.error("Axios Error", error);
+      });
+  };
 
   const handleTimeButtonClick = (time) => {
     setStartDate((prevDate) => {
@@ -101,55 +106,107 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
           <TitleTypo>
             <span>치와와교수</span>의 상담 예약하기
           </TitleTypo>
-          <ProfileContainer>
+          {/* <ProfileContainer>
             <ProfileContainer2>
               <MentorProfileImg src={ProImg} />
               <EduTypo>동국대 컴퓨터공학과</EduTypo>
             </ProfileContainer2>
             <InfoTypo>
-              서울 수도권 대학 6개 논술 지원해 전부 합격했습니다. 과탐 논술은
-              물리 기하 및 벡터는 거의 공부 안하고 기출만 풀었어요. 친절하고
-              성의있게 상담해드립니다. 내신 안 좋은 분 최저 없는 논술 도전하시는
-              분 환영합니다.
-            </InfoTypo>
-          </ProfileContainer>
-          <DateContainer>
-            <DatePickerContainer>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                locale='pt-BR'
-                timeFormat='p'
-                timeIntervals={30}
-                dateFormat='Pp'
-                inline
-                minDate={new Date()}
+              <Input.TextArea
+                value={consultationInfo}
+                onChange={handleConsultationInfoChange}
+                placeholder="상담 내용을 입력하세요"
+                autoSize={{ minRows: 4, maxRows: 6 }}
               />
-            </DatePickerContainer>
-            <TimeContainer>
-              <MenuTypo>상담 시간 선택</MenuTypo>
-              <TimeSelection>
-                {/* {timeOptions.map((time) => ( */}
-                {timeList?.map((time) => (
-                  <TimeButton
-                    key={time}
-                    onClick={() => handleTimeButtonClick(time)}
-                    selected={time === selectedTime}
-                  >
-                    {time}
-                  </TimeButton>
-                ))}
-              </TimeSelection>
-              <MenuTypo>선택한 시간</MenuTypo>
-              <SelectedTime>{startDate.toLocaleString().slice(0, -3)}</SelectedTime>
-              <ReserveButtonStyled onClick={() => {clickHandler()}}>상담 신청하기 →</ReserveButtonStyled>
-            </TimeContainer>
+            </InfoTypo>
+          </ProfileContainer> */}
+          <DateContainer>
+            <DateWrapper>
+              <DatePickerContainer>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  locale="pt-BR"
+                  timeFormat="p"
+                  timeIntervals={30}
+                  dateFormat="Pp"
+                  inline
+                  minDate={new Date()}
+                />
+              </DatePickerContainer>
+              <TimeContainer>
+                <MenuTypo>상담 시간 선택</MenuTypo>
+                <TimeSelection>
+                  {/* {timeOptions.map((time) => ( */}
+                  {timeList?.map((time) => (
+                    <TimeButton
+                      key={time}
+                      onClick={() => handleTimeButtonClick(time)}
+                      selected={time === selectedTime}
+                    >
+                      {time}
+                    </TimeButton>
+                  ))}
+                </TimeSelection>
+              </TimeContainer>
+            </DateWrapper>
+            <Wrapper>
+              <TimeWrapper>
+                <MenuTypo>선택한 시간</MenuTypo>
+                <SelectedTime>
+                  {startDate.toLocaleString().slice(0, -3)}
+                </SelectedTime>
+              </TimeWrapper>
+              <StyledTextArea
+                value={consultationInfo}
+                onChange={handleConsultationInfoChange}
+                placeholder="상담 내용을 입력하세요"
+                autoSize={{ minRows: 4, maxRows: 6 }}
+              />
+            </Wrapper>
+            <ReserveButtonStyled
+              onClick={() => {
+                clickHandler();
+              }}
+            >
+              상담 신청하기 →
+            </ReserveButtonStyled>
           </DateContainer>
         </Container>
       </Root>
     </Modal>
   );
 };
+
+const TimeWrapper = styled.div`
+  width: 250px;
+`;
+
+const DateWrapper = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  width: 83%;
+  margin-top: 30px;
+  margin-bottom: 100px;
+`;
+
+const Gap = styled.div`
+  width: 150px;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+`;
+
+const StyledTextArea = styled(Input.TextArea)`
+  width: 50%; // 너비 조정
+  max-width: 500px; // 최대 너비 설정
+  margin-top: 20px; // 상단 여백
+  // 기타 필요한 스타일 속성 추가
+`;
 
 const Root = styled.div`
   width: 900px;
@@ -183,10 +240,7 @@ const Container = styled.div`
 `;
 
 const DateContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 83%;
+  width: 100%;
 `;
 
 const TimeContainer = styled.div``;
@@ -262,10 +316,9 @@ const SelectedTime = styled.div`
   font-size: 16px;
 `;
 
-
 const TitleTypo = styled(Typography)`
   font-family: "esamanru";
-  font-size: 18px;
+  font-size: 35px;
   span {
     padding-right: 1px;
     font-weight: 700;
@@ -297,13 +350,12 @@ const ReserveButtonStyled = styled.button`
   border-radius: 5px;
   cursor: pointer;
   position: absolute;
-  bottom: 20px; 
-  right: 20px; 
+  bottom: 20px;
+  right: 20px;
 
   &:hover {
     background-color: ${PRIMARY.LIGHT};
   }
 `;
-
 
 export default MentorReserveModal;
