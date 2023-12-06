@@ -29,13 +29,13 @@ const MentorReviewModal = ({ isOpen, closeModal }) => {
     };
   
     const mentorId = getPathLastSegment();
-
+    const userId = sessionStorage.getItem("userId");
     const requestBody = {
       title: title,
       content: content,
       score: rating, //score라는 걸로 가려놓음
     };
-    axios.post(`http://localhost:8080/mentor-profile/review/${mentorId}`, requestBody).then((res) => { //body에 넣어서 보냄
+    axios.post(`http://localhost:8080/api/mentor-profile/review/${mentorId}/${userId}`, requestBody).then((res) => { //body에 넣어서 보냄
       
       console.log("success", res);
     }).catch((error) => {
