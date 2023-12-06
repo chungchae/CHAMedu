@@ -124,21 +124,24 @@ const MyProfile = () => {
           </div>
         </TextContainer>
         <Waitingcontainer>
-          {planData &&
-            planData.map((plan, index) => (
-              <RequestWrapper key={index}>
-                <RequestUserWrapper>
-                  <RequestImageWrapper>
-                    <RequestImage src={Person} alt='Image' />
-                    <div>{plan.menteeName}</div>
-                  </RequestImageWrapper>
-                  <div>{plan.startDate}</div>
-                  <div>{plan.durationTime}</div>
-                  <div>{plan.chatTitle}</div>
-                </RequestUserWrapper>
-              </RequestWrapper>
-            ))}
-        </Waitingcontainer>
+        {planData && planData.length > 0 ? (
+          planData.map((plan, index) => (
+            <RequestWrapper key={index}>
+              <RequestUserWrapper>
+                <RequestImageWrapper>
+                  <RequestImage src={Person} alt="Image" />
+                  <div>{plan.menteeName}</div>
+                </RequestImageWrapper>
+                <div>{plan.startDate}</div>
+                <div>{plan.durationTime}</div>
+                <div>{plan.chatTitle}</div>
+              </RequestUserWrapper>
+            </RequestWrapper>
+          ))
+        ) : (
+          <NoPlanMessage>예정된 상담이 없습니다.</NoPlanMessage>
+        )}
+      </Waitingcontainer>
       </Container>
     </>
   );
@@ -322,5 +325,11 @@ const RequestImageWrapper = styled.div`
 `;
 
 const RequestImage = styled.img``;
+
+const NoPlanMessage = styled.div`
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 20px;
+`;
 
 export default MyProfile;

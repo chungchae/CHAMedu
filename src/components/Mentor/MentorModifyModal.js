@@ -97,7 +97,7 @@ const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
     setPromotionText(mentorData.promotionText || "");
 
     setAdmissionSelect(mentorData.admissionType || "");
-    setCollegeSelect(mentorData.university || "");
+    setCollegeSelect(mentorData.college || "");
   }, [mentorData]);
 
   const handleAdmissionChange = (option) => {
@@ -177,7 +177,7 @@ const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
                   <SelectContainer>
                     <InfoTypo>단과대 선택</InfoTypo>
                     <SelectBox
-                      /* value={admissionSelect} */
+                      value={collegeSelect}
                       onChange={(option) => handleCollegeChange(option)}
                       placeholder='단과대 선택'
                       options={collegeOptions}
