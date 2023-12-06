@@ -51,7 +51,7 @@ const MentorDetailPageMentee = () => {
     console.log('멘토 파라미터:',mentorParams.mentorKey);
   
     const getMentor = () => {
-      axios.get(`http://localhost:8080/mentor-profile/${mentorParams.mentorKey}`).then((res) => {
+      axios.get(`/api/mentor-profile/${mentorParams.mentorKey}`).then((res) => {
         console.log(res.data)
         setMentorData(res.data);
       }).catch((error) => {
