@@ -11,12 +11,12 @@ import MenteeModifyModal from "../../../components/Mentor/MenteeModifyModal";
 const MenteeMyProfile = () => {
   const [menteeData, setMenteeData] = useState({}); //데ㅐ이터 저장할 곳 만듦
   const [modalModifyOpen, setModalModifyOpen] = useState(false);
-
+  const userId = sessionStorage.getItem("userId");
   useEffect(() => {
     //api 부름
     const getMentee = () => {
       axios
-        .get(`http://localhost:8080/api/mentee-mypage`)
+        .get(`http://localhost:8080/api/mentee-mypage/${userId}`)
         .then((res) => {
           console.log(res);
           setMenteeData(res.data); // 아까 거기에 저장
