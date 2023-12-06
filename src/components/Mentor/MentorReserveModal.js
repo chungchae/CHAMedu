@@ -26,10 +26,10 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     };
 
     const mentorId = getPathLastSegment();
-
+    const userId = sessionStorage.getItem("userId");
     const getReserve = () => {
       axios
-        .get(`http://localhost:8080/mentor-profile/request/${mentorId}`)
+        .get(`http://localhost:8080/api/mentor-profile/request/${userId}`)
         .then((res) => {
           console.log(res);
           if (Array.isArray(res.data)) {
