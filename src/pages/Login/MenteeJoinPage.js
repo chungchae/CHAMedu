@@ -3,7 +3,7 @@ import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
-import { Input, ConfigProvider, Button } from "antd";
+import { Input, ConfigProvider, Button, message } from "antd";
 import { PRIMARY } from "../../colors";
 import axios from "axios";
 
@@ -57,8 +57,15 @@ const MenteeJoinPage = () => {
         console.log("Response Status:", res.status);
 
         if (res.data === "멘티가 성공적으로 회원가입이 완료되었습니다.") {
+          //세션에 유저아이디, 유저 유형 설정
+        sessionStorage.setItem('userId', id);
+        sessionStorage.setItem('role', "mentee");
+        // 세션 스토리지에 저장된 값을 확인
+        console.log("세션 스토리지 userId:", sessionStorage.getItem('userId'));
+        console.log("세션 스토리지 role:", sessionStorage.getItem('role'));
           // If Join is successful, navigate to the main page
-          navigate("/user/mentor");
+          navigate("/user/login");
+          message.success("멘토님, 환영합니다!");
         }
         return res.data;
       })

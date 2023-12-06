@@ -3,7 +3,7 @@ import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
-import { Input, Select, ConfigProvider, Button } from "antd";
+import { Input, Select, ConfigProvider, Button, message } from "antd";
 import { PRIMARY } from "../../colors";
 import axios from "axios";
 
@@ -65,7 +65,15 @@ const MentorJoinPage = () => {
 
         if (res.data === "멘토가 성공적으로 회원가입이 완료되었습니다.") {
           // If Join is successful, navigate to the main page
-          navigate("/user/mentor");
+          sessionStorage.setItem("userId", id);
+          sessionStorage.setItem("role", "mentor");
+          console.log(
+            "세션 스토리지 userId:",
+            sessionStorage.getItem("userId")
+          );
+          console.log("세션 스토리지 role:", sessionStorage.getItem("role"));
+          navigate("/user/login");
+          message.success("멘토님, 환영합니다!");
         }
         return res.data;
       })

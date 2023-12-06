@@ -3,7 +3,7 @@ import Header from "../../components/Header/HeaderGuest";
 import styled from "styled-components";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { useNavigate } from "react-router-dom";
-import { ConfigProvider, Input } from "antd";
+import { ConfigProvider, Input, message } from "antd";
 import { PRIMARY } from "../../colors";
 import axios from "axios";
 
@@ -52,6 +52,7 @@ const menteeLoginApi = () => {
         console.log("세션 스토리지 userId:", sessionStorage.getItem('userId'));
         console.log("세션 스토리지 role:", sessionStorage.getItem('role'));
         navigate("/user/mentor");
+        message.success("로그인 성공!");
       }
 
       return res.data;

@@ -44,7 +44,7 @@ const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
         console.log("Mentor Modify API Response:", response.data);
         
         closeModal(); // 모달 창 닫기
-        window.location.replace("/user/mypage")
+        window.location.replace("/user/mypage/mentor")
         message.success("수정 성공!"); // 수정 성공 메시지 표시
         return response.data;
       })
