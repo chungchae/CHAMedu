@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, {useState, useEffect} from 'react';
 import Person from "../../../assets/images/mypage_person.png";
 import axios from "axios";
-
+import { GRAY } from "../../../colors";
 const HistoryContent = () => {
   const [consultationList, setConsultationList] = useState();
 
@@ -91,7 +91,12 @@ const CompleteFalse = styled.div`
   color: gray;
   text-decoration: underline;
 `;
-
+const CompleteTrue = styled.div`
+  font-family: "esamanru";
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
+`;
 const RoundedBox = styled.div`
   background-color: white;
   height: auto;

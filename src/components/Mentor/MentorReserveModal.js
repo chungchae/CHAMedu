@@ -39,16 +39,22 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     getReserve();
   },[]);
 
-  const clickHandler = () => { //진행중인 api , 클릭하는 순간 진행
+  const clickHandler = () => {
     const getPathLastSegment = () => {
       const pathArray = window.location.pathname.split('/');
       return pathArray[pathArray.length - 1];
     };
   
     const mentorId = getPathLastSegment();
-    
-    axios.post(`http://localhost:8080/mentor-profile/request/${mentorId}`).then((res) => { // post로
-      console.log("success", res); //selectedTime => 해당 페이지에서 selectedTime으로 선택된것을 post로 보냄
+
+    const requestBody = {
+      selectedTime: selectedTime, // 여기에 선택된 시간을 포함 //13번째줄 저장한다음에 usestate
+      // 여기에 추가추가 
+    };
+
+    axios.post(`http://localhost:8080/mentor-profile/request/${mentorId}`, requestBody).then((res) => {
+      
+      console.log("success", res);
     }).catch((error) => {
       console.error('Axios Error', error)
     })

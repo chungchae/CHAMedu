@@ -13,75 +13,110 @@ import axios from "axios";
 import NewMentorCard from "../../components/Mentor/NewMentorCard";
 import { useEffect, useState } from "react";
 
-
-
 const MentorPageMentee = () => {
   // const mentorList = camelizeKey(MentorSmaple.mentor_list);
   const [pMentorList, setPMentorList] = useState();
   const [rMentorList, setRMentorList] = useState();
   const [mMentorList, setMMentorList] = useState();
 
+  const userId = sessionStorage.getItem("userId");
+
   useEffect(() => {
+    console.log(userId);
     const getMentor1List = () => {
-      axios.get(`http://localhost:8080/recommend-mentor-profile-list`).then((res) => {
-        console.log(res);
-        
-        setPMentorList(res.data.popularMentors);
-        setRMentorList(res.data.wishAdmissionTypeMentors);
-        setMMentorList(res.data.wishCollegeMentors)
-      }).catch((error) =>{
-        console.error('Axios Error', error);
-      })
-    }
+      axios
+        .get(`http://localhost:8080/recommend-mentor-profile-list/${userId}`)
+        .then((res) => {
+          console.log(res);
+          if (Array.isArray(res.data.popularMentors)) {
+            setPMentorList(res.data.popularMentors);
+          } else {
+            // 배열이 아닌 경우 빈 배열로 설정
+            setPMentorList([]);
+          }
+          if (Array.isArray(res.data.wishAdmissionTypeMentors)) {
+            setRMentorList(res.data.wishAdmissionTypeMentors);
+          } else {
+            // 배열이 아닌 경우 빈 배열로 설정
+            setRMentorList([]);
+          }
+          if (Array.isArray(res.data.wishCollegeMentors)) {
+            setMMentorList(res.data.wishCollegeMentors);
+          } else {
+            // 배열이 아닌 경우 빈 배열로 설정
+            setMMentorList([]);
+          }
+        })
+        .catch((error) => {
+          console.error("Axios Error", error);
+        });
+    };
     getMentor1List();
-  },[]);
-  
+  }, []);
+
   return (
     <Root>
       <Header />
       <Container>
         <TitleContainer>
-          <MentorIcon src={FlameIcon} alt='인기 멘토 아이콘'></MentorIcon>
+          <MentorIcon src={FlameIcon} alt="인기 멘토 아이콘"></MentorIcon>
           <MentorTypo>인기 멘토</MentorTypo>
         </TitleContainer>
-        <PopularMentorContainer>
-          {pMentorList?.slice(0, 4).map((mentor, index) => (
-            <NewMentorCard
-              mentor={mentor}
-              index={index}
-              key={`mentor_card_${index}`}
-            />
-          ))}
-        </PopularMentorContainer>
+        {pMentorList && pMentorList?.length !== 0 ? (
+          <PopularMentorContainer>
+            {pMentorList?.slice(0, 4).map((mentor, index) => (
+              <NewMentorCard
+                mentor={mentor}
+                index={index}
+                key={`mentor_card_${index}`}
+              />
+            ))}
+          </PopularMentorContainer>
+        ) : (
+          <PopularMentorContainer>
+            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+          </PopularMentorContainer>
+        )}
 
         <TitleContainer>
-          <MentorIcon src={ThumbIcon} alt='인기 멘토 아이콘'></MentorIcon>
+          <MentorIcon src={ThumbIcon} alt="인기 멘토 아이콘"></MentorIcon>
           <MentorTypo>내 전형 추천 멘토</MentorTypo>
         </TitleContainer>
-        <AdmissionMentorContainer>
-          {rMentorList?.slice(0, 4).map((mentor, index) => (
-            <NewMentorCard
-              mentor={mentor}
-              index={index}
-              key={`mentor_card_${index}`}
-            />
-          ))}
-        </AdmissionMentorContainer>
+        {rMentorList && rMentorList?.length !== 0 ? (
+          <AdmissionMentorContainer>
+            {rMentorList?.slice(0, 4).map((mentor, index) => (
+              <NewMentorCard
+                mentor={mentor}
+                index={index}
+                key={`mentor_card_${index}`}
+              />
+            ))}
+          </AdmissionMentorContainer>
+        ) : (
+          <AdmissionMentorContainer>
+            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+          </AdmissionMentorContainer>
+        )}
 
         <TitleContainer>
-          <MentorIcon src={NoteIcon} alt='인기 멘토 아이콘'></MentorIcon>
+          <MentorIcon src={NoteIcon} alt="인기 멘토 아이콘"></MentorIcon>
           <MentorTypo>내 전공 추천 멘토</MentorTypo>
         </TitleContainer>
-        <MajorMentorContainer>
-          
-          {mMentorList?.slice(0, 4).map((mentor, index) => (
-            <NewMentorCard
-              mentor={mentor}
-              index={index}
-              key={`mentor_card_${index}`}
-            />
-          ))}
-        </MajorMentorContainer>
+        {mMentorList && mMentorList?.length !== 0 ? (
+          <MajorMentorContainer>
+            {mMentorList?.slice(0, 4).map((mentor, index) => (
+              <NewMentorCard
+                mentor={mentor}
+                index={index}
+                key={`mentor_card_${index}`}
+              />
+            ))}
+          </MajorMentorContainer>
+        ) : (
+          <MajorMentorContainer>
+            <NoRecommendMentor>추천 멘토가 없습니다.</NoRecommendMentor>
+          </MajorMentorContainer>
+        )}
       </Container>
     </Root>
   );
@@ -146,6 +181,11 @@ const MentorIcon = styled.img`
   width: 25px;
   height: 25px;
   padding-right: 7px;
+`;
+
+const NoRecommendMentor = styled(Typography)`
+  font-size: 18px;
+  font-family: "esamanru";
 `;
 
 export default MentorPageMentee;
