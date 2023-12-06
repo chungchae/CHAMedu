@@ -26,10 +26,10 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     };
 
     const mentorId = getPathLastSegment();
-    const userId = sessionStorage.getItem("userId");
+    //const userId = sessionStorage.getItem("userId");
     const getReserve = () => {
       axios
-        .get(`http://localhost:8080/api/mentor-profile/request/${userId}`)
+        .get(`http://localhost:8080/api/mentor-profile/request/${mentorId}`)
         .then((res) => {
           console.log(res);
           if (Array.isArray(res.data)) {
@@ -73,10 +73,10 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
       wishChatSchedule: formattedDate, // 여기에 선택된 시간을 포함 //13번째줄 저장한다음에 usestate
       chatTitle: consultationInfo,
     };
-
+    const userId = sessionStorage.getItem("userId");
     axios
       .post(
-        `http://localhost:8080/mentor-profile/request/${mentorId}`,
+        `http://localhost:8080/api/mentor-profile/request/${mentorId}/${userId}`,
         requestBody
       )
       .then((res) => {
