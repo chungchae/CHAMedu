@@ -6,15 +6,17 @@ import styled from "styled-components";
 import ProfileImg from "../../assets/images/profile.png";
 import StarIcon from "../../assets/images/Star.png";
 import NoteIcon from "../../assets/images/note_icon.png";
-import { Button, Typography, Tag } from "antd";
+import { Button, Typography, Tag, ConfigProvider } from "antd";
 import ReviewSlider from "../../components/Mentor/ReviewSlider";
 import MentorReserveModal from "../../components/Mentor/MentorReserveModal";
 import MentorReviewModal from "../../components/Mentor/MentorReviewModal";
 import Bunting from "../../assets/images/buntingIcon.png";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 
 const MentorDetailPageMentee = () => {
+  const mentorParams = useParams();
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
   const [mentorData, setMentorData]= useState();
   const openReserveModal = () => {
@@ -46,16 +48,11 @@ const MentorDetailPageMentee = () => {
   }
 
   useEffect(() => {
-    const getPathLastSegment = () => {
-      const pathArray = window.location.pathname.split('/');
-      return pathArray[pathArray.length - 1];
-    };
-  
-    const mentorId = getPathLastSegment();
+    console.log('멘토 파라미터:',mentorParams.mentorKey);
   
     const getMentor = () => {
-      axios.get(`http://localhost:8080/mentor-profile/${mentorId}`).then((res) => {
-        console.log("망",res.data)
+      axios.get(`http://localhost:8080/mentor-profile/${mentorParams.mentorKey}`).then((res) => {
+        console.log(res.data)
         setMentorData(res.data);
       }).catch((error) => {
         console.error('Axios Error', error);
@@ -66,6 +63,13 @@ const MentorDetailPageMentee = () => {
   }, []);
 
   return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
     <Root>
       <Header></Header>
       <Container>
@@ -121,6 +125,7 @@ const MentorDetailPageMentee = () => {
         </Reviewcontainer>
       </Container>
     </Root>
+    </ConfigProvider>
   );
 };
 
@@ -163,7 +168,7 @@ const Reviewcontainer = styled.div`
 `;
 
 const Mentorcontainer = styled.div`
-  width: 100%;
+  width: 500px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -172,8 +177,7 @@ const Mentorcontainer = styled.div`
 `;
 
 const Infocontainer = styled.div`
-  position: relative;
-  padding: 10px;
+  padding-left: 50px;
   flex-direction: column;
 `;
 
@@ -277,21 +281,10 @@ const IconImg = styled.img`
 `;
 
 const ReserveButton = styled(Button)`
-  background-color: ${PRIMARY.DEFAULT};
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: ${PRIMARY.LIGHT};
-  }
+  bottom: 30px;
+  right: 30px;
+  font-family: "esamanru";
 `;
 
 export default MentorDetailPageMentee;

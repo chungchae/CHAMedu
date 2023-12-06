@@ -9,7 +9,6 @@ import MentorDetailPageMentee from "./pages/MentorDetailPage/MentorDetailPage_Me
 import MentorJoinPage from "./pages/Login/MentorJoinPage";
 import MenteeJoinPage from "./pages/Login/MenteeJoinPage";
 import WelcomePage from "./pages/Login/WelcomePage";
-import MentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMentorPage from "./pages/MyPage/MyPageMentor/MyPageMentor";
 import MyPageMenteePage from "./pages/MyPage/MyPageMentee/MyPageMentee";
 import PointChargePage from "./pages/Point/PointChargePage";
@@ -27,7 +26,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        {role === "mentor" && (
+      <Route path='/user/mypage/mentor' element={<MyPageMentorPage />} />
+      <Route path='/user/mypage/mentee' element={<MyPageMenteePage />} />
+      <Route path='/user/mentor' element={<MentorPageMentee />} />
+        {/* {role === "mentor" && (
           <>
             <Route path='/user/mentor' element={<MentorPageMentee />} />
             <Route path='/user/mypage' element={<MyPageMentorPage />} />
@@ -38,7 +40,7 @@ root.render(
             <Route path='/user/mentor' element={<MentorPageMentee />} />
             <Route path='/user/mypage' element={<MyPageMenteePage />} />
           </>
-        )}
+        )} */}
         <Route path='/' element={<MainPage />} />
         <Route path='/user/mentor' element={<MentorPageMentee />} />
         <Route
@@ -53,9 +55,6 @@ root.render(
         <Route path='/mentor/join' element={<MentorJoinPage />} />
         <Route path='/mentee/join' element={<MenteeJoinPage />} />
         <Route path='/welcome/join' element={<WelcomePage />} />
-        <Route path='/mentor/request' element={<MentorPage />} />
-        <Route path='/mypage/mentor' element={<MyPageMentorPage />} />
-        <Route path='/mypage/mentee' element={<MyPageMenteePage />} />
         <Route path='/' element={<MainPage />} />
         <Route path='/user/mentor' element={<MentorPageMentee />} />
         <Route
@@ -66,7 +65,6 @@ root.render(
         <Route path='/mentor/join' element={<MentorJoinPage />} />
         <Route path='/mentee/join' element={<MenteeJoinPage />} />
         <Route path='/welcome/join' element={<WelcomePage />} />
-        <Route path='/mentor/request' element={<MentorPage />} />
         <Route path='/mentee/charge' element={<PointChargePage />} />
         <Route path='/mentor/exchange' element={<PointExchangePage />} />
         <Route path='/mentorlist' element={<MentorListPage />} />

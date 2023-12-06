@@ -5,13 +5,14 @@ import styled from "styled-components";
 import { GRAY } from "../../colors";
 import Bunting from "../../assets/images/buntingIcon.png";
 import { getAdmissionColor } from "../../utils/color";
+import { useEffect } from "react";
 
 const MentorCard = ({ className, MentorItem }) => {
   const navigate = useNavigate();
 
   const onClickMentorCard = () => {
     if (MentorItem) {
-      navigate(`/user/mentor/${MentorItem.key}`);
+      navigate(`/user/mentor/${MentorItem.key}`,MentorItem);
     }
   }; //멘토 카드 클릭 시 멘토의 디테일 페이지로 이동
 

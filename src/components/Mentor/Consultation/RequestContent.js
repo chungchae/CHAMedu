@@ -72,31 +72,36 @@ const RequestContent = () => {
     >
       <RoundedBox>
         <HeaderText>상담 수락 대기 목록</HeaderText>
-        {requestData.map((request, index) => (
-          <RequestWrapper key={index}>
-            <RequestUserWrapper>
-              <RequestImageWrapper>
-                <RequestImage src={Person} alt='Image' />
-                <NameTypo>{request.menteeName}</NameTypo>
-              </RequestImageWrapper>
-              <ContentTypo>{request.startDate}</ContentTypo>
-              <ContentTypo>{request.durationTime}</ContentTypo>
-              <ContentTypo>{request.chatTitle}</ContentTypo>
-            </RequestUserWrapper>
+        
+        {requestData.length === 0 ? (
+          <NoRequestMessage>상담 신청이 없습니다.</NoRequestMessage>
+        ) : (
+          requestData.map((request, index) => (
+            <RequestWrapper key={index}>
+              <RequestUserWrapper>
+                <RequestImageWrapper>
+                  <RequestImage src={Person} alt='Image' />
+                  <NameTypo>{request.menteeName}</NameTypo>
+                </RequestImageWrapper>
+                <ContentTypo>{request.startDate}</ContentTypo>
+                <ContentTypo>{request.durationTime}</ContentTypo>
+                <ContentTypo>{request.chatTitle}</ContentTypo>
+              </RequestUserWrapper>
 
-            <RequestButtonWrapper>
-              <RequestButton1
-                type='primary'
-                onClick={() => acceptChatRequest(request.roomId)}
-              >
-                수락
-              </RequestButton1>
-              <RequestButton2 onClick={() => refuseChatRequest(request.roomId)}>
-                거절
-              </RequestButton2>
-            </RequestButtonWrapper>
-          </RequestWrapper>
-        ))}
+              <RequestButtonWrapper>
+                <RequestButton1
+                  type='primary'
+                  onClick={() => acceptChatRequest(request.roomId)}
+                >
+                  수락
+                </RequestButton1>
+                <RequestButton2 onClick={() => refuseChatRequest(request.roomId)}>
+                  거절
+                </RequestButton2>
+              </RequestButtonWrapper>
+            </RequestWrapper>
+          ))
+        )}
       </RoundedBox>
     </ConfigProvider>
   );
@@ -170,6 +175,12 @@ const RequestWrapper = styled.div`
   margin-bottom: 10px;
   justify-content: space-between;
   font-weight: 900;
+`;
+
+const NoRequestMessage = styled.div`
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 20px;
 `;
 
 export default RequestContent;

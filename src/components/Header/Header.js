@@ -7,51 +7,49 @@ import ChamIcon from "../../assets/images/cham.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../colors";
 import { useNavigate } from "react-router-dom";
-import { PlusOutlined, RetweetOutlined } from '@ant-design/icons'
+import { PlusOutlined, RetweetOutlined } from "@ant-design/icons";
 import axios from "axios";
-
 
 const Header = () => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem("role");
 
-
   const onClickMentorButton = () => {
-    navigate('/user/mentor')
-  }
+    navigate("/user/mentor");
+  };
 
   const onClickListButton = () => {
-    navigate('/mentorlist')
-  }
+    navigate("/mentorlist");
+  };
 
   const onClickChargeButton = () => {
-    navigate('/mentee/charge')
-  }
+    navigate("/mentee/charge");
+  };
   const onClickExchangeButton = () => {
-    navigate('/mentor/exchange')
-  }
+    navigate("/mentor/exchange");
+  };
 
   const onClickMyPageButton = () => {
-    navigate('/user/mypage')
-  }
+    navigate(`/user/mypage/${role}`);
+  };
   const logoutApi = () => {
-    axios.get(`/api/logout`)
+    axios
+      .get(`/api/logout`)
       .then((res) => {
-        console.log('Logout Successful');
-        
+        console.log("Logout Successful");
+
         // 세션 정보 삭제
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('role');
+        sessionStorage.removeItem("userId");
+        sessionStorage.removeItem("role");
         // 로그아웃 후 메인 페이지로 이동
         message.success("로그아웃 성공!");
         navigate("/");
       })
       .catch((error) => {
-        console.log('Axios Error:', error);
+        console.log("Axios Error:", error);
       });
   };
-  
- 
+
   return (
     <Container>
       <ItemContainer>
@@ -61,9 +59,14 @@ const Header = () => {
         </LogoContainer>
         <HeaderContainer>
           <MenuContainer>
-            <Menu type={"text"} onClick={onClickMentorButton}>
-              추천 멘토
-            </Menu>
+            {role === "mentee" && (
+              <>
+                <Menu type={"text"} onClick={onClickMentorButton}>
+                  추천 멘토
+                </Menu>
+              </>
+            )}
+
             <Menu type={"text"} onClick={onClickListButton}>
               멘토 둘러보기
             </Menu>
@@ -79,12 +82,12 @@ const Header = () => {
             <ChamTypo>370 CHAM</ChamTypo>
             {role === "mentor" && (
               <>
-                <ExchangeIcon onClick={onClickExchangeButton}/>
+                <ExchangeIcon onClick={onClickExchangeButton} />
               </>
             )}
             {role === "mentee" && (
               <>
-                <PlusIcon onClick={onClickChargeButton}/>
+                <PlusIcon onClick={onClickChargeButton} />
               </>
             )}
           </ChamContainer>
@@ -198,12 +201,12 @@ const ExchangeIcon = styled(RetweetOutlined)`
   color: ${PRIMARY.DARK};
   font-size: 20px;
   cursor: pointer;
-`
+`;
 const PlusIcon = styled(PlusOutlined)`
   margin: 5px;
   color: ${PRIMARY.DARK};
   font-size: 20px;
   cursor: pointer;
-`
+`;
 
 export default Header;

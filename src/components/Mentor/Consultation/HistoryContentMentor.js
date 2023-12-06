@@ -36,22 +36,26 @@ const HistoryContentMentor = () => {
           <HeaderText>상담 내역</HeaderText>
           <SubText>채팅은 30일 이후 만료됩니다.</SubText>
         </div>
-        {historyData.map((history, index) => (
-          <RequestWrapper key={index}>
-            <RequestUserWrapper>
-              <RequestImageWrapper>
-                <RequestImage src={Person} alt='Image' />
-                <div>{history.userName}</div>
-              </RequestImageWrapper>
-              <div>{history.startTime}</div>
-              <div>{history.title}</div>
-            </RequestUserWrapper>
+        {historyData.length === 0 ? (
+          <NoHistoryMessage>상담 내역이 없습니다.</NoHistoryMessage>
+        ) : (
+          historyData.map((history, index) => (
+            <RequestWrapper key={index}>
+              <RequestUserWrapper>
+                <RequestImageWrapper>
+                  <RequestImage src={Person} alt="Image" />
+                  <div>{history.userName}</div>
+                </RequestImageWrapper>
+                <div>{history.startTime}</div>
+                <div>{history.title}</div>
+              </RequestUserWrapper>
 
-            <RequestButtonWrapper>
-              <CompleteFalse>{history.checkStatus}</CompleteFalse>
-            </RequestButtonWrapper>
-          </RequestWrapper>
-        ))}
+              <RequestButtonWrapper>
+                <CompleteFalse>{history.checkStatus}</CompleteFalse>
+              </RequestButtonWrapper>
+            </RequestWrapper>
+          ))
+        )}
       </RoundedBox>
     </>
   );
@@ -123,6 +127,12 @@ const RequestWrapper = styled.div`
   padding: 20px;
   justify-content: space-between;
   font-weight: 900;
+`;
+
+const NoHistoryMessage = styled.div`
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 20px;
 `;
 
 export default HistoryContentMentor;

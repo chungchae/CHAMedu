@@ -11,7 +11,7 @@ const NewMentorCard = ({ mentor, index }) => {
 
   const onClickMentorCard = () => {
     if (mentor) {
-      navigate(`/user/mentor/${index}`);
+      navigate(`/user/mentor/${mentor.mentorId}`);
     }
   }; //멘토 카드 클릭 시 멘토의 디테일 페이지로 이동
 
