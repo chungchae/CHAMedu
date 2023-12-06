@@ -7,7 +7,7 @@ import Profile from "../../../assets/images/mypage_profile.png";
 import Request from "../../../assets/images/mypage_request.png";
 import List from "../../../assets/images/mypage_list.png";
 import RequestContent from '../../../components/Mentor/Consultation/RequestContent';
-import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
+import HistoryContentMentor from '../../../components/Mentor/Consultation/HistoryContentMentor';
 import MyProfile from '../../../components/Mentor/Consultation/MyProfile';
 
 const MyPageMentor = () => {
@@ -55,7 +55,7 @@ const MyPageMentor = () => {
           {/* 컴포넌트 분리 */}
           {selectMenu === "내 프로필" && <MyProfile />}
           {selectMenu === "상담요청" && <RequestContent />}
-          {selectMenu === "상담내역" && <HistoryContent />}
+          {selectMenu === "상담내역" && <HistoryContentMentor />}
         </Contentcontainer>
       </Container>
     </Root>

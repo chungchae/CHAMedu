@@ -1,61 +1,81 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import Person from "../../../assets/images/mypage_person.png";
-import { GRAY } from "../../../colors";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
-
+import { GRAY } from "../../../colors";
 const HistoryContent = () => {
-  //상담 내역 데이터
-  const [historyData, setHistoryData] = useState([]);
+  const [consultationList, setConsultationList] = useState();
 
-  //상담 내역 API
-  const getChatRequestData = () => {
-    axios
-      .get("/api/mentor-mypage/chat-log", { withCredentials: true })
-      .then((res) => {
-        console.log("기록데이터:", res);
-        setHistoryData(res.data);
-      })
-      .catch((error) => {
-        console.error("Axios Error:", error);
-        console.log("Full Axios Response:", error.response);
-      });
-  };
-
-  //페이지가 렌더링될 때
   useEffect(() => {
-    getChatRequestData();
-  }, []);
+    const getConsultation = () => {
+      axios.get(`http://localhost:8080/api/mentee-mypage/chat-log`).then((res) => {
+      
+      console.log(res);
+      if (Array.isArray(res.data)) {
+        setConsultationList(res.data);
+      } else {
+        setConsultationList([]);
+      }
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
+    getConsultation();
+  },[]);
 
-  return (
-    <>
-      <RoundedBox>
-        <div style={{ width: "100%" }}>
-          <HeaderText>상담 내역</HeaderText>
-          <SubText>채팅은 30일 이후 만료됩니다.</SubText>
-        </div>
-        {historyData.map((history, index) => (
-          <RequestWrapper key={index}>
-            <RequestUserWrapper>
-              <RequestImageWrapper>
-                <RequestImage src={Person} alt='Image' />
-                <div>{history.userName}</div>
-              </RequestImageWrapper>
-              <div>{history.startTime}</div>
-              <div>{history.title}</div>
-            </RequestUserWrapper>
+  // const imageList = [
+  //   {
+  //     imageName: Person,
+  //     name: "이한별",
+  //     date: '2023-11-14',
+  //     time: '13:00~13:30',
+  //     title: '동국대학교 논술 문제유형관련 질문',
+  //     complete: false,
+  //   },
+  //   {
+  //     imageName: Person,
+  //     name: "홍길동",
+  //     date: '2023-12-14',
+  //     time: '20:00~20:30',
+  //     title: '논술 수학 범위 관련 질문',
+  //     complete: true,
+  //   },
+  //   {
+  //     imageName: Person,
+  //     name: "김철수",
+  //     date: '2023-10-21',
+  //     time: '20:00~20:30',
+  //     title: '내신 점수 질문',
+  //     complete: true,
+  //   }
+  // ];
+    return (
+        <>
+         <RoundedBox>
+            <HeaderText>상담 내역</HeaderText>
+            <SubText>채팅은 30일 이후 만료됩니다.</SubText>
+            {consultationList?.map((consultation, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt="Image"/>
+                    <div>{consultation.userName}</div>
+                  </RequestImageWrapper>
+                  <div>{consultation.startTime.split('T')[0]}</div>
+                  <div>{consultation.startTime.split('T')[1].substring(0, 5)} ~ {consultation.endTime.split('T')[1].substring(0, 5)}</div>
+                  <div>{consultation.title}</div>
+                </RequestUserWrapper>
 
-            <RequestButtonWrapper>
-              <CompleteFalse>{history.checkStatus}</CompleteFalse>
-            </RequestButtonWrapper>
-          </RequestWrapper>
-        ))}
-      </RoundedBox>
-    </>
-  );
-};
+                <RequestButtonWrapper>
+                  {consultation.checkStatus !== '채팅조회' ? <CompleteTrue>만료됨</CompleteTrue> : <CompleteFalse>채팅조회</CompleteFalse>}
+                  
+                </RequestButtonWrapper>
+              </RequestWrapper>  
+            ))}
+          </RoundedBox>
+          </>
+    );
+}
 
 const SubText = styled.div`
   font-size: 15px;
@@ -71,7 +91,12 @@ const CompleteFalse = styled.div`
   color: gray;
   text-decoration: underline;
 `;
-
+const CompleteTrue = styled.div`
+  font-family: "esamanru";
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
+`;
 const RoundedBox = styled.div`
   background-color: white;
   height: auto;

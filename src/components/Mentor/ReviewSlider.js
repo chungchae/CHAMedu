@@ -8,10 +8,10 @@ import ReviewSample from "../../constants/json/review_list_sample.json"
 import camelizeKey from "../../utils/camelizeKey";
 
 
-const ReviewSlider = () => {
+const ReviewSlider = ({reviewList}) => {
   const { disableScroll, enableScroll } = usePreventBodyScroll();
-  const ReviewList = camelizeKey(ReviewSample.mentor_list); //샘플 Json 변환
-
+  // const ReviewList = camelizeKey(ReviewSample.mentor_list); //샘플 Json 변환
+  
   return (
     <Root>
         <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
@@ -19,8 +19,8 @@ const ReviewSlider = () => {
             LeftArrow={LeftArrow}
             RightArrow={RightArrow}
           >
-            {ReviewList.map(({ title, rate, content }, index) => ( //샘플 리뷰 렌더링
-              <ReviewCard key={index} title={title} rate={rate} content={content} />
+            {reviewList.map((review, index) => ( 
+              <ReviewCard key={index} title={review.title} rate={review.score} content={review.content} />
             ))}
           </ScrollMenu>
         </div>

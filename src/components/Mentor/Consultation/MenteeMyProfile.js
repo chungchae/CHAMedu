@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Typography, Tag } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
@@ -9,9 +9,12 @@ import ReviewSlider from "../ReviewSlider";
 import {CONTAINER_WIDTH, HEADER_HEIGHT} from "../../../assets/system/layout";
 import {GRAY, PRIMARY} from '../../../colors';
 import Person from "../../../assets/images/mypage_person.png";
+import axios from "axios";
 
 const MenteeMyProfile = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [menteeData, setMenteeData] = useState({}); //데ㅐ이터 저장할 곳 만듦
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -48,45 +51,70 @@ const MenteeMyProfile = () => {
       },
     
   ];
+
+  useEffect(() => { //api 부름
+    const getMentee = () => {
+      axios.get(`http://localhost:8080/api/mentee-mypage`).then((res) => {
+      
+      console.log(res);
+      setMenteeData(res.data); // 아까 거기에 저장
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
+    getMentee();
+  },[]);
+// 아래부터 뿌려줌
     return (
         <>
         <Time>
         <IconImg src={NoteIcon} />
-        <BoldText>3시간 17분</BoldText> 뒤 상담이 예정되어 있어요. 
+        <div>{menteeData?.currentChatTime}</div> 
         <TimeSpan>확인하기</TimeSpan>
         </Time>
         <Container>
             <Profilecontainer>
-                
                 <Infocontainer>
                 <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
-                 <MentorNameTypo>김몽실</MentorNameTypo>
+                 <MentorNameTypo>{menteeData?.nickname}</MentorNameTypo>
                </div>
 
-                <MentorEducationTypo>필동고등학교 2학년, 자연계열</MentorEducationTypo>
+                {/* <MentorEducationTypo>필동고등학교 2학년, 자연계열</MentorEducationTypo> */}
                 <MentorIntroTypo>
-                필동고등학교 2학년에 재학 중입니다.
-                컴퓨터공학과를 희망하며, 준비 중인 전형은 정시와 논술입니다.
+                  {menteeData?.promotionText}
                 </MentorIntroTypo>
-                
                 </Infocontainer>
             </Profilecontainer>
             <RoundedBox>
             <HeaderText>상담 신청 내역</HeaderText>
-            {imageList.map((image, index) => (
+            {Array.isArray(menteeData.reqeustRoomList) && menteeData.reqeustRoomList.map((room, index) => (
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
                   <RequestImageWrapper>
                     <RequestImage src={Person} alt="Image"/>
-                    <div>{image.name}</div>
+                    <div>{room.mentorName}</div>
                   </RequestImageWrapper>
-                  <div>{image.date}</div>
-                  <div>{image.time}</div>
-                  <div>{image.title}</div>
+                  <div>{room.startTime.split('T')[0]}</div>
+                  <div>{room.startTime.split('T')[1].substring(0, 5)} ~ {room.endTime.split('T')[1].substring(0, 5)}</div>
+                  {typeof room.title ? (
+                  <div>{room.title}</div>
+                  ): <div>None title</div>}
                 </RequestUserWrapper>
 
                 <RequestButtonWrapper>
-                  <RequestButton1 onClick={image.onAccept}>요청됨</RequestButton1>
+                  {/* w 대기상태 a 예정상태 c 완료  d 요청됨 */}
+                  {room.status === 'W' && ( 
+                    <RequestButton1>대기상태</RequestButton1>
+                  )}
+                  {room.status === 'A' && ( 
+                    <RequestButton1>예정상태</RequestButton1>
+                  )}
+                  {room.status === 'C' && ( 
+                    <RequestButton1>완료</RequestButton1>
+                  )}
+                  {room.status === 'D' && ( 
+                    <RequestButton1>요청됨</RequestButton1>
+                  )}
                   
                 </RequestButtonWrapper>
               </RequestWrapper>  
@@ -194,7 +222,7 @@ const RequestButton1 = styled.div`
   font-family: "esamanru";
   background-color: #E9E9E9;
   padding: 12px; /* Adjust padding as needed */
-  width: 50px; /* Set the desired width */
+  width: 75px; /* Set the desired width */
   border-radius: 15px;
   font-size: 15px; /* Adjust font size as needed */
   display: flex;
