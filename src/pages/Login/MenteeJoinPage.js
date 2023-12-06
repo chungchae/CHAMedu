@@ -65,7 +65,7 @@ const MenteeJoinPage = () => {
         console.log("세션 스토리지 role:", sessionStorage.getItem('role'));
           // If Join is successful, navigate to the main page
           navigate("/user/login");
-          message.success("멘토님, 환영합니다!");
+          message.success("멘티님, 환영합니다!");
         }
         return res.data;
       })
