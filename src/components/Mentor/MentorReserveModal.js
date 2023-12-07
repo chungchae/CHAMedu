@@ -9,7 +9,7 @@ import { Input, Typography } from "antd";
 import axios from "axios";
 
 const MentorReserveModal = ({ isOpen, closeModal }) => {
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("11:00:00");
   const [timeList, setTimeList] = useState();
   const [consultationInfo, setConsultationInfo] = useState("논술 상담");
@@ -296,8 +296,8 @@ const MentorProfileImg = styled.img`
 `;
 
 const TimeButton = styled.button`
+height: 30px;
   margin: 5px;
-  padding: 8px;
   background-color: ${(props) => (props.selected ? PRIMARY.LIGHT : "white")};
   color: ${(props) => (props.selected ? "white" : "black")};
   border: 1px solid ${PRIMARY.LIGHT};
