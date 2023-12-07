@@ -64,7 +64,7 @@ const ReviewContent = () => {
     return (
         <>
          <RoundedBox>
-            <HeaderText>상담 내역</HeaderText>
+            <HeaderText>작성한 후기</HeaderText>
             {imageList.map((image, index) => (
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
@@ -142,7 +142,7 @@ const RoundedBox = styled.div`
   border-radius: 20px;
 `;
 const HeaderText = styled.div`
-  font-size: 14px;
+  font-size: 18px;
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 20px;

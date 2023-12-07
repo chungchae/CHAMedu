@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { Button, Typography, Tag } from "antd";
+import { Button, Typography, Tag, ConfigProvider } from "antd";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../../colors";
@@ -35,7 +35,13 @@ const MenteeMyProfile = () => {
     setModalModifyOpen(false);
   };
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
       <Time>
         <IconImg src={NoteIcon} />
         <div>{menteeData?.currentChatTime}</div>
@@ -109,23 +115,15 @@ const MenteeMyProfile = () => {
             ))}
         </RoundedBox>
       </Container>
-    </>
+    </ConfigProvider>
   );
 };
 
 const ModifyButton = styled(Button)`
   position: absolute;
-  margin-left: 200px;
-  margin-top: 0px;
-  color: ${PRIMARY.DEFAULT};
-  &:hover {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
-  }
-  &:focus {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
-  }
+  bottom: 30px;
+  right: 30px;
+  font-family: "esamanru";
 `;
 
 const ButtonContainer = styled.div`
@@ -138,6 +136,9 @@ const Time = styled.div`
   margin-left: 30px;
   margin-top: 20px;
   font-family: "esamanru";
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const TimeSpan = styled.span`
@@ -161,6 +162,7 @@ const Profilecontainer = styled.div`
   margin: 30px 0px;
   border-radius: 20px;
   padding: 30px;
+  position: relative;
 `;
 
 const Infocontainer = styled.div`

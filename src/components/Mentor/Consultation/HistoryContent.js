@@ -27,8 +27,9 @@ const HistoryContent = () => {
     return (
         <>
          <RoundedBox>
+          <div style={{width: '100%'}}>
             <HeaderText>상담 내역</HeaderText>
-            <SubText>채팅은 30일 이후 만료됩니다.</SubText>
+            <SubText>채팅은 30일 이후 만료됩니다.</SubText></div>
             {consultationList?.map((consultation, index) => (
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
