@@ -26,7 +26,6 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     };
 
     const mentorId = getPathLastSegment();
-    //const userId = sessionStorage.getItem("userId");
     const getReserve = () => {
       axios
         .get(`http://localhost:8080/api/mentor-profile/request/${mentorId}`)
@@ -55,14 +54,14 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
 
     const mentorId = getPathLastSegment();
 
-    // startDate 연도, 월, 일로 분리합니다.
+    // startDate 연도, 월, 일로 분리
     const [year, month, day] = startDate
       .toLocaleString()
       .slice(0, -3)
       .split(". ")
       .map(Number);
 
-    // selectedTime을 시, 분, 초로 분리합니다.
+    // selectedTime을 시, 분, 초로 분리
     const [hours, minutes, seconds] = selectedTime?.split(":").map(Number);
 
     const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
@@ -74,7 +73,7 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     console.log("@", formattedDate);
 
     const requestBody = {
-      wishChatSchedule: formattedDate, // 여기에 선택된 시간을 포함 //13번째줄 저장한다음에 usestate
+      wishChatSchedule: formattedDate, // 선택된 시간을 포함 
       chatTitle: consultationInfo,
     };
     const userId = sessionStorage.getItem("userId");
@@ -150,12 +149,6 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
               </TimeContainer>
             </DateWrapper>
             <Wrapper>
-              {/* <TimeWrapper>
-                <MenuTypo>선택한 시간</MenuTypo>
-                <SelectedTime>
-                  {startDate ? startDate.toLocaleString().slice(0, -3) : ""}
-                </SelectedTime>
-              </TimeWrapper> */}
               <RequestTypo>요청 문구 입력</RequestTypo>
               <StyledTextArea
                 value={consultationInfo}

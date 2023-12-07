@@ -10,7 +10,6 @@ const WelcomePage = () => {
   const navigate = useNavigate()
   const onButtonStartClick = () => {
     navigate('/user/mentor');
-    /*navigate('/mentor/request')*/
   }
 
   return (

@@ -80,7 +80,6 @@ const MentorDetailPageMentee = () => {
             <Mentorcontainer>
               <BuntingImg src={Bunting} alt='Bunting Icon' />
               <MentorProfileImg src={ProfileImg} />
-              {/* <MentorProfileImg src={`../../assets/images/${mentorData?.profileImg}`} /> */}
               <RateContainer>
                 <RateStarImg src={StarIcon}></RateStarImg>
                 <RateTypo>{mentorData?.avgScore}</RateTypo>

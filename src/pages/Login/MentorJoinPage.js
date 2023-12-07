@@ -15,23 +15,21 @@ const MentorJoinPage = () => {
   const [pw, setPw] = useState("");
   const [nickname, setNickname] = useState("");
   const [university, setUniversity] = useState("");
-  /* const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
-  const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션 */
 
   const handleNameChange = (event) => {
-    setName(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setName(event.target.value); 
   };
   const handleIdChange = (event) => {
-    setId(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setId(event.target.value); 
   };
   const handlePwChange = (event) => {
-    setPw(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setPw(event.target.value); 
   };
   const handleNicknameChange = (event) => {
-    setNickname(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setNickname(event.target.value); 
   };
   const handleUniversityChange = (event) => {
-    setUniversity(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setUniversity(event.target.value); 
   };
 
   const isFormValid = () => {
@@ -64,7 +62,6 @@ const MentorJoinPage = () => {
         console.log("Response Status:", res.status);
 
         if (res.data === "멘토가 성공적으로 회원가입이 완료되었습니다.") {
-          // If Join is successful, navigate to the main page
           sessionStorage.setItem("userId", id);
           sessionStorage.setItem("role", "mentor");
           console.log(
@@ -143,7 +140,7 @@ const MentorJoinPage = () => {
           <SignUpButton
             type='primary'
             onClick={mentorJoinApi}
-            disabled={!isFormValid()} // Disable button if the form is not valid
+            disabled={!isFormValid()} 
           >
             회원가입
           </SignUpButton>

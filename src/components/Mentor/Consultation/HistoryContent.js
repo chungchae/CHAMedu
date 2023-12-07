@@ -1,97 +1,54 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import Person from "../../../assets/images/mypage_person.png";
 import axios from "axios";
-import { GRAY, PRIMARY } from "../../../colors";
-import { Button, ConfigProvider } from "antd";
-import ReportModal from "../../Chat/ReportModal";
-
+import { GRAY } from "../../../colors";
 const HistoryContent = () => {
   const [consultationList, setConsultationList] = useState();
-  const [modalReportOpen, setModalReportOpen] = useState(false);
-
-  const openReportModal = () => {
-    setModalReportOpen(true);
-  };
-  const closeReportModal = () => {
-    setModalReportOpen(false);
-  };
 
   useEffect(() => {
     const getConsultation = () => {
-      axios
-        .get(`/api/mentee-mypage/chat-log`)
-        .then((res) => {
-          console.log(res);
-          if (Array.isArray(res.data)) {
-            setConsultationList(res.data);
-            console.log("상담내역:", consultationList);
-          } else {
-            setConsultationList([]);
-          }
-        })
-        .catch((error) => {
-          console.error("Axios Error", error);
-        });
-    };
+      axios.get(`/api/mentee-mypage/chat-log`).then((res) => {
+      
+      console.log(res);
+      if (Array.isArray(res.data)) {
+        setConsultationList(res.data);
+      } else {
+        setConsultationList([]);
+      }
+    }).catch((error) =>{
+      console.error('Axios Error', error);
+    })
+    }
     getConsultation();
-  }, []);
+  },[]);
+    return (
+        <>
+         <RoundedBox>
+            <HeaderText>상담 내역</HeaderText>
+            <SubText>채팅은 30일 이후 만료됩니다.</SubText>
+            {consultationList?.map((consultation, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt="Image"/>
+                    <div>{consultation.userName}</div>
+                  </RequestImageWrapper>
+                  <div>{consultation.startTime.split('T')[0]}</div>
+                  <div>{consultation.startTime.split('T')[1].substring(0, 5)} ~ {consultation.endTime.split('T')[1].substring(0, 5)}</div>
+                  <div>{consultation.title}</div>
+                </RequestUserWrapper>
 
-
-
-  return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: PRIMARY.DEFAULT,
-        },
-      }}
-    >
-      <RoundedBox>
-        <div style={{ width: "100%" }}>
-          <HeaderText>상담 내역</HeaderText>
-          <SubText>채팅은 30일 이후 만료됩니다.</SubText>
-        </div>
-        {consultationList?.map((consultation, index) => (
-          <RequestWrapper key={index}>
-            <RequestUserWrapper>
-              <RequestImageWrapper>
-                <RequestImage src={Person} alt='Image' />
-                <div>{consultation.userName}</div>
-              </RequestImageWrapper>
-              <div>{consultation.startTime.split("T")[0]}</div>
-              <div>
-                {consultation.startTime.split("T")[1].substring(0, 5)} ~{" "}
-                {consultation.endTime.split("T")[1].substring(0, 5)}
-              </div>
-              <div>{consultation.title}</div>
-            </RequestUserWrapper>
-            <div>
-              <ReportButton onClick={openReportModal}>신고하기</ReportButton>
-              <ReportModal
-                roomId={consultation.roomId}
-                isOpen={modalReportOpen}
-                closeModal={closeReportModal}
-              />
-              <RequestButtonWrapper>
-                {consultation.checkStatus !== "채팅조회" ? (
-                  <CompleteTrue>만료됨</CompleteTrue>
-                ) : (
-                  <CompleteFalse>채팅조회</CompleteFalse>
-                )}
-              </RequestButtonWrapper>
-            </div>
-          </RequestWrapper>
-        ))}
-      </RoundedBox>
-    </ConfigProvider>
-  );
-};
-
-const ReportButton = styled(Button)`
-  margin-right: 10px;
-  font-family: "esamanru";
-`;
+                <RequestButtonWrapper>
+                  {consultation.checkStatus !== '채팅조회' ? <CompleteTrue>만료됨</CompleteTrue> : <CompleteFalse>채팅조회</CompleteFalse>}
+                  
+                </RequestButtonWrapper>
+              </RequestWrapper>  
+            ))}
+          </RoundedBox>
+          </>
+    );
+}
 
 const SubText = styled.div`
   font-size: 15px;
@@ -103,6 +60,9 @@ const SubText = styled.div`
 
 const CompleteFalse = styled.div`
   font-family: "esamanru";
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
 `;
 const CompleteTrue = styled.div`
   font-family: "esamanru";
@@ -144,7 +104,10 @@ const RequestUserWrapper = styled.div`
   gap: 30px;
 `;
 
-const RequestButtonWrapper = styled(Button)``;
+const RequestButtonWrapper = styled.div`
+  display: inline-flex;
+  gap: 10px;
+`;
 
 const RequestImage = styled.img``;
 
