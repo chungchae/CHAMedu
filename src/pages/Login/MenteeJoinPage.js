@@ -14,8 +14,6 @@ const MenteeJoinPage = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [nickname, setNickname] = useState("");
-  /* const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
-  const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션 */
 
   const handleNameChange = (event) => {
     setName(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
@@ -127,7 +125,7 @@ const MenteeJoinPage = () => {
           <SignUpButton
             type='primary'
             onClick={menteeJoinApi}
-            disabled={!isFormValid()} // Disable button if the form is not valid
+            disabled={!isFormValid()} 
           >
             회원가입
           </SignUpButton>
