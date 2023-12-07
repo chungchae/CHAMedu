@@ -57,17 +57,17 @@ const MenteeMyProfile = () => {
                 alignContent: "center",
               }}
             >
-              <MentorNameTypo>{menteeData?.nickname}
-              <ModifyButton onClick={openModifyModal}>
-                프로필 수정하기
-              </ModifyButton></MentorNameTypo>
-             
+              <MentorNameTypo>
+                {menteeData?.nickname}
+                <ModifyButton onClick={openModifyModal}>
+                  프로필 수정하기
+                </ModifyButton>
+              </MentorNameTypo>
             </div>
 
             {/* <MentorEducationTypo>필동고등학교 2학년, 자연계열</MentorEducationTypo> */}
             <MentorIntroTypo>{menteeData?.promotionText}</MentorIntroTypo>
             <ButtonContainer>
-              
               <MenteeModifyModal
                 mentorData={menteeData}
                 isOpen={modalModifyOpen}
@@ -83,7 +83,7 @@ const MenteeMyProfile = () => {
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
                   <RequestImageWrapper>
-                    <RequestImage src={Person} alt="Image" />
+                    <RequestImage src={Person} alt='Image' />
                     <div>{room.mentorName}</div>
                   </RequestImageWrapper>
                   <div>{room.startTime.split("T")[0]}</div>
