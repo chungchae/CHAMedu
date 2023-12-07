@@ -1,65 +1,104 @@
 import styled from "styled-components";
 import React from "react";
 import Person from "../../../assets/images/mypage_person.png";
-import { GRAY } from "../../../colors";
+import { GRAY, PRIMARY } from "../../../colors";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Button, ConfigProvider } from "antd";
+import ReportModal from "../../Chat/ReportModal";
 
 const HistoryContentMentor = () => {
-  //상담 내역 데이터
-  const [historyData, setHistoryData] = useState([]);
+  const [consultationList, setConsultationList] = useState();
+  const [modalReportOpen, setModalReportOpen] = useState(false);
 
-  //상담 내역 API
-  const getChatRequestData = () => {
-    axios
-      .get("/api/mentor-mypage/chat-log", { withCredentials: true })
-      .then((res) => {
-        console.log("기록데이터:", res);
-        setHistoryData(res.data);
-      })
-      .catch((error) => {
-        console.error("Axios Error:", error);
-        console.log("Full Axios Response:", error.response);
-      });
+  const openReportModal = () => {
+    setModalReportOpen(true);
+  };
+  const closeReportModal = () => {
+    setModalReportOpen(false);
   };
 
-  //페이지가 렌더링될 때
   useEffect(() => {
-    getChatRequestData();
+    const getConsultation = () => {
+      axios
+        .get(`/api/mentor-mypage/chat-log`)
+        .then((res) => {
+          console.log(res);
+          if (Array.isArray(res.data)) {
+            setConsultationList(res.data);
+            console.log("상담내역:", consultationList);
+          } else {
+            setConsultationList([]);
+          }
+        })
+        .catch((error) => {
+          console.error("Axios Error", error);
+        });
+    };
+    getConsultation();
   }, []);
 
+
+
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
       <RoundedBox>
         <div style={{ width: "100%" }}>
           <HeaderText>상담 내역</HeaderText>
           <SubText>채팅은 30일 이후 만료됩니다.</SubText>
         </div>
-        {historyData.length === 0 ? (
-          <NoHistoryMessage>상담 내역이 없습니다.</NoHistoryMessage>
-        ) : (
-          historyData.map((history, index) => (
-            <RequestWrapper key={index}>
-              <RequestUserWrapper>
-                <RequestImageWrapper>
-                  <RequestImage src={Person} alt="Image" />
-                  <div>{history.userName}</div>
-                </RequestImageWrapper>
-                <div>{history.startTime}</div>
-                <div>{history.title}</div>
-              </RequestUserWrapper>
-
+        {consultationList?.map((consultation, index) => (
+          <RequestWrapper key={index}>
+            <RequestUserWrapper>
+              <RequestImageWrapper>
+                <RequestImage src={Person} alt='Image' />
+                <div>{consultation.userName}</div>
+              </RequestImageWrapper>
+              <div>{consultation.startTime.split("T")[0]}</div>
+              <div>
+                {consultation.startTime.split("T")[1].substring(0, 5)} ~{" "}
+                {consultation.endTime.split("T")[1].substring(0, 5)}
+              </div>
+              <div>{consultation.title}</div>
+            </RequestUserWrapper>
+            <div>
+              <ReportButton onClick={openReportModal}>신고하기</ReportButton>
+              <ReportModal
+                roomId={consultation.roomId}
+                isOpen={modalReportOpen}
+                closeModal={closeReportModal}
+              />
               <RequestButtonWrapper>
-                <CompleteFalse>{history.checkStatus}</CompleteFalse>
+                {consultation.checkStatus !== "채팅조회" ? (
+                  <CompleteTrue>만료됨</CompleteTrue>
+                ) : (
+                  <CompleteFalse>채팅조회</CompleteFalse>
+                )}
               </RequestButtonWrapper>
-            </RequestWrapper>
-          ))
-        )}
+            </div>
+          </RequestWrapper>
+        ))}
       </RoundedBox>
-    </>
+    </ConfigProvider>
   );
 };
+const ReportButton = styled(Button)`
+  margin-right: 10px;
+  font-family: "esamanru";
+`;
+const CompleteTrue = styled.div`
+  font-family: "esamanru";
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
+`;
 
 const SubText = styled.div`
   font-size: 15px;
@@ -71,9 +110,6 @@ const SubText = styled.div`
 
 const CompleteFalse = styled.div`
   font-family: "esamanru";
-  font-weight: 500;
-  color: gray;
-  text-decoration: underline;
 `;
 
 const RoundedBox = styled.div`
@@ -110,10 +146,7 @@ const RequestUserWrapper = styled.div`
   gap: 30px;
 `;
 
-const RequestButtonWrapper = styled.div`
-  display: inline-flex;
-  gap: 10px;
-`;
+const RequestButtonWrapper = styled(Button)``;
 
 const RequestImage = styled.img``;
 
