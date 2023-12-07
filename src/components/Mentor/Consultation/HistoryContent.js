@@ -8,7 +8,7 @@ const HistoryContent = () => {
 
   useEffect(() => {
     const getConsultation = () => {
-      axios.get(`http://localhost:8080/api/mentee-mypage/chat-log`).then((res) => {
+      axios.get(`/api/mentee-mypage/chat-log`).then((res) => {
       
       console.log(res);
       if (Array.isArray(res.data)) {
@@ -22,33 +22,6 @@ const HistoryContent = () => {
     }
     getConsultation();
   },[]);
-
-  // const imageList = [
-  //   {
-  //     imageName: Person,
-  //     name: "이한별",
-  //     date: '2023-11-14',
-  //     time: '13:00~13:30',
-  //     title: '동국대학교 논술 문제유형관련 질문',
-  //     complete: false,
-  //   },
-  //   {
-  //     imageName: Person,
-  //     name: "홍길동",
-  //     date: '2023-12-14',
-  //     time: '20:00~20:30',
-  //     title: '논술 수학 범위 관련 질문',
-  //     complete: true,
-  //   },
-  //   {
-  //     imageName: Person,
-  //     name: "김철수",
-  //     date: '2023-10-21',
-  //     time: '20:00~20:30',
-  //     title: '내신 점수 질문',
-  //     complete: true,
-  //   }
-  // ];
     return (
         <>
          <RoundedBox>
