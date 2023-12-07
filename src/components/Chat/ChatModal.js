@@ -1,49 +1,59 @@
-/* import styled from "styled-components";
+import styled from "styled-components";
 import { GRAY, PRIMARY } from "../../colors";
 import Modal from "react-modal";
 import React, { useState, useEffect, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { Typography } from "antd";
-import { useHistory } from 'react-router';
-import io from 'socket.io-client';
-import axios from "axios";
+import { Button, ConfigProvider, Input, Typography } from "antd";
+import { useHistory } from "react-router";
+// import io from 'socket.io-client';  // 기존 코드에서는 이 부분을 주석 처리하거나 제거합니다.
 
 const ChatModal = ({ isOpen, closeModal, roomId }) => {
   const [messageList, setMessageList] = useState([]);
-  const [message, setMessage] = useState("");  // State to manage the current message being typed
-  const [sessionId, setSessionId] = useState(null);  // State to store the user's session ID
-  const [error, setError] = useState(null);  // State to handle errors
-  const messagesEndRef = useRef(null);  // Reference to the end of the message list for auto-scrolling
-;
-
-const socket = io.connect('http://localhost:8080',{
-  cors: { origin: '*' }
-})
+  const [message, setMessage] = useState(""); // State to manage the current message being typed
+  const [sessionId, setSessionId] = useState(null); // State to store the user's session ID
+  const [error, setError] = useState(null); // State to handle errors
+  const messagesEndRef = useRef(null); // Reference to the end of the message list for auto-scrolling
+  const socketRef = useRef(null); // Ref for the WebSocket instance
 
   useEffect(() => {
-    // Handle initial connection
-    socket.on("connect", () => {
-      console.log("socket server connected.");
+    console.log("채팅 내역:::", messageList);
+    console.log("roomId:", roomId);
+    // Initialize WebSocket connection
+    const socket = new WebSocket(`ws://localhost:8080/api/chat/${roomId}`);
+
+    // Set the socket instance in the ref for later use
+    socketRef.current = socket;
+
+    // Handle connection open
+    socket.addEventListener("open", () => {
+      console.log("WebSocket connected.");
     });
 
-    // Handle disconnection
-    socket.on("disconnect", () => {
-      console.log("socket server disconnected.");
+    // Handle connection close
+    socket.addEventListener("close", () => {
+      console.log("WebSocket disconnected.");
     });
 
     // Handle receiving messages
-    socket.on('receive_message', (data) => {
-      setMessageList((list) => [...list, data]);
+    socket.addEventListener("message", (event) => {
+      const data = event.data;
+      try {
+        const parsedData = JSON.parse(data);
+        setMessageList((list) => [...list, parsedData]);
+      } catch (error) {
+        // If parsing fails, it's likely a regular string message
+        setMessageList((list) => [...list, data]);
+      }
     });
 
     // Emit join event with the roomId
-    socket.emit("join", { roomId }, (sessionIdFromServer) => {
-      setSessionId(sessionIdFromServer);
+    socket.addEventListener("open", () => {
+      socket.send(JSON.stringify({ type: "join", roomId }));
     });
 
     return () => {
       // Cleanup when component unmounts
-      socket.disconnect();
+      socket.close();
     };
   }, [roomId]);
 
@@ -54,16 +64,22 @@ const socket = io.connect('http://localhost:8080',{
 
   const handleSendMessage = () => {
     // Emit a message event to the server
-    socket.emit("send_message", { roomId, message, sessionId }, (errorFromServer) => {
-      if (errorFromServer) {
-        setError(errorFromServer);
-      } else {
-        setMessage("");
-      }
-    });
+    const messageData = { type: "send_message", roomNumber: roomId, message };
+    socketRef.current.send(JSON.stringify(messageData));
+
+    // Assuming the message should be displayed on the client as well
+    setMessageList((list) => [...list, messageData]);
+    setMessage(""); // Clear the input after sending
   };
 
   return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={Modalstyle}>
       <Root>
         <CloseButton onClick={closeModal}>X</CloseButton>
@@ -71,59 +87,69 @@ const socket = io.connect('http://localhost:8080',{
           <TitleTypo>상담 채팅방</TitleTypo>
           <MessageList>
             {messageList.map((message, index) => (
-              <Message key={index}>{message}</Message>
+              <Message key={index}>
+                {typeof message === "string" ? (
+                  <span>{message}</span>
+                ) : (
+                  <span>
+                    {message.type === "getId"
+                      ? null
+                      : message.message}
+                  </span>
+                )}
+              </Message>
             ))}
+
             <div ref={messagesEndRef} />
           </MessageList>
           <MessageInput
-            type="text"
+            type='text'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message..."
+            placeholder='메세지를 입력하세요'
           />
-          <SendMessageButton onClick={handleSendMessage}>Send</SendMessageButton>
+          <SendMessageButton onClick={handleSendMessage}>
+            전송
+          </SendMessageButton>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </Container>
       </Root>
     </Modal>
+    </ConfigProvider>
   );
 };
+
 const MessageList = styled.div`
+  width: 100%;
+  height: 400px;
   overflow-y: auto;
-  max-height: 300px;
   border: 1px solid ${GRAY.LIGHT};
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 `;
 
 const Message = styled.div`
+  width: 60%;
+  display: flex;
   background-color: ${PRIMARY.LIGHT};
   color: white;
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 5px;
+  margin-left: auto; // Add this line
 `;
-
-const MessageInput = styled.input`
+const MessageInput = styled(Input)`
   width: 100%;
   padding: 10px;
-  border: 1px solid ${GRAY.LIGHT};
-  border-radius: 5px;
   margin-bottom: 10px;
 `;
 
-const SendMessageButton = styled.button`
-  background-color: ${PRIMARY.MAIN};
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${PRIMARY.DARK};
-  }
+const SendMessageButton = styled(Button)`
+font-family: "esamanru";
 `;
 
 const ErrorMessage = styled.div`
@@ -165,10 +191,7 @@ const Container = styled.div`
 const TitleTypo = styled(Typography)`
   font-family: "esamanru";
   font-size: 18px;
-  span {
-    padding-right: 1px;
-    font-weight: 700;
-  }
+  margin-bottom: 20px;
 `;
 
 const CloseButton = styled.button`
@@ -186,6 +209,4 @@ const CloseButton = styled.button`
   }
 `;
 
-
 export default ChatModal;
- */
