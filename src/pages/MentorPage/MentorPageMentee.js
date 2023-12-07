@@ -14,7 +14,6 @@ import NewMentorCard from "../../components/Mentor/NewMentorCard";
 import { useEffect, useState } from "react";
 
 const MentorPageMentee = () => {
-  // const mentorList = camelizeKey(MentorSmaple.mentor_list);
   const [pMentorList, setPMentorList] = useState();
   const [rMentorList, setRMentorList] = useState();
   const [mMentorList, setMMentorList] = useState();

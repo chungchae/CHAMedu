@@ -35,9 +35,7 @@ const PointExchangePage = () => {
         console.log("Complete Response:", res);
         console.log("Response Status:", res.status);
 
-        // 여기서 로그인 성공 여부 또는 다른 조건에 따라 로직을 추가할 수 있습니다.
         if (res.status >= 200 && res.status < 300) {
-          // HTTP 상태 코드가 2xx 범위이면 성공으로 간주합니다.
           console.log(changedPoints, "CHAM 환전 성공!");
           message.success("환전 성공!");
         }

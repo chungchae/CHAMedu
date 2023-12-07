@@ -23,8 +23,6 @@ const MyPageMentee = () => {
     axios.get('/mentee-mypage')
       .then((res) => {
         console.log('Response from /mentee-mypage:', res);
-  
-        // 여기에서 res를 이용하여 받아온 데이터에 대한 추가 작업을 수행할 수 있습니다.
       })
       .catch((error) => {
         console.error('Axios Error:', error);

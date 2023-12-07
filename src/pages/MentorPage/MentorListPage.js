@@ -33,15 +33,6 @@ const MentorListPage = () => {
     { value: 2, label: "교과" },
     { value: 3, label: "논술" },
   ];
-
-  //  const collegeOptions = [
-  //   { value: "All", label: "All" },
-  //   { value: "공과대", label: "공과대" },
-  //   { value: "자연대", label: "자연대" },
-  //   { value: "문과대", label: "문과대" },
-  //   { value: "예대", label: "예대" },
-  //   { value: "체대", label: "체대" },
-  // ];
   const collegeOptions = [
     { value: 0, label: "체대" },
     { value: 1, label: "공과대" },
@@ -98,7 +89,7 @@ const MentorListPage = () => {
             <SelectBox
               onChange={(option) => handleCollegeChange(option)}
               placeholder='단과대 선택'
-              options={collegeOptions}   //주석되었던 부분 단과대 추가하여 생성
+              options={collegeOptions}   // 단과대 추가하여 생성
             />
           </SelectContainer>
           <MentorCardContainer>
