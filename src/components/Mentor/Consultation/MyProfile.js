@@ -144,11 +144,11 @@ const MyProfile = () => {
                   <div>{plan.chatTitle}</div>
                 </RequestUserWrapper>
                 <ChatButton onClick={openChatModal}>채팅 조회</ChatButton>
-                {/* <ChatModal
+                <ChatModal
                 isOpen={chatModalOpen}
                 closeModal={closeChatModal}
                 roomId={plan.roomId}
-              /> */}
+              />
               </RequestWrapper>
             ))
           ) : (
