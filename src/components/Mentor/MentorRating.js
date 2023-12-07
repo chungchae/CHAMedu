@@ -3,7 +3,7 @@ import StarRatings from "react-star-ratings";
 import { PRIMARY } from '../../colors';
 
 const MentorRating = () => {
-  const [rating, setRating] = useState(5); // Set an initial rating value
+  const [rating, setRating] = useState(5); 
 
   const changeRating = (newRating, name) => {
     setRating(newRating);
