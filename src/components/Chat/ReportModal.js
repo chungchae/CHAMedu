@@ -1,42 +1,33 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import {
-  Input,
-  Typography,
-  Button,
-  ConfigProvider,
-  Select,
-  message,
-} from "antd";
-import { PRIMARY } from "../../colors";
-import ProImg from "../../assets/images/profile.png";
+import { Typography, Button, ConfigProvider, message } from "antd";
+import { GRAY, PRIMARY } from "../../colors";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 
 const ReportModal = ({ roomId, isOpen, closeModal }) => {
   const [detail, setDetail] = useState("");
-  const userId = sessionStorage.getItem("userID");
+  const userId = sessionStorage.getItem("userId");
 
-  const data = { //API에 전송할 data 정의
-    userId: userId,
-    roomId: roomId,
-    reportDetail: detail
-  };
-
-  const MentorModifyApi = (data) => {
-    return axios
-      .put("/api/mentee-mypage/profile/update", data)
+  //신고 POST API
+  const ReportPost = () => {
+    const data = {
+      userId: userId,
+      roomId: roomId,
+      reportDetail: detail,
+    };
+    console.log("전송 데이터:", data);
+    axios
+      .post("/api/report/upload", data)
       .then((response) => {
-        console.log("Mentee Modify API Response:", response.data);
-        
+        console.log("Report Upload API Response:", response.data);
+
         closeModal(); // 모달 창 닫기
-        window.location.replace("/user/mypage")
-        message.success("수정 성공!"); // 수정 성공 메시지 표시
-        return response.data;
+        message.success("신고가 접수되었습니다."); // 신고 성공 메시지 표시
       })
       .catch((error) => {
-        console.error("Mentee Modify API Error:", error);
+        console.error("Report Upload API Error:", error);
         throw error;
       });
   };
@@ -53,13 +44,38 @@ const ReportModal = ({ roomId, isOpen, closeModal }) => {
         <Root>
           <CloseButton onClick={closeModal}>X</CloseButton>
           <Container>
-            
+            <TitleTypo>채팅방 신고하기</TitleTypo>
+            <InfoTypo>신고 사유 작성</InfoTypo>
+            <ContentBox
+              placeholder='신고 사유를 입력해주세요.'
+              value={detail}
+              onChange={(e) => setDetail(e.target.value)}
+            ></ContentBox>
+            <SubmitButton onClick={ReportPost}>등록</SubmitButton>
           </Container>
         </Root>
       </Modal>
     </ConfigProvider>
   );
 };
+
+const SubmitButton = styled(Button)`
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+`;
+
+const TitleTypo = styled(Typography)`
+  font-family: "esamanru";
+  font-size: 18px;
+`;
+const InfoTypo = styled(Typography)`
+  width: 100%;
+  color: ${GRAY.DARK};
+  font-family: "esamanru";
+  font-size: 15px;
+`;
+const ContentBox = styled(TextArea)``;
 
 const Root = styled.div`
   width: 900px;
@@ -108,6 +124,5 @@ const CloseButton = styled.button`
     color: ${PRIMARY.LIGHT};
   }
 `;
-
 
 export default ReportModal;
