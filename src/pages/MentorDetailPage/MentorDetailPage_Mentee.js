@@ -14,11 +14,10 @@ import Bunting from "../../assets/images/buntingIcon.png";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-
 const MentorDetailPageMentee = () => {
   const mentorParams = useParams();
   const [modalReserveOpen, setModalReserveOpen] = useState(false);
-  const [mentorData, setMentorData]= useState();
+  const [mentorData, setMentorData] = useState();
   const openReserveModal = () => {
     setModalReserveOpen(true);
   };
@@ -33,32 +32,36 @@ const MentorDetailPageMentee = () => {
   const closeReviewModal = () => {
     setModalReviewOpen(false);
   };
+  const role = sessionStorage.getItem("role");
 
   const admissionTypeChange = (admission) => {
-    if(admission === 0){
-      return '학종';
-    }else if (admission === 1){
-      return '정시';
-    }else if(admission===2){
-      return '교과';
-    }else if (admission ===3){
-      return '논술';
+    if (admission === 0) {
+      return "학종";
+    } else if (admission === 1) {
+      return "정시";
+    } else if (admission === 2) {
+      return "교과";
+    } else if (admission === 3) {
+      return "논술";
     }
-    return 'All';
-  }
+    return "All";
+  };
 
   useEffect(() => {
-    console.log('멘토 파라미터:',mentorParams.mentorKey);
-  
+    console.log("멘토 파라미터:", mentorParams.mentorKey);
+
     const getMentor = () => {
-      axios.get(`/api/mentor-profile/${mentorParams.mentorKey}`).then((res) => {
-        console.log(res.data)
-        setMentorData(res.data);
-      }).catch((error) => {
-        console.error('Axios Error', error);
-      });
+      axios
+        .get(`/api/mentor-profile/${mentorParams.mentorKey}`)
+        .then((res) => {
+          console.log(res.data);
+          setMentorData(res.data);
+        })
+        .catch((error) => {
+          console.error("Axios Error", error);
+        });
     };
-  
+
     getMentor();
   }, []);
 
@@ -70,61 +73,79 @@ const MentorDetailPageMentee = () => {
         },
       }}
     >
-    <Root>
-      <Header></Header>
-      <Container>
-        <Profilecontainer>
-          <Mentorcontainer>
-            <BuntingImg src={Bunting} alt='Bunting Icon' />
-            <MentorProfileImg src={ProfileImg} />
-            {/* <MentorProfileImg src={`../../assets/images/${mentorData?.profileImg}`} /> */}
-            <RateContainer>
-              <RateStarImg src={StarIcon}></RateStarImg>
-              <RateTypo>{mentorData?.avgScore}</RateTypo>
-              <ReviewTypo>진행한 상담 {mentorData?.chatCount}건</ReviewTypo>
-            </RateContainer>
-          </Mentorcontainer>
-          <Infocontainer>
-            <div style={{ display: "flex", flexDirection: "row", alignContent: "center" }}>
-              <MentorNameTypo>{mentorData?.nickname}</MentorNameTypo>
-              <AdmissionTag color={"#99DDEC"}>{admissionTypeChange(mentorData?.addmissionType)}</AdmissionTag>
-            </div>
+      <Root>
+        <Header></Header>
+        <Container>
+          <Profilecontainer>
+            <Mentorcontainer>
+              <BuntingImg src={Bunting} alt='Bunting Icon' />
+              <MentorProfileImg src={ProfileImg} />
+              {/* <MentorProfileImg src={`../../assets/images/${mentorData?.profileImg}`} /> */}
+              <RateContainer>
+                <RateStarImg src={StarIcon}></RateStarImg>
+                <RateTypo>{mentorData?.avgScore}</RateTypo>
+                <ReviewTypo>진행한 상담 {mentorData?.chatCount}건</ReviewTypo>
+              </RateContainer>
+            </Mentorcontainer>
+            <Infocontainer>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignContent: "center",
+                }}
+              >
+                <MentorNameTypo>{mentorData?.nickname}</MentorNameTypo>
+                <AdmissionTag color={"#99DDEC"}>
+                  {admissionTypeChange(mentorData?.addmissionType)}
+                </AdmissionTag>
+              </div>
 
-            <MentorEducationTypo>{mentorData?.university}</MentorEducationTypo>
-            <MentorIntroTypo>
-              {mentorData?.promotonText}
-            </MentorIntroTypo>
-            <ButtonContainer>
-              <ReserveButton onClick={openReserveModal}>
-                상담 예약하기 →
-              </ReserveButton>
-              <MentorReserveModal
-                isOpen={modalReserveOpen}
-                closeModal={closeReserveModal}
+              <MentorEducationTypo>
+                {mentorData?.university}
+              </MentorEducationTypo>
+              <MentorIntroTypo>{mentorData?.promotonText}</MentorIntroTypo>
+              <ButtonContainer>
+                {role === "mentee" && (
+                  <>
+                    <ReserveButton onClick={openReserveModal}>
+                      상담 예약하기 →
+                    </ReserveButton>
+                  </>
+                )}
+
+                <MentorReserveModal
+                  isOpen={modalReserveOpen}
+                  closeModal={closeReserveModal}
+                />
+              </ButtonContainer>
+            </Infocontainer>
+          </Profilecontainer>
+          <Reviewcontainer>
+            <TextContainer>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <IconImg src={NoteIcon} />
+                <ReviewTypo2>후기 {mentorData?.reviewCount}개</ReviewTypo2>
+              </div>
+              {role === "mentee" && (
+                <>
+                  <WriteReviewButtonContainer onClick={openReviewModal}>
+                    <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
+                  </WriteReviewButtonContainer>
+                </>
+              )}
+
+              <MentorReviewModal
+                isOpen={modalReviewOpen}
+                closeModal={closeReviewModal}
               />
-            </ButtonContainer>
-          </Infocontainer>
-        </Profilecontainer>
-        <Reviewcontainer>
-          <TextContainer>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <IconImg src={NoteIcon} />
-              <ReviewTypo2>후기 {mentorData?.reviewCount}개</ReviewTypo2>
-            </div>
-            <WriteReviewButtonContainer onClick={openReviewModal}>
-              <WriteReviewTypo>후기 작성하기</WriteReviewTypo>
-            </WriteReviewButtonContainer>
-            <MentorReviewModal
-              isOpen={modalReviewOpen}
-              closeModal={closeReviewModal}
-            />
-          </TextContainer>
-          {mentorData?.reviewList && (
-            <ReviewSlider reviewList={mentorData?.reviewList}/>
-          )}
-        </Reviewcontainer>
-      </Container>
-    </Root>
+            </TextContainer>
+            {mentorData?.reviewList && (
+              <ReviewSlider reviewList={mentorData?.reviewList} />
+            )}
+          </Reviewcontainer>
+        </Container>
+      </Root>
     </ConfigProvider>
   );
 };
@@ -182,13 +203,13 @@ const Infocontainer = styled.div`
 `;
 
 const AdmissionTag = styled(Tag)`
-display: flex;
-align-items: center;
-height: 27px;
-border: none;
-font-size: 14px;
-color: white;
-font-family: "esamanru";
+  display: flex;
+  align-items: center;
+  height: 27px;
+  border: none;
+  font-size: 14px;
+  color: white;
+  font-family: "esamanru";
 `;
 
 const MentorProfileImg = styled.img`

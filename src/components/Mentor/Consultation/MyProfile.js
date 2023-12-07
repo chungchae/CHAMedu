@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { Button, Typography, Tag } from "antd";
+import { Button, Typography, Tag, ConfigProvider } from "antd";
 import ProfileImg from "../../../assets/images/profile.png";
 import StarIcon from "../../../assets/images/Star.png";
 import MentorModifyModal from "../../../components/Mentor/MentorModifyModal";
+import ChatModal from "../../Chat/ChatModal";
 import NoteIcon from "../../../assets/images/note_icon.png";
 import Person from "../../../assets/images/mypage_person.png";
 import { CONTAINER_WIDTH } from "../../../assets/system/layout";
@@ -26,12 +27,12 @@ const MyProfile = () => {
     setModalModifyOpen(false);
   };
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
+  const [chatModalOpen, setChatModalOpen] = useState(false);
+  const openChatModal = () => {
+    setChatModalOpen(true);
   };
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeChatModal = () => {
+    setChatModalOpen(false);
   };
 
   //멘토 데이터 API
@@ -68,7 +69,13 @@ const MyProfile = () => {
   }, []);
 
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: PRIMARY.DEFAULT,
+        },
+      }}
+    >
       <Time>
         <IconImg src={NoteIcon} />
         <span>3시간 17분</span> 뒤 상담이 예정되어 있어요.
@@ -124,28 +131,37 @@ const MyProfile = () => {
           </div>
         </TextContainer>
         <Waitingcontainer>
-        {planData && planData.length > 0 ? (
-          planData.map((plan, index) => (
-            <RequestWrapper key={index}>
-              <RequestUserWrapper>
-                <RequestImageWrapper>
-                  <RequestImage src={Person} alt="Image" />
-                  <div>{plan.menteeName}</div>
-                </RequestImageWrapper>
-                <div>{plan.startDate}</div>
-                <div>{plan.durationTime}</div>
-                <div>{plan.chatTitle}</div>
-              </RequestUserWrapper>
-            </RequestWrapper>
-          ))
-        ) : (
-          <NoPlanMessage>예정된 상담이 없습니다.</NoPlanMessage>
-        )}
-      </Waitingcontainer>
+          {planData && planData.length > 0 ? (
+            planData.map((plan, index) => (
+              <RequestWrapper key={index}>
+                <RequestUserWrapper>
+                  <RequestImageWrapper>
+                    <RequestImage src={Person} alt='Image' />
+                    <div>{plan.menteeName}</div>
+                  </RequestImageWrapper>
+                  <div>{plan.startDate}</div>
+                  <div>{plan.durationTime}</div>
+                  <div>{plan.chatTitle}</div>
+                </RequestUserWrapper>
+                <ChatButton onClick={openChatModal}>채팅 조회</ChatButton>
+                <ChatModal
+                isOpen={chatModalOpen}
+                closeModal={closeChatModal}
+                roomId={plan.roomId}
+              />
+              </RequestWrapper>
+            ))
+          ) : (
+            <NoPlanMessage>예정된 상담이 없습니다.</NoPlanMessage>
+          )}
+        </Waitingcontainer>
       </Container>
-    </>
+    </ConfigProvider>
   );
 };
+
+const ChatButton = styled(Button)`
+font-family: "esamanru";`;
 
 const Time = styled.div`
   margin-left: 30px;
@@ -290,17 +306,10 @@ const IconImg = styled.img`
 `;
 
 const ModifyButton = styled(Button)`
-  margin-left: 345px;
-  margin-top: 90px;
-  color: ${PRIMARY.DEFAULT};
-  &:hover {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
-  }
-  &:focus {
-    color: ${PRIMARY.DEFAULT}!important;
-    border-color: ${PRIMARY.DEFAULT}!important;
-  }
+font-family: "esamanru";
+position: absolute;
+right: 30px;
+bottom: 30px;
 `;
 const RequestWrapper = styled.div`
   display: inline-flex;

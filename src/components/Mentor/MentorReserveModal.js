@@ -9,7 +9,7 @@ import { Input, Typography } from "antd";
 import axios from "axios";
 
 const MentorReserveModal = ({ isOpen, closeModal }) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
   const [selectedTime, setSelectedTime] = useState("11:00:00");
   const [timeList, setTimeList] = useState();
   const [consultationInfo, setConsultationInfo] = useState("논술 상담");
@@ -65,7 +65,11 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
     // selectedTime을 시, 분, 초로 분리합니다.
     const [hours, minutes, seconds] = selectedTime?.split(":").map(Number);
 
-    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")}T${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
     console.log("@", formattedDate);
 
@@ -106,30 +110,16 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
           <TitleTypo>
             <span>치와와교수</span>의 상담 예약하기
           </TitleTypo>
-          {/* <ProfileContainer>
-            <ProfileContainer2>
-              <MentorProfileImg src={ProImg} />
-              <EduTypo>동국대 컴퓨터공학과</EduTypo>
-            </ProfileContainer2>
-            <InfoTypo>
-              <Input.TextArea
-                value={consultationInfo}
-                onChange={handleConsultationInfoChange}
-                placeholder="상담 내용을 입력하세요"
-                autoSize={{ minRows: 4, maxRows: 6 }}
-              />
-            </InfoTypo>
-          </ProfileContainer> */}
           <DateContainer>
             <DateWrapper>
               <DatePickerContainer>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
-                  locale="pt-BR"
-                  timeFormat="p"
+                  locale='pt-BR'
+                  timeFormat='p'
                   timeIntervals={30}
-                  dateFormat="Pp"
+                  dateFormat='Pp'
                   inline
                   minDate={new Date()}
                 />
@@ -137,30 +127,40 @@ const MentorReserveModal = ({ isOpen, closeModal }) => {
               <TimeContainer>
                 <MenuTypo>상담 시간 선택</MenuTypo>
                 <TimeSelection>
-                  {/* {timeOptions.map((time) => ( */}
-                  {timeList?.map((time) => (
-                    <TimeButton
-                      key={time}
-                      onClick={() => handleTimeButtonClick(time)}
-                      selected={time === selectedTime}
-                    >
-                      {time}
-                    </TimeButton>
-                  ))}
+                  {timeList && timeList.length > 0 ? (
+                    timeList.map((time) => (
+                      <TimeButton
+                        key={time}
+                        onClick={() => handleTimeButtonClick(time)}
+                        selected={time === selectedTime}
+                      >
+                        {time}
+                      </TimeButton>
+                    ))
+                  ) : (
+                    <div>예약 가능한 시간이 없습니다.</div>
+                  )}
                 </TimeSelection>
+                <TimeWrapper>
+                <MenuTypo>선택한 시간</MenuTypo>
+                <SelectedTime>
+                  {startDate ? startDate.toLocaleString().slice(0, -3) : ""}
+                </SelectedTime>
+              </TimeWrapper>
               </TimeContainer>
             </DateWrapper>
             <Wrapper>
-              <TimeWrapper>
+              {/* <TimeWrapper>
                 <MenuTypo>선택한 시간</MenuTypo>
                 <SelectedTime>
-                  {startDate.toLocaleString().slice(0, -3)}
+                  {startDate ? startDate.toLocaleString().slice(0, -3) : ""}
                 </SelectedTime>
-              </TimeWrapper>
+              </TimeWrapper> */}
+              <RequestTypo>요청 문구 입력</RequestTypo>
               <StyledTextArea
                 value={consultationInfo}
                 onChange={handleConsultationInfoChange}
-                placeholder="상담 내용을 입력하세요"
+                placeholder='상담 내용을 입력하세요'
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
             </Wrapper>
@@ -197,16 +197,20 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 `;
 
 const StyledTextArea = styled(Input.TextArea)`
-  width: 50%; // 너비 조정
-  max-width: 500px; // 최대 너비 설정
-  margin-top: 20px; // 상단 여백
-  // 기타 필요한 스타일 속성 추가
+  width: 80%; 
 `;
+
+const RequestTypo = styled.div`
+font-family: "esamanru";
+width: 80%;
+align-items: start;
+margin-bottom: 10px;
+`
 
 const Root = styled.div`
   width: 900px;
@@ -263,6 +267,7 @@ const ProfileContainer2 = styled.div`
 `;
 
 const TimeSelection = styled.div`
+height: 150px;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 10px;
@@ -318,7 +323,7 @@ const SelectedTime = styled.div`
 
 const TitleTypo = styled(Typography)`
   font-family: "esamanru";
-  font-size: 35px;
+  font-size: 18px;
   span {
     padding-right: 1px;
     font-weight: 700;
