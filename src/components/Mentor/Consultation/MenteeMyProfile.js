@@ -51,15 +51,17 @@ const MenteeMyProfile = () => {
                 alignContent: "center",
               }}
             >
-              <MentorNameTypo>{menteeData?.nickname}</MentorNameTypo>
+              <MentorNameTypo>{menteeData?.nickname}
+              <ModifyButton onClick={openModifyModal}>
+                프로필 수정하기
+              </ModifyButton></MentorNameTypo>
+             
             </div>
 
             {/* <MentorEducationTypo>필동고등학교 2학년, 자연계열</MentorEducationTypo> */}
             <MentorIntroTypo>{menteeData?.promotionText}</MentorIntroTypo>
             <ButtonContainer>
-              <ModifyButton onClick={openModifyModal}>
-                프로필 수정하기
-              </ModifyButton>
+              
               <MenteeModifyModal
                 mentorData={menteeData}
                 isOpen={modalModifyOpen}
@@ -112,8 +114,9 @@ const MenteeMyProfile = () => {
 };
 
 const ModifyButton = styled(Button)`
-  margin-left: 345px;
-  margin-top: 90px;
+  position: absolute;
+  margin-left: 200px;
+  margin-top: 0px;
   color: ${PRIMARY.DEFAULT};
   &:hover {
     color: ${PRIMARY.DEFAULT}!important;
