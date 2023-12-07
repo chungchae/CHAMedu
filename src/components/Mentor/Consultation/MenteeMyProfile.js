@@ -2,24 +2,29 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Tag, ConfigProvider } from "antd";
 import NoteIcon from "../../../assets/images/note_icon.png";
-import { CONTAINER_WIDTH, HEADER_HEIGHT } from "../../../assets/system/layout";
+import { CONTAINER_WIDTH } from "../../../assets/system/layout";
 import { GRAY, PRIMARY } from "../../../colors";
 import Person from "../../../assets/images/mypage_person.png";
 import axios from "axios";
 import MenteeModifyModal from "../../../components/Mentor/MenteeModifyModal";
+import ChatModal from "../../Chat/ChatModal";
 
 const MenteeMyProfile = () => {
-  const [menteeData, setMenteeData] = useState({}); //데ㅐ이터 저장할 곳 만듦
+  const [menteeData, setMenteeData] = useState({});
   const [modalModifyOpen, setModalModifyOpen] = useState(false);
+  const [chatModalOpen, setChatModalOpen] = useState(false);
+
+  //세션에서 userId get
   const userId = sessionStorage.getItem("userId");
+
+  //멘티 마이프로필 데이터 GET API
   useEffect(() => {
-    //api 부름
     const getMentee = () => {
       axios
         .get(`http://localhost:8080/api/mentee-mypage/${userId}`)
         .then((res) => {
           console.log(res);
-          setMenteeData(res.data); // 아까 거기에 저장
+          setMenteeData(res.data);
         })
         .catch((error) => {
           console.error("Axios Error", error);
@@ -28,11 +33,20 @@ const MenteeMyProfile = () => {
     getMentee();
   }, []);
 
+  //수정 모달창 관리
   const openModifyModal = () => {
     setModalModifyOpen(true);
   };
   const closeModifyModal = () => {
     setModalModifyOpen(false);
+  };
+
+  //채팅 모달창 관리
+  const openChatModal = () => {
+    setChatModalOpen(true);
+  };
+  const closeChatModal = () => {
+    setChatModalOpen(false);
   };
   return (
     <ConfigProvider
@@ -64,8 +78,6 @@ const MenteeMyProfile = () => {
                 </ModifyButton>
               </MentorNameTypo>
             </div>
-
-            {/* <MentorEducationTypo>필동고등학교 2학년, 자연계열</MentorEducationTypo> */}
             <MentorIntroTypo>{menteeData?.promotionText}</MentorIntroTypo>
             <ButtonContainer>
               <MenteeModifyModal
@@ -86,6 +98,7 @@ const MenteeMyProfile = () => {
                     <RequestImage src={Person} alt='Image' />
                     <div>{room.mentorName}</div>
                   </RequestImageWrapper>
+
                   <div>{room.startTime.split("T")[0]}</div>
                   <div>
                     {room.startTime.split("T")[1].substring(0, 5)} ~{" "}
@@ -104,13 +117,20 @@ const MenteeMyProfile = () => {
                     <RequestButton1>대기상태</RequestButton1>
                   )}
                   {room.status === "A" && (
-                    <RequestButton1>예정상태</RequestButton1>
+                    <RequestButton1 onClick={openChatModal}>
+                      채팅조회
+                    </RequestButton1>
                   )}
                   {room.status === "C" && <RequestButton1>완료</RequestButton1>}
                   {room.status === "D" && (
                     <RequestButton1>요청됨</RequestButton1>
                   )}
                 </RequestButtonWrapper>
+                <ChatModal
+                  isOpen={chatModalOpen}
+                  closeModal={closeChatModal}
+                  roomId={room.roomId}
+                />
               </RequestWrapper>
             ))}
         </RoundedBox>
@@ -215,7 +235,7 @@ const HeaderText = styled.div`
   font-family: "esamanru";
 `;
 
-const RequestButton1 = styled.div`
+const RequestButton1 = styled(Button)`
   font-family: "esamanru";
   background-color: #e9e9e9;
   padding: 12px; /* Adjust padding as needed */

@@ -20,6 +20,7 @@ const MyProfile = () => {
   //예정 상담 데이터
   const [planData, setPlanData] = useState();
 
+  //수정 모달창 관리
   const openModifyModal = () => {
     setModalModifyOpen(true);
   };
@@ -145,10 +146,10 @@ const MyProfile = () => {
                 </RequestUserWrapper>
                 <ChatButton onClick={openChatModal}>채팅 조회</ChatButton>
                 <ChatModal
-                isOpen={chatModalOpen}
-                closeModal={closeChatModal}
-                roomId={plan.roomId}
-              />
+                  isOpen={chatModalOpen}
+                  closeModal={closeChatModal}
+                  roomId={plan.roomId}
+                />
               </RequestWrapper>
             ))
           ) : (
@@ -161,7 +162,8 @@ const MyProfile = () => {
 };
 
 const ChatButton = styled(Button)`
-font-family: "esamanru";`;
+  font-family: "esamanru";
+`;
 
 const Time = styled.div`
   margin-left: 30px;
@@ -306,10 +308,10 @@ const IconImg = styled.img`
 `;
 
 const ModifyButton = styled(Button)`
-font-family: "esamanru";
-position: absolute;
-right: 30px;
-bottom: 30px;
+  font-family: "esamanru";
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
 `;
 const RequestWrapper = styled.div`
   display: inline-flex;

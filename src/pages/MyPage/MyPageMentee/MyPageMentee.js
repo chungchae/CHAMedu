@@ -9,7 +9,6 @@ import List from "../../../assets/images/mypage_list.png";
 import ReviewContent from '../../../components/Mentor/Consultation/ReviewContent';
 import HistoryContent from '../../../components/Mentor/Consultation/HistoryContent';
 import MenteeMyProfile from '../../../components/Mentor/Consultation/MenteeMyProfile';
-import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 
 const MyPageMentee = () => {
@@ -17,14 +16,13 @@ const MyPageMentee = () => {
 
   useEffect(() => {
     getMenteeMypageData();
-  }, []); // 빈 배열을 전달하여 마운트 시 한 번만 호출
+  }, []);
 
+  //멘티 프로필 데이터 GET API
   const getMenteeMypageData = () => {
     axios.get('/mentee-mypage')
       .then((res) => {
         console.log('Response from /mentee-mypage:', res);
-  
-        // 여기에서 res를 이용하여 받아온 데이터에 대한 추가 작업을 수행할 수 있습니다.
       })
       .catch((error) => {
         console.error('Axios Error:', error);
@@ -55,7 +53,6 @@ const MyPageMentee = () => {
           </Sidebar>
         </TabContainer>
         <Contentcontainer>
-          {/* 컴포넌트 분리 */}
           {selectMenu === '내 프로필' && <MenteeMyProfile />}
           {selectMenu === '작성한 후기' && <ReviewContent />}
           {selectMenu === '상담내역' && <HistoryContent />}   
@@ -64,7 +61,6 @@ const MyPageMentee = () => {
     </Root>
   );
 };
-
 
 const Root = styled.div`
   width: 100%;
@@ -104,7 +100,6 @@ const Sidebar = styled.div`
     background: #f2f2f2;
     border-radius: 20px;
   }
-
 `;
 
 const SidebarContent = styled.div`
@@ -123,7 +118,5 @@ const ProfileImage = styled.img`
   padding-left: 10px;
 
 `;
-
-
 
 export default MyPageMentee;

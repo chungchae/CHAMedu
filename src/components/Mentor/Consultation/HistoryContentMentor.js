@@ -12,6 +12,7 @@ const HistoryContentMentor = () => {
   const [consultationList, setConsultationList] = useState();
   const [modalReportOpen, setModalReportOpen] = useState(false);
 
+  //신고 모달창 관리
   const openReportModal = () => {
     setModalReportOpen(true);
   };
@@ -19,6 +20,7 @@ const HistoryContentMentor = () => {
     setModalReportOpen(false);
   };
 
+  //신고 POST API
   useEffect(() => {
     const getConsultation = () => {
       axios
@@ -38,8 +40,6 @@ const HistoryContentMentor = () => {
     };
     getConsultation();
   }, []);
-
-
 
   return (
     <ConfigProvider
@@ -93,6 +93,7 @@ const ReportButton = styled(Button)`
   margin-right: 10px;
   font-family: "esamanru";
 `;
+
 const CompleteTrue = styled.div`
   font-family: "esamanru";
   font-weight: 500;
@@ -160,12 +161,6 @@ const RequestWrapper = styled.div`
   padding: 20px;
   justify-content: space-between;
   font-weight: 900;
-`;
-
-const NoHistoryMessage = styled.div`
-  font-size: 18px;
-  color: #999;
-  margin-bottom: 20px;
 `;
 
 export default HistoryContentMentor;
