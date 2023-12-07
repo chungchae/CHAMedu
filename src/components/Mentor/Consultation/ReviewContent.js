@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Button, Typography, Tag } from "antd";
 import MentorReviewModal from "../../../components/Mentor/MentorReviewModal";
 import axios from "axios";
+import StarRatings from 'react-star-ratings';
 
 const ReviewContent = () => {
   const [modalReviewOpen, setModalReviewOpen] = useState(false);
@@ -19,8 +20,8 @@ const ReviewContent = () => {
   };
 
    useEffect(() => {
-    const getMentee = () => { // api주소 가상으로
-      axios.get(`http://localhost:8080/api/mentee-mypage/review`).then((res) => {
+    const getMentee = () => { // review 불러오는 api 작성
+      axios.get(`/api/mentee-mypage/review`).then((res) => {
       
       console.log(res);
       setMenteeData(res.data);
@@ -34,28 +35,25 @@ const ReviewContent = () => {
   const imageList = [
     {
       imageName: Person,
-      name: "논술 전문가",
-      date: '2023-09-12',
-      time: '13:00~13:30',
       title: '동국대학교 논술 문제유형관련 질문',
+      content: '너무 좋아요',
+      score: 5,
       onAccept: () => console.log('Accepted 1'),
       onReject: () => console.log('Rejected 1'),
     },
     {
       imageName: Person,
-      name: "수시를 수시로",
-      date: '2023-10-15',
-      time: '20:00~20:30',
       title: '논술 수학 범위 관련 질문',
+      content: '하하',
+      score: 5,
       onAccept: () => console.log('Accepted 1'),
       onReject: () => console.log('Rejected 1'),
     },
     {
         imageName: Person,
-        name: "논술을 논하라",
-        date: '2023-10-15',
-        time: '20:00~20:30',
-        title: '논술 공부 방법 질문',
+        title: '논술 수학 범위 관련 질문',
+        content: '하하',
+        score: 5,
         onAccept: () => console.log('Accepted 1'),
         onReject: () => console.log('Rejected 1'),
       },
@@ -64,55 +62,39 @@ const ReviewContent = () => {
     return (
         <>
          <RoundedBox>
-            <HeaderText>상담 내역</HeaderText>
-            {imageList.map((image, index) => (
+            <HeaderText>후기 내역</HeaderText>
+          
+
+          
+            {Array.isArray(menteeData.content) && menteeData.content.map((content, index) => (
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
                   <RequestImageWrapper>
                     <RequestImage src={Person} alt="Image"/>
-                    <div>{image.name}</div>
+                    <div>{content.title}</div>
                   </RequestImageWrapper>
-                  <div>{image.date}</div>
-                  <div>{image.time}</div>
-                  <div>{image.title}</div>
-                </RequestUserWrapper>
-
-                <RequestButtonWrapper>
-                <WriteReviewButtonContainer onClick={openReviewModal}>
-                <WriteReviewTypo>작성한 후기 보기</WriteReviewTypo>
-              </WriteReviewButtonContainer>
-                </RequestButtonWrapper>
-                <MentorReviewModal
-                  isOpen={modalReviewOpen}
-                  closeModal={closeReviewModal}
+                
+                  <div>{content.content}</div>
+                  <ScoreWrapper>
+                  <StarRatings
+                   rating={content.score}  
+                   starDimension="20px"
+                   starRatedColor={PRIMARY.LIGHT}
+                   starHoverColor={PRIMARY.LIGHT}
+                   numberOfStars={5}
+                  name={`rating-${index}`}  
                 />
-              </RequestWrapper>  
-            ))} 
-
-            {/* /* 코드 오면 68-90 주석처리 menteeData.review
-            {Array.isArray(menteeData.review) && menteeData.review.map((review, index) => (
-              <RequestWrapper key={index}>
-                <RequestUserWrapper>
-                  <RequestImageWrapper>
-                    <RequestImage src={Person} alt="Image"/>
-                    <div>{review.name}</div>
-                  </RequestImageWrapper>
-                  <div>{review.date}</div>
-                  <div>{review.time}</div>
-                  <div>{review.title}</div>
+                </ScoreWrapper>
                 </RequestUserWrapper>
 
                 <RequestButtonWrapper>
                   <WriteReviewButtonContainer onClick={openReviewModal}>
-                    <WriteReviewTypo>작성한 후기 보기</WriteReviewTypo>
+                    <WriteReviewTypo>후기 삭제하기</WriteReviewTypo>
                   </WriteReviewButtonContainer>
                 </RequestButtonWrapper>
-                <MentorReviewModal
-                  isOpen={modalReviewOpen}
-                  closeModal={closeReviewModal}
-                />
+                
               </RequestWrapper>  
-            ))} */}
+            ))}
           </RoundedBox>
           </>
     );
@@ -172,6 +154,7 @@ const RequestButtonWrapper = styled.div`
 const RequestImage = styled.img``;
 
 const RequestWrapper = styled.div`
+font-family: "esamanru";
     display: inline-flex;
     align-items: center;
     width: 100%;
@@ -192,5 +175,9 @@ const RequestButton1 = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+`;
+const ScoreWrapper = styled.div`
+  font-family: "esamanru";
+  margin-right: 5px; // 이렇게 하면 score가 오른쪽으로 이동합니다
 `;
 export default ReviewContent;
