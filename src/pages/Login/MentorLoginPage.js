@@ -13,7 +13,7 @@ const MentorLoginPage = () => {
   const [pw, setPw] = useState("");
 
   const handleIdChange = (event) => {
-    setId(event.target.value); // 입력된 값으로 상태를 업데이트합니다.
+    setId(event.target.value); 
   };
   const handlePwChange = (event) => {
     setPw(event.target.value);
