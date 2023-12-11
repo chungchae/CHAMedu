@@ -95,7 +95,6 @@ const MentorModifyModal = ({ mentorData, isOpen, closeModal }) => {
     setNickname(mentorData.nickname || "");
     setUniversity(mentorData.university || "");
     setPromotionText(mentorData.promotionText || "");
-
     setAdmissionSelect(mentorData.admissionType || "");
     setCollegeSelect(mentorData.college || "");
   }, [mentorData]);

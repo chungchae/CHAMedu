@@ -1,6 +1,6 @@
 import { Button, Typography, message } from "antd";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderIcon from "../../assets/images/HeaderIcon.png";
 import ProfileImg from "../../assets/images/profile.png";
 import ChamIcon from "../../assets/images/cham.png";
@@ -13,6 +13,7 @@ import axios from "axios";
 const Header = () => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem("role");
+  const [cham, setCham] = useState(0)
 
   const onClickMentorButton = () => {
     navigate("/user/mentor");
@@ -50,6 +51,22 @@ const Header = () => {
       });
   };
 
+  const getCham = () => {
+    axios
+      .get(`/api/header/userInfo`)
+      .then((res) => {
+        console.log("Cham:", cham);
+        setCham(res.data)
+      })
+      .catch((error) => {
+        console.log("Axios Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    getCham();
+  }, []);
+
   return (
     <Container>
       <ItemContainer>
@@ -79,7 +96,7 @@ const Header = () => {
           </MenuContainer>
           <ChamContainer>
             <ChamImg src={ChamIcon}></ChamImg>
-            <ChamTypo>370 CHAM</ChamTypo>
+            <ChamTypo>{cham.point} CHAM</ChamTypo>
             {role === "mentor" && (
               <>
                 <ExchangeIcon onClick={onClickExchangeButton} />

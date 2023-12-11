@@ -143,7 +143,7 @@ const PopularMentorContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 15px;
-  justify-content: center;
+  justify-content: start;
   padding-bottom: 50px;
 `;
 
@@ -151,7 +151,7 @@ const AdmissionMentorContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 15px;
-  justify-content: center;
+  justify-content: start;
   padding-bottom: 50px;
 `;
 
@@ -159,7 +159,7 @@ const MajorMentorContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 15px;
-  justify-content: center;
+  justify-content: start;
   padding-bottom: 50px;
 `;
 

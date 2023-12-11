@@ -23,7 +23,7 @@ const PointChargePage = () => {
     
 
     axios
-      .post(`/point/charge`, data, {
+      .post(`/api/point/charge`, data, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
@@ -33,6 +33,7 @@ const PointChargePage = () => {
         console.log("Response Status:", res.status);
         if (res.status >= 200 && res.status < 300) {
           console.log(changedPoints, "CHAM 충전 성공!");
+          window.location.replace("/mentee/charge")
           message.success("충전 성공!");
         }
         return res.data;

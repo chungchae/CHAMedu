@@ -26,7 +26,7 @@ const PointExchangePage = () => {
     console.log(data);
 
     axios
-      .post(`/point/exchange`, data, {
+      .post(`/api/point/exchange`, data, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
@@ -37,6 +37,7 @@ const PointExchangePage = () => {
 
         if (res.status >= 200 && res.status < 300) {
           console.log(changedPoints, "CHAM 환전 성공!");
+          window.location.replace("/mentor/exchange")
           message.success("환전 성공!");
         }
         return res.data;
