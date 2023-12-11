@@ -21,12 +21,29 @@ const MenteeModifyModal = ({ mentorData, isOpen, closeModal }) => {
   const [university, setUniversity] = useState(""); //동국대 컴퓨터공학과
   const [promotionText, setPromotionText] = useState(""); //자기소개
   const [admissionSelect, setAdmissionSelect] = useState(""); //전형 옵션
-  const [collegeSelect, setCollegeSelect] = useState(""); //단과대 옵션
+  const [collegeSelect, setCollegeSelect] = useState(); //단과대 옵션
 
+
+  const admissionOptions = [
+    { value: 0, label: "학종" },
+    { value: 1, label: "정시" },
+    { value: 2, label: "교과" },
+    { value: 3, label: "논술" },
+  ];
+  const collegeOptions = [
+    { value: 0, label: "공과대" },
+    { value: 1, label: "자연대" },
+    { value: 2, label: "문과대" },
+    { value: 3, label: "예대" },
+    { value: 4, label: "체대" },
+  ];
 
   const data = { //API에 전송할 data 정의
     nickName: nickname,
     info: promotionText,
+    wishUniv: university,
+    wishCollege: collegeSelect,
+    wishAdmissionType: admissionSelect
   };
 
   const MentorModifyApi = (data) => {
@@ -46,6 +63,13 @@ const MenteeModifyModal = ({ mentorData, isOpen, closeModal }) => {
       });
   };
 
+  const handleAdmissionChange = (option) => {
+    setAdmissionSelect(option);
+  };
+  const handleCollegeChange = (option) => {
+    setCollegeSelect(option);
+  };
+
   useEffect(() => {
     console.log("멘토데이터!!", mentorData);
     setNickname(mentorData.nickname || "");
@@ -53,7 +77,7 @@ const MenteeModifyModal = ({ mentorData, isOpen, closeModal }) => {
     setPromotionText(mentorData.promotionText || "");
 
     setAdmissionSelect(mentorData.admissionType || "");
-    setCollegeSelect(mentorData.university || "");
+    setCollegeSelect(mentorData.wishCollege || 0);
   }, [mentorData]);
 
 
@@ -86,7 +110,31 @@ const MenteeModifyModal = ({ mentorData, isOpen, closeModal }) => {
                   value={promotionText}
                   onChange={(e) => setPromotionText(e.target.value)}
                 />
-               
+                <InfoTypo>희망 대학교</InfoTypo>
+                <InfoInput
+                  value={university}
+                  onChange={(e) => setUniversity(e.target.value)}
+                />
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <SelectContainer>
+                    <InfoTypo>입시 전형 선택</InfoTypo>
+                    <SelectBox
+                      value={admissionSelect}
+                      onChange={(option) => handleAdmissionChange(option)}
+                      placeholder='입시 전형 선택'
+                      options={admissionOptions}
+                    />
+                  </SelectContainer>
+                  <SelectContainer>
+                    <InfoTypo>단과대 선택</InfoTypo>
+                    <SelectBox
+                      value={collegeSelect}
+                      onChange={(option) => handleCollegeChange(option)}
+                      placeholder='단과대 선택'
+                      options={collegeOptions}
+                    />
+                  </SelectContainer>
+                </div>
               </InfoContainer2>
             </InfoContainer>
             
