@@ -14,7 +14,7 @@ const Header = () => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem("role");
   const [cham, setCham] = useState(0)
-
+  
   const onClickMentorButton = () => {
     navigate("/user/mentor");
   };
@@ -33,6 +33,7 @@ const Header = () => {
   const onClickMyPageButton = () => {
     navigate(`/user/mypage/${role}`);
   };
+  
   const logoutApi = () => {
     axios
       .get(`/api/logout`)
@@ -62,10 +63,10 @@ const Header = () => {
         console.log("Axios Error:", error);
       });
   };
-
+  
   useEffect(() => {
     getCham();
-  }, []);
+  }, [cham]);
 
   return (
     <Container>

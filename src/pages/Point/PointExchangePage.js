@@ -14,7 +14,7 @@ const PointExchangePage = () => {
   const handlePointsChange = (value) => {
     setChangedPoints(value);
   };
-
+  
   const exchangePoints = (changedPoints) => {
     const data = {
       userId: userId,
