@@ -77,11 +77,11 @@ const MyProfile = () => {
         },
       }}
     >
-      <Time>
+      {/* <Time>
         <IconImg src={NoteIcon} />
         <span>3시간 17분</span> 뒤 상담이 예정되어 있어요.
         <TimeSpan>확인하기</TimeSpan>
-      </Time>
+      </Time> */}
       <Container>
         <Profilecontainer>
           <Mentorcontainer>
@@ -194,6 +194,7 @@ const Profilecontainer = styled.div`
   border-radius: 20px;
   padding: 40px;
   position: relative;
+  margin-top: 15px;
 `;
 const Waitingcontainer = styled.div`
   background-color: white;

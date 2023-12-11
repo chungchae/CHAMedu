@@ -56,11 +56,11 @@ const MenteeMyProfile = () => {
         },
       }}
     >
-      <Time>
+      {/* <Time>
         <IconImg src={NoteIcon} />
         <div>{menteeData?.currentChatTime}</div>
         <TimeSpan>확인하기</TimeSpan>
-      </Time>
+      </Time> */}
       <Container>
         <Profilecontainer>
           <Infocontainer>
@@ -183,6 +183,7 @@ const Profilecontainer = styled.div`
   border-radius: 20px;
   padding: 30px;
   position: relative;
+  margin-top: 15px;
 `;
 
 const Infocontainer = styled.div`
