@@ -14,9 +14,9 @@ const ReviewContent = () => {
   const onClickHandler = (id) => {
     axios.delete(`/api/review/${id}`);
   };
-
+//수정 
    useEffect(() => {
-    const getMentee = () => { // review 불러오는 api 작성
+    const getMentee = () => { // review 불러오는 api 
       axios.get(`/api/mentee-mypage/review`).then((res) => {
       
       console.log(res);
