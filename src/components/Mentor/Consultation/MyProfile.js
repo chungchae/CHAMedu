@@ -203,11 +203,12 @@ const Waitingcontainer = styled.div`
 `;
 
 const Mentorcontainer = styled.div`
-  width: 100%;
+  width: 500px;
   height: 100%;
   display: flex;
   align-items: center;
   border-radius: 20px;
+  padding: 0px 30px;
   flex-direction: column;
 `;
 
@@ -217,10 +218,10 @@ const Infocontainer = styled.div`
 `;
 
 const MentorProfileImg = styled.img`
-  width: 500px;
+ width: 500px;
   height: 250px;
   object-fit: cover;
-  border-radius: 100px;
+  border-radius: 200px;
   padding: 0px 30px;
   padding-bottom: 20px;
 `;
