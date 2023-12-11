@@ -1,22 +1,18 @@
 import Person from "../../../assets/images/mypage_person.png";
 import React from "react";
 import { useState, useEffect } from "react";
-import { GRAY, PRIMARY } from "../../../colors";
+import { PRIMARY } from "../../../colors";
 import styled from "styled-components";
-import { Button, Typography, Tag } from "antd";
-import MentorReviewModal from "../../../components/Mentor/MentorReviewModal";
+import { Typography } from "antd";
 import axios from "axios";
 import StarRatings from 'react-star-ratings';
 
 const ReviewContent = () => {
-  const [modalReviewOpen, setModalReviewOpen] = useState(false);
   const [menteeData, setMenteeData] = useState({});
-  
-  const openReviewModal = () => {
-    setModalReviewOpen(true);
-  };
-  const closeReviewModal = () => {
-    setModalReviewOpen(false);
+
+
+  const onClickHandler = (id) => {
+    axios.delete(`/api/review/${id}`);
   };
 
    useEffect(() => {
@@ -32,40 +28,10 @@ const ReviewContent = () => {
     getMentee();
   },[]);
 
-  const imageList = [
-    {
-      imageName: Person,
-      title: '동국대학교 논술 문제유형관련 질문',
-      content: '너무 좋아요',
-      score: 5,
-      onAccept: () => console.log('Accepted 1'),
-      onReject: () => console.log('Rejected 1'),
-    },
-    {
-      imageName: Person,
-      title: '논술 수학 범위 관련 질문',
-      content: '하하',
-      score: 5,
-      onAccept: () => console.log('Accepted 1'),
-      onReject: () => console.log('Rejected 1'),
-    },
-    {
-        imageName: Person,
-        title: '논술 수학 범위 관련 질문',
-        content: '하하',
-        score: 5,
-        onAccept: () => console.log('Accepted 1'),
-        onReject: () => console.log('Rejected 1'),
-      },
-    
-  ];
     return (
         <>
          <RoundedBox>
             <HeaderText>후기 내역</HeaderText>
-          
-
-          
             {Array.isArray(menteeData.content) && menteeData.content.map((content, index) => (
               <RequestWrapper key={index}>
                 <RequestUserWrapper>
@@ -76,19 +42,20 @@ const ReviewContent = () => {
                 
                   <div>{content.content}</div>
                   <ScoreWrapper>
-                  <StarRatings
-                   rating={content.score}  
-                   starDimension="20px"
-                   starRatedColor={PRIMARY.LIGHT}
-                   starHoverColor={PRIMARY.LIGHT}
-                   numberOfStars={5}
-                  name={`rating-${index}`}  
-                />
-                </ScoreWrapper>
+                    <StarRatings
+                    rating={content.score}  
+                    starDimension="20px"
+                    starRatedColor={PRIMARY.LIGHT}
+                    starHoverColor={PRIMARY.LIGHT}
+                    numberOfStars={5}
+                    name={`rating-${index}`}  
+                    />
+                  </ScoreWrapper>
                 </RequestUserWrapper>
 
                 <RequestButtonWrapper>
-                  <WriteReviewButtonContainer onClick={openReviewModal}>
+                  {/* review id를 넘겨준다면 content.reviewId */}
+                  <WriteReviewButtonContainer onClick={() => onClickHandler(index)}>
                     <WriteReviewTypo>후기 삭제하기</WriteReviewTypo>
                   </WriteReviewButtonContainer>
                 </RequestButtonWrapper>
